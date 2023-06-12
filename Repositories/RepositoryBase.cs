@@ -12,7 +12,7 @@ namespace LibraryWPF.Repositories
         private readonly string _connectionString;
         public RepositoryBase()
         {
-            _connectionString = "Data Source=LAPTOP-TMRQF3QP\\LANDROMMSQLSERV;Initial Catalog=MVVMLoginDb;Integrated Security=True";
+            _connectionString = "Data Source=ASUTP-RADKEVICH;Initial Catalog=MVVMLoginDb;Integrated Security=True";
         }
         protected SqlConnection GetConnection()
         {
