@@ -5,18 +5,154 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryWPF"
         xmlns:viewModel="clr-namespace:LibraryWPF.ViewModel"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"        
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="700" Width="1300"        
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        Background="Transparent"
+        AllowsTransparency="True">
 
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
+
+    <Border CornerRadius="20"
+            BorderThickness="2">
+
+        <Border.BorderBrush>
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
+                <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"/>
+                <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <!--Меню Навигации-->
+                <ColumnDefinition Width="250"/>
+                <!--Контент секция-->
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Border CornerRadius="20,0,0,20"
+                    Grid.Column="0">
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1, 0.7">
+                        <GradientStop Color="{StaticResource secondaryBackColor1}"/>
+                        <GradientStop Color="{StaticResource secondaryBackColor2}"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <StackPanel>
+
+                    <!--Логотип-->
+                    <StackPanel Orientation="Horizontal"
+                                Height="35"
+                                Margin="15,25,0,40">
+
+                        <Image Source="\Images\library_icon.png" Height="30"/>
+                        <TextBlock Text="Библиотека"
+                                   Foreground="{StaticResource titleColor2}"
+                                   FontSize="20"
+                                   FontFamily="Montserrat"
+                                   FontWeight="Medium"
+                                   VerticalAlignment="Center"
+                                   Margin="10,0,0,0"/>
+                    </StackPanel>
+                    
+                    <!--Меню кнопок-->
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color1}">
+
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Статистика" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color6}">
+
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="User" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Читатели" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color3}">
+
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="PenToSquare" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Заявки" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color4}">
+
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Book" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Каталог" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color5}">
+
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Gear" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Настройки" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                </StackPanel>
+                
+            </Border>
+
+            <Border CornerRadius="0,20,20,0"
+                    Grid.Column="1">
+
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="1,1" EndPoint="0, 0">
+                        <GradientStop Color="{StaticResource primaryBackColor1}"/>
+                        <GradientStop Color="{StaticResource primaryBackColor2}"/>
+                    </LinearGradientBrush>
+                </Border.Background>
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <!--Control bar-->
+                        <RowDefinition Height="25"/>
+                        <!--Header / Caption-->
+                        <RowDefinition Height="35"/>
+                        <!--Content section / Child views-->
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <!--Control bar-->
+                    <StackPanel x:Name="pnlControlBar"
+                                Grid.Row="0"
+                                Orientation="Horizontal"
+                                FlowDirection="RightToLeft"
+                                Background="Transparent"
+                                Margin="0,0,5,0"
+                                MouseLeftButtonDown="pnlControlBar_MouseLeftButtonDown"
+                                MouseEnter="pnlControlBar_MouseEnter">
+                     
+                    </StackPanel>
+
+                </Grid>
+                
+            </Border>
+
+        </Grid>
+
+    </Border>
     
-    <Grid>
-        <TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
-                   FontSize="30"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
-    </Grid>
 </Window>
