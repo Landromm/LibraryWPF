@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:LibraryWPF"
+        xmlns:local="clr-namespace:LibraryWPF.View"
         xmlns:viewModel="clr-namespace:LibraryWPF.ViewModel"
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
@@ -16,6 +16,18 @@
     <Window.DataContext>
         <viewModel:MainViewModel/>
     </Window.DataContext>
+
+    <Window.Resources>
+        
+        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+            <local:HomeView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:CustomerViewModel}">
+            <local:CustomerView/> 
+        </DataTemplate>
+        
+    </Window.Resources>
 
     <Border CornerRadius="20"
             BorderThickness="2">
@@ -66,7 +78,9 @@
                     
                     <!--Меню кнопок-->
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color1}">
+                                 Tag="{StaticResource color1}"
+                                 IsChecked="True"
+                                 Command="{Binding ShowHomeViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
@@ -75,7 +89,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color6}">
+                                 Tag="{StaticResource color6}"
+                                 Command="{Binding ShowCustomerViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="User" Style="{StaticResource menuButtonIcon}"/>
@@ -127,25 +142,115 @@
                 <Grid>
 
                     <Grid.RowDefinitions>
-                        <!--Control bar-->
+                        <!--Панель управления-->
                         <RowDefinition Height="25"/>
-                        <!--Header / Caption-->
+                        <!--Заголовок -->
                         <RowDefinition Height="35"/>
-                        <!--Content section / Child views-->
+                        <!--Секция контента / Дочернее представление-->
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
                     
-                    <!--Control bar-->
+                    <!--Панель управления-->
                     <StackPanel x:Name="pnlControlBar"
                                 Grid.Row="0"
                                 Orientation="Horizontal"
                                 FlowDirection="RightToLeft"
                                 Background="Transparent"
-                                Margin="0,0,5,0"
+                                Margin="0,0,10,0"
                                 MouseLeftButtonDown="pnlControlBar_MouseLeftButtonDown"
                                 MouseEnter="pnlControlBar_MouseEnter">
-                     
+
+                        <Button x:Name="btnClose"
+                                Style="{StaticResource controlButton}"
+                                Tag="{StaticResource color4}"
+                                Click="btnClose_Click">
+                            <fa:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}"/>
+                        </Button>
+
+                        <Button x:Name="btnMaximize"
+                                Style="{StaticResource controlButton}"
+                                Tag="{StaticResource color6}"
+                                Click="btnMaximize_Click">
+                            <fa:IconImage Icon="Square" Style="{StaticResource controlButtonIcon}"/>
+                        </Button>
+                        
+                        <Button x:Name="btnMinimize"
+                                Style="{StaticResource controlButton}"
+                                Tag="{StaticResource color8}"
+                                Click="btnMinimize_click">
+                            <fa:IconImage Icon="WindowMinimize" Width="12" Style="{StaticResource controlButtonIcon}"/>
+                        </Button>
+
                     </StackPanel>
+                    
+                    <!--Заголовок-->
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0"
+                                    Orientation="Horizontal"
+                                    VerticalAlignment="Center">
+
+                            <fa:IconImage Icon="{Binding Icon}"
+                                          Height="20"
+                                          Width="20"
+                                          Foreground="{StaticResource titleColor2}"
+                                          Margin="35, 0, 10, 0"/>
+
+                            <TextBlock Text="{Binding Caption}"
+                                       Foreground="{StaticResource titleColor2}"
+                                       FontSize="16"
+                                       FontFamily="Montserrat"
+                                       FontWeight="Medium"
+                                       VerticalAlignment="Center"/>
+                        </StackPanel>
+                        
+                        <!--Параметры работы пользователя-->
+                        <StackPanel Grid.Column="1"
+                                    Orientation="Horizontal"
+                                    FlowDirection="RightToLeft"
+                                    VerticalAlignment="Center"
+                                    Margin="0,0,10,0">
+
+                            <Button Style="{StaticResource iconButton}"
+                                    Tag="{StaticResource color1}">
+                                <fa:IconImage Icon="AngleDown" 
+                                              Height="12" Width="12"
+                                              Style="{StaticResource iconButtonIcon}"/>
+                            </Button>
+
+                            <TextBlock Text="{Binding CurrentUserAccount.DisplayName}"
+                                       Foreground="{StaticResource titleColor3}"
+                                       FontFamily="Montserrat"
+                                       FontSize="12"
+                                       VerticalAlignment="Center"/>
+
+                            <Button Style="{StaticResource iconButton}"
+                                    Tag="{StaticResource color2}">
+                                <fa:IconImage Icon="Clock" Style="{StaticResource iconButtonIcon}"/>
+                            </Button>
+
+                            <Button Style="{StaticResource iconButton}"
+                                    Tag="{StaticResource color3}">
+                                <fa:IconImage Icon="Envelope" Style="{StaticResource iconButtonIcon}"/>
+                            </Button>
+
+                            <Button Style="{StaticResource iconButton}"
+                                    Tag="{StaticResource color4}">
+                                <fa:IconImage Icon="Bell" Style="{StaticResource iconButtonIcon}"/>
+                            </Button>
+
+                        </StackPanel>                        
+                        
+                    </Grid>
+
+                    <!--Секция контента / Дочернее представление-->
+                    <ContentControl Content="{Binding CurrentChildView}"
+                                    Grid.Row="2"
+                                    Margin="10"/>
 
                 </Grid>
                 
