@@ -112,7 +112,16 @@
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Book" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Каталог" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Text="Каталог книг" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color9}">
+
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Stopwatch" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Задолженности" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
 
