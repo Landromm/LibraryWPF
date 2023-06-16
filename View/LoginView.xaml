@@ -186,7 +186,8 @@
                             FontFamily="Montserrat"                             
                             Margin="0,15,0,0"/>
 
-                <customcontrols:BindablePasswordBox Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                <customcontrols:BindablePasswordBox x:Name="txtPass"
+                                                    Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="28"
                                                     Margin="0,5,0,0">                    
                 </customcontrols:BindablePasswordBox>
@@ -238,13 +239,38 @@
                                FontSize="12"
                                FontWeight="Medium"
                                FontFamily="Montserrat"/>
-                    <TextBlock Text="Сброс"
-                               Foreground="White"
-                               FontSize="12"
-                               FontWeight="Medium"
-                               FontFamily="Montserrat"
-                               Cursor="Hand"
-                               Margin="8,0,0,0"/>
+                    <Button x:Name="btnReset"
+                            Content="Сброс"
+                            FontFamily="Montserrat"
+                            Foreground="{StaticResource color11}"
+                            FontSize="11"
+                            FontWeight="Bold"
+                            Cursor="Hand"                           
+                            Margin="5,0,0,0"
+                            Click="btnReset_Click">
+                        
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#462AD8"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Width="40" Height="16"
+                                        CornerRadius="3"
+                                        Background="{TemplateBinding Background}">
+                                    <ContentPresenter VerticalAlignment="Center"
+                                                      HorizontalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
                 </StackPanel>
             </StackPanel>
 
