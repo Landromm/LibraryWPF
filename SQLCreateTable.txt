@@ -20,3 +20,6 @@ insert into [User] values (NEWID(), 'oper', '123', 'Operation', 'User', 'user@gm
 go
 
 Select * from [User]
+
+// Генерация модели из БД (DB model first):
+// Scaffold-DbContext "Server=ASUTP-RADKEVICH; Database=MVVMLoginDb; Integrated Security=True; TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model\DBModels

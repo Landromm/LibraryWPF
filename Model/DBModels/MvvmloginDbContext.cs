@@ -35,7 +35,7 @@ public partial class MvvmloginDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=ASUTP-RADKEVICH;Database=MVVMLoginDb;Trusted_Connection=True;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=ASUTP-RADKEVICH; Database=MVVMLoginDb; Integrated Security=True; TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -84,11 +84,11 @@ public partial class MvvmloginDbContext : DbContext
 
         modelBuilder.Entity<LoginUser>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LoginUse__3214EC07D0B4A791");
+            entity.HasKey(e => e.Id).HasName("PK__LoginUse__3214EC0744C9119A");
 
             entity.ToTable("LoginUser");
 
-            entity.HasIndex(e => e.Login, "UQ__LoginUse__5E55825B0A234F5F").IsUnique();
+            entity.HasIndex(e => e.Login, "UQ__LoginUse__5E55825BA54C208E").IsUnique();
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Login).HasMaxLength(50);
@@ -127,8 +127,9 @@ public partial class MvvmloginDbContext : DbContext
             entity.Property(e => e.Number).ValueGeneratedNever();
             entity.Property(e => e.StatusRequest).HasComment("True - Заявка одобрена, false - заявка на рассмотрении.");
 
-            entity.HasOne(d => d.User).WithMany(p => p.Requests)
-                .HasForeignKey(d => d.UserId)
+            entity.HasOne(d => d.UserCardNumberNavigation).WithMany(p => p.Requests)
+                .HasForeignKey(d => d.UserCardNumber)
+                .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Request_User");
         });
 
@@ -153,13 +154,11 @@ public partial class MvvmloginDbContext : DbContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__User__3214EC0784B901C7");
+            entity.HasKey(e => e.CardNumber);
 
             entity.ToTable("User");
 
             entity.HasIndex(e => e.LoginUser, "UQ_LoginUser").IsUnique();
-
-            entity.HasIndex(e => e.Name, "UQ__User__737584F6050FB36C").IsUnique();
 
             entity.Property(e => e.LastName).HasMaxLength(50);
             entity.Property(e => e.LoginUser).HasMaxLength(50);

@@ -25,9 +25,9 @@ namespace LibraryWPF.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select * from [User] where username=@username and [password]=@password";
-                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = credential.UserName;
-                command.Parameters.Add("@password", SqlDbType.NVarChar).Value = credential.Password;
+                command.CommandText = "select * from [LoginUser] where [Login]=@Login and [Password]=@Password";
+                command.Parameters.Add("@Login", SqlDbType.NVarChar).Value = credential.UserName;
+                command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = credential.Password;
                 validUser = command.ExecuteScalar() == null ? false : true;
             }
             return validUser;
@@ -53,8 +53,10 @@ namespace LibraryWPF.Repositories
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "select * from [User] where username=@username";
-                command.Parameters.Add("@username", SqlDbType.NVarChar).Value = username;
+                command.CommandText = "SELECT [LoginUser].[Id], [User].[LoginUser], [User].[Name], [User].[LastName], [User].[CardNumber] " +
+                                    "FROM [LoginUser] INNER JOIN [User] " +
+                                    "ON [LoginUser].[Login] = @LoginUser";
+                command.Parameters.Add("@LoginUser", SqlDbType.NVarChar).Value = username;
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
@@ -63,10 +65,9 @@ namespace LibraryWPF.Repositories
                         {
                             Id = reader[0].ToString(),
                             Username = reader[1].ToString(),
-                            Password = string.Empty,
-                            Name = reader[3].ToString(),
-                            LastName = reader[4].ToString(),
-                            Email = reader[5].ToString()
+                            Name = reader[2].ToString(),
+                            LastName = reader[3].ToString(),
+                            CardNumber = reader[4].ToString()
                         };
                     }
                 }

@@ -16,7 +16,7 @@ public partial class Request
     /// </summary>
     public bool StatusRequest { get; set; }
 
-    public int? UserId { get; set; }
+    public int? UserCardNumber { get; set; }
 
-    public virtual User? User { get; set; }
+    public virtual User? UserCardNumberNavigation { get; set; }
 }
