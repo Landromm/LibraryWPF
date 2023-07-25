@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -20,20 +21,48 @@ namespace LibraryWPF.Repositories
             throw new NotImplementedException();
         }
 
+        // Аутентификация зарегистрированного пользователя.
         public bool AuthenticateUser(NetworkCredential credential)
         {
             bool validUser;
-            using (var connection = GetConnection())
-            using (var command = new SqlCommand())
+            #region old sql Connection
+            //using (var connection = GetConnection())
+            //using (var command = new SqlCommand())
+            //{
+            //    connection.Open();
+            //    command.Connection = connection;
+            //    command.CommandText = "select * from [LoginUser] where [Login]=@Login and [Password]=@Password";
+            //    command.Parameters.Add("@Login", SqlDbType.NVarChar).Value = credential.UserName;
+            //    command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = credential.Password;
+            //    validUser = command.ExecuteScalar() == null ? false : true;
+            //}
+            #endregion
+
+            using var context = new MvvmloginDbContext();
             {
-                connection.Open();
-                command.Connection = connection;
-                command.CommandText = "select * from [LoginUser] where [Login]=@Login and [Password]=@Password";
-                command.Parameters.Add("@Login", SqlDbType.NVarChar).Value = credential.UserName;
-                command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = credential.Password;
-                validUser = command.ExecuteScalar() == null ? false : true;
+                var result = context.LoginUsers
+                    .Where(login => login.Login.Equals(credential.UserName)
+                                &&  login.Password.Equals(credential.Password))
+                    .ToList();
+                validUser = result.Count == 0 ? false : true;
             }
             return validUser;
+        }
+
+        // Проверка уникальности UserName при регистрации нового пользователя.
+        public bool ConfirmUsername(string username)
+        {
+            bool validUsername;
+
+            using var context = new MvvmloginDbContext();
+            {
+                var result = context.LoginUsers
+                    .Where(login => login.Login == username)
+                    .ToList();
+                validUsername = result.Count == 0 ? true : false;
+            }
+
+            return validUsername;
         }
 
         public void Edit(UserModel userModel)
@@ -48,6 +77,8 @@ namespace LibraryWPF.Repositories
         {
             throw new NotImplementedException();
         }
+
+        //Возвращает объект UserModel с данными по конткретному Логину.
         public UserModel GetByUsername(string username)
         {
             UserModel userEF = new UserModel();
