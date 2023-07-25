@@ -98,8 +98,8 @@ namespace LibraryWPF.ViewModel
             if (user != null)
             {
                 CurrentUserAccount.Username = user.Username;
-                CurrentUserAccount.DisplayName = $" {user.Name} {user.LastName}.";
-                CurrentUserAccount.ProfilePicture = null;
+                CurrentUserAccount.DisplayName = $" {user.Name} {user.LastName}";
+                CurrentUserAccount.ProfilePicture = null!;
             }
             else
             {

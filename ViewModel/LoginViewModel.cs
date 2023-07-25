@@ -1,5 +1,6 @@
 ﻿using LibraryWPF.Model;
 using LibraryWPF.Repositories;
+using LibraryWPF.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -66,6 +67,7 @@ namespace LibraryWPF.ViewModel
         public ICommand RecoverPasswordCommand { get; }
         public ICommand ShowPasswordCommand { get; }
         public ICommand RememberPasswordCommand { get; }
+        public ICommand SingUpCommand { get; }
 
         //Constructor
         public LoginViewModel()
@@ -73,6 +75,7 @@ namespace LibraryWPF.ViewModel
             userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
             RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverCommand("", ""));
+            SingUpCommand = new ViewModelCommand(p => ExecuteSingUpCommand());
         }
 
         private bool CanExecuteLoginCommand(object obj)
@@ -106,6 +109,13 @@ namespace LibraryWPF.ViewModel
         private void ExecuteRecoverCommand(string username, string email)
         {
             throw new NotImplementedException();
+        }
+
+        private void ExecuteSingUpCommand()
+        {
+            var singupView = new SingUpView();
+            singupView.ShowDialog();
+
         }
     }
 }
