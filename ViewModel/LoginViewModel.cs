@@ -87,7 +87,6 @@ namespace LibraryWPF.ViewModel
             else
                 validData = true;
             return validData;
-
         }
 
         private void ExecuteLoginCommand(object obj)

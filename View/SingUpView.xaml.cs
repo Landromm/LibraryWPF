@@ -40,5 +40,13 @@ namespace LibraryWPF.View
             this.Close();
         }
 
+        private void btnReset_Click(object sender, RoutedEventArgs e)
+        {
+            txtLastName.Text = string.Empty;
+            txtName.Text = string.Empty;
+            txtUsername.Text = string.Empty;
+            txtPass.txtPassword.Clear();
+            txtPassConfirm.txtPassword.Clear();
+        }
     }
 }
