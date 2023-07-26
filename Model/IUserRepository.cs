@@ -12,7 +12,7 @@ namespace LibraryWPF.Model
     {
         bool AuthenticateUser(NetworkCredential credential);
         bool ConfirmUsername(string username);
-        void Add(UserModel userModel);
+        void Add(NetworkCredential credential, UserModel userModel);
         void Edit(UserModel userModel);
         void Remove(int id);
         UserModel GetById(int id);

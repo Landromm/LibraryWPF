@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LibraryWPF.View"
         xmlns:viewModel="clr-namespace:LibraryWPF.ViewModel"
-        xmlns:customcontrols="clr-namespace:LibraryWPF.CustomControls"        
+        xmlns:customcontrols="clr-namespace:LibraryWPF.CustomControls" xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"        
         Title="SingUpView" Height="550" Width="400"
         WindowStyle="None"
@@ -18,6 +18,14 @@
     <Window.DataContext>
         <viewModel:SingUpViewModel/>
     </Window.DataContext>
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
 
     <Border CornerRadius="10"
             BorderThickness="2"
@@ -126,9 +134,24 @@
             </Grid>
 
             <StackPanel Width="220"
-                            Grid.Row="1"
-                            Orientation="Vertical"
-                            Margin="0,15,0,0">
+                        Grid.Row="1"
+                        Orientation="Vertical"
+                        Margin="0,15,0,0">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Visibility" Value="Visible"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsConfirmSingUp}">
+                                <DataTrigger.Value>
+                                    <sys:Boolean>True</sys:Boolean>
+                                </DataTrigger.Value>
+                                <DataTrigger.Setters>
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
                 
                 <TextBlock Text="Заполните пожалуйста все поля для регистрации вашего аккаунта."
                                Foreground="LightGray"
@@ -171,7 +194,6 @@
                             FontWeight="Medium"
                             FontFamily="Montserrat"                             
                             Margin="0,15,0,0"/>
-
                 <customcontrols:BindablePasswordBox x:Name="txtPass"
                                                     Password="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="28"
@@ -184,7 +206,6 @@
                             FontWeight="Medium"
                             FontFamily="Montserrat"                             
                             Margin="0,15,0,0"/>
-
                 <customcontrols:BindablePasswordBox x:Name="txtPassConfirm"
                                                     Password="{Binding PasswordConfirm, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                     Height="28"
@@ -277,17 +298,16 @@
                     </Button.Template>
 
                 </Button>
-                
+
                 <TextBlock  Text="{Binding ErrorMessage}"
-                            Foreground="#D75960"
                             FontSize="12"
                             FontWeight="Medium"
-                            FontFamily="Montserrat"                             
+                            FontFamily="Montserrat"        
+                            Foreground="#D75960"
                             Margin="0,15,0,0"
                             TextWrapping="Wrap"/>
 
-
-                <Button x:Name="btnLogin"
+                <Button x:Name="btnSingUp"
                         Command="{Binding SingUpCommand}"
                         BorderThickness="0"
                         Content="ЗАРЕГИСТРИРОВАТЬСЯ"
@@ -319,6 +339,38 @@
                     </Button.Template>
                 </Button>
 
+            </StackPanel>
+            <StackPanel
+                    Width="220"
+                    Grid.Row="1"
+                    Orientation="Vertical"
+                    VerticalAlignment="Center">
+
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Visibility" Value="Hidden"/>
+
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsConfirmSingUp}">
+                                <DataTrigger.Value>
+                                    <sys:Boolean>True</sys:Boolean>
+                                </DataTrigger.Value>
+                                <DataTrigger.Setters>
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger.Setters>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+
+                <TextBlock  Text="ВЫ ЗАРЕГИСТРИРОВАНЫ В СИСТЕМЕ"
+                            Foreground="#4dde43"
+                            FontSize="18"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"
+                            TextWrapping="Wrap"
+                            TextAlignment="Center"
+                            Margin="0,0,0,0"/>
             </StackPanel>
         </Grid>
 

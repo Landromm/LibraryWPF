@@ -19,6 +19,13 @@
         <viewModel:LoginViewModel/>
     </Window.DataContext>
 
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+    </Window.Resources>
+
+    <Window.Visibility>
+        <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
+    </Window.Visibility>
 
     <Border CornerRadius="10"
             BorderThickness="2"
