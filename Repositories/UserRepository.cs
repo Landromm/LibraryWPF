@@ -16,9 +16,17 @@ namespace LibraryWPF.Repositories
 {
     public class UserRepository : RepositoryBase, IUserRepository
     {
-        public void Add(UserModel userModel)
+        public void Add(NetworkCredential credential, UserModel userModel)
         {
-            throw new NotImplementedException();
+            using var context = new MvvmloginDbContext();
+            { 
+                var loginUser = new LoginUser() { Login = credential.UserName, Password = credential.Password };
+                var user = new User() { LoginUser = credential.UserName, Name = userModel.Name, LastName = userModel.LastName };
+
+                context.LoginUsers.Add(loginUser);
+                context.Users.Add(user);
+                context.SaveChanges();
+            }
         }
 
         // Аутентификация зарегистрированного пользователя.

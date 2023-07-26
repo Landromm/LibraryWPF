@@ -22,6 +22,7 @@ namespace LibraryWPF.ViewModel
         private string _lastName;
         private string _errorMessage;
         private bool _isValidPassword = false;
+        private bool _isConfirmSingUp = false;
 
         private IUserRepository userRepository;
 
@@ -89,6 +90,15 @@ namespace LibraryWPF.ViewModel
                 OnPropertyChanged(nameof(IsValidPassword));
             }
         }
+        public bool IsConfirmSingUp
+        {
+            get => _isConfirmSingUp;
+            set
+            {
+                _isConfirmSingUp = value;
+                OnPropertyChanged(nameof(IsConfirmSingUp));
+            }
+        }
 
         //-> Commands
         public ICommand SingUpCommand { get; }
@@ -118,12 +128,17 @@ namespace LibraryWPF.ViewModel
             var isValidUser = userRepository.ConfirmUsername(Username);
             ValidPassword(Password, PasswordConfirm);
             // РАССМОТРЕТЬ КЛАСС "GenericPrincipal" ДЛЯ УСТАНОВЛЕНИЯ РОЛЕЙ. 
+            var userModel = new UserModel();
+            userModel.Name = Name;
+            userModel.LastName = LastName;
             if (isValidUser && IsValidPassword)
             {
-                ErrorMessage = "Вы зарегистрированы.";
+                IsConfirmSingUp = true;
+                userRepository.Add(new NetworkCredential(Username, Password), userModel);
             }
             else
             {
+                IsConfirmSingUp = false;
                 ErrorMessage = "* Invalid username or passwod";
             }
         }
