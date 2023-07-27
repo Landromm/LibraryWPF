@@ -3,6 +3,7 @@ using LibraryWPF.Model.DBModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
@@ -73,14 +74,43 @@ namespace LibraryWPF.Repositories
             return validUsername;
         }
 
-        public void Edit(UserModel userModel)
+        public void Delete(UserModel userModel)
         {
-            throw new NotImplementedException();
+            using var context = new MvvmloginDbContext();
+            {
+                LoginUser loginUser = new LoginUser();
+                var findId = context.LoginUsers
+                    .Where(login => login.Login.Equals(userModel.Username))
+                    .Select(s => s.Id)
+                    .ToList();
+                
+                var result = context.LoginUsers
+                    .Find(findId.First());
+
+                context.LoginUsers.Remove(result);
+                context.SaveChanges();
+            }
         }
 
-        public IEnumerable<UserModel> GetByAll()
-        {           
-            List<UserModel> users = new List<UserModel>();
+        public void Edit(UserModel userModel)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                var user = new User() 
+                { 
+                    CardNumber = userModel.CardNumber, 
+                    LastName = userModel.LastName, 
+                    Name = userModel.Name, 
+                    LoginUser = userModel.Username 
+                };
+                context.Update(user);
+                context.SaveChanges();
+            }
+        }
+
+        public ObservableCollection<UserModel> GetByAll()
+        {
+            ObservableCollection<UserModel> users = new ObservableCollection<UserModel>();
             using var context = new MvvmloginDbContext();
             {
                 var result = context.Users.ToList();

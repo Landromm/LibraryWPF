@@ -81,7 +81,7 @@ namespace LibraryWPF.ViewModel
         private void ExecuteShowReadersViewCommand(object obj)
         {
             CurrentChildView = new ReadersViewModel();
-            Caption = "Customer";
+            Caption = "Читатели";
             Icon = IconChar.UserGroup;
         }
 

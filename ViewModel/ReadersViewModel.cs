@@ -2,10 +2,12 @@
 using LibraryWPF.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -15,79 +17,111 @@ namespace LibraryWPF.ViewModel
     {
         // Fields
         private UserModel _currentUser;
-        private List<UserModel>? _users;
-        private bool _isActiveRow = false;
+        private ObservableCollection<UserModel>? _users;
+        private string _informMessage;
 
         private IUserRepository userRepository;
 
         // Properties
-        public List<UserModel> Users
+        public ObservableCollection<UserModel> Users
         {
-            get => _users;
+            get => _users ?? (_users = new ObservableCollection<UserModel>());
             set
             {
                 _users = value;
                 OnPropertyChanged(nameof(Users));
             }
         }
-        public bool IsActiveRow
-        {
-            get => _isActiveRow;
-            set
-            {
-                _isActiveRow = value;
-                OnPropertyChanged(nameof(IsActiveRow));
-            }
-        }
         public UserModel CurrentUser
         {
-            get 
-            {
-                return _currentUser; 
-            }
+            get => _currentUser;
             set
             {
-                //IsActiveRow = true;
                 _currentUser = value;
                 OnPropertyChanged(nameof(CurrentUser));                
             }
         }
+        public string InformMessage
+        {
+            get => _informMessage;
+            set
+            {
+                _informMessage = value;
+                OnPropertyChanged(nameof(InformMessage));
+            }
+        }
 
         //-> Commands
-        public ICommand SelectedRowCommand { get; }
+        public ICommand EditReaderCommand { get; }
+        public ICommand DeleteReaderCommand { get; }
+
+
 
         public ReadersViewModel()
         {
             userRepository = new UserRepository();
-            SelectedRowCommand = new ViewModelCommand(p => ExecuteSelectedRowCommand());
+            EditReaderCommand = new ViewModelCommand(ExecuteEditReaderCommand, CanExecuteEditReaderCommand);
+            DeleteReaderCommand = new ViewModelCommand(ExecuteDeleteReaderCommand, CanExecuteDeleteReaderCommand);
             ExecuteShowListReadersCommand();
         }
 
-        private void ExecuteSelectedRowCommand()
+
+
+        private bool CanExecuteDeleteReaderCommand(object obj)
         {
-            IsActiveRow = true;
+            return CurrentUser != null;
+        }
+
+        private void ExecuteDeleteReaderCommand(object obj)
+        {
+            try
+            {
+                var confirm = MessageBox.Show(  "Вы точно хотите удалить данного пользователя?",
+                                                "Внимание!",
+                                                MessageBoxButton.YesNo,
+                                                MessageBoxImage.Question,
+                                                MessageBoxResult.Yes);
+                if((int)confirm == 6)
+                {
+                    userRepository.Delete(CurrentUser);
+                    Users.Remove(CurrentUser);
+                    InformMessage = "Пользователь успешно удален из системы!";
+                }
+            }
+            catch (Exception ex)
+            {
+                InformMessage = "ВНИАНИЕ! Произошла ошибка удаления данных!.";
+            }
+        }
+
+        private bool CanExecuteEditReaderCommand(object obj)
+        {
+            return CurrentUser != null;
+        }
+
+        private void ExecuteEditReaderCommand(object obj)
+        {
+            try
+            {
+                userRepository.Edit(CurrentUser);
+                InformMessage = "Изменения успешно приняты.";
+            }
+            catch (Exception ex)
+            {
+                InformMessage = "ВНИАНИЕ! Произошла ошибка обновления данных!.";
+            }
+
         }
 
         private void ExecuteShowListReadersCommand()
         {
-            _users = new List<UserModel>();
-            _users.AddRange(userRepository.GetByAll());
+            Users = new ObservableCollection<UserModel>();
+            var tempCollection = userRepository.GetByAll();
+            foreach ( var user in tempCollection )
+            {
+                Users.Add(user);
+            }
         }
 
-        public object BoolToSolidColorBrushConverter(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            SolidColorBrush[] solidColorBrushes;
-
-            if (parameter is SolidColorBrush[] && ((SolidColorBrush[])parameter).Length > 1)
-            {
-                solidColorBrushes = (SolidColorBrush[])parameter;
-            }
-            else
-            {
-                solidColorBrushes = new SolidColorBrush[] { new SolidColorBrush(Colors.Transparent), new SolidColorBrush(Colors.LightBlue) };
-            }
-
-            return (null == value || false == (bool)value) ? solidColorBrushes[1] : solidColorBrushes[0];
-        }
     }
 }
