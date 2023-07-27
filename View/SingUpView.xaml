@@ -19,13 +19,13 @@
         <viewModel:SingUpViewModel/>
     </Window.DataContext>
 
-    <Window.Resources>
+    <!--<Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
     </Window.Resources>
 
     <Window.Visibility>
         <Binding Path="IsViewVisible" Mode="TwoWay" Converter="{StaticResource BooleanToVisibility}"/>
-    </Window.Visibility>
+    </Window.Visibility>-->
 
     <Border CornerRadius="10"
             BorderThickness="2"

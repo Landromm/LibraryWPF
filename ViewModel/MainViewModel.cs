@@ -61,7 +61,7 @@ namespace LibraryWPF.ViewModel
 
         //--> Commands
         public ICommand ShowHomeViewCommand { get; }
-        public ICommand ShowCustomerViewCommand { get; }
+        public ICommand ShowReadersViewCommand { get; }
 
         public MainViewModel()
         {
@@ -70,7 +70,7 @@ namespace LibraryWPF.ViewModel
 
             //Инициализация комманд (ICommand ..)
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
-            ShowCustomerViewCommand = new ViewModelCommand(ExecuteShowCustomerViewCommand);
+            ShowReadersViewCommand = new ViewModelCommand(ExecuteShowReadersViewCommand);
 
             //Вид по умолчанию.
             ExecuteShowHomeViewCommand(null);
@@ -78,9 +78,9 @@ namespace LibraryWPF.ViewModel
             LoadCurrentUserData();
         }
 
-        private void ExecuteShowCustomerViewCommand(object obj)
+        private void ExecuteShowReadersViewCommand(object obj)
         {
-            CurrentChildView = new CustomerViewModel();
+            CurrentChildView = new ReadersViewModel();
             Caption = "Customer";
             Icon = IconChar.UserGroup;
         }
@@ -98,7 +98,7 @@ namespace LibraryWPF.ViewModel
             if (user != null)
             {
                 CurrentUserAccount.Username = user.Username;
-                CurrentUserAccount.DisplayName = $" {user.Name} {user.LastName}";
+                CurrentUserAccount.DisplayName = $" {user.Name} {user.LastName}. Ч.Билет №{user.CardNumber}";
                 CurrentUserAccount.ProfilePicture = null!;
             }
             else

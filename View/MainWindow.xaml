@@ -18,13 +18,13 @@
     </Window.DataContext>
 
     <Window.Resources>
-        
+
         <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
             <local:HomeView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:CustomerViewModel}">
-            <local:CustomerView/> 
+        <DataTemplate DataType="{x:Type viewModel:ReadersViewModel}">
+            <local:ReadersView/>
         </DataTemplate>
         
     </Window.Resources>
@@ -90,7 +90,7 @@
 
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color6}"
-                                 Command="{Binding ShowCustomerViewCommand}">
+                                 Command="{Binding ShowReadersViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="User" Style="{StaticResource menuButtonIcon}"/>
