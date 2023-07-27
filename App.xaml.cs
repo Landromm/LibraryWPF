@@ -27,6 +27,7 @@ namespace LibraryWPF
                     loginView.Close();
                 }
             };
+
         }
     }
 }

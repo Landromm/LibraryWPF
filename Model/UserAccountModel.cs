@@ -10,6 +10,7 @@ namespace LibraryWPF.Model
     {
         public string Username { get; set; }
         public string DisplayName { get; set; }
+        public int CardNumber { get; set; }
         public byte[] ProfilePicture { get; set; }
     }
 }

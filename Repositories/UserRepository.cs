@@ -77,9 +77,19 @@ namespace LibraryWPF.Repositories
         {
             throw new NotImplementedException();
         }
+
         public IEnumerable<UserModel> GetByAll()
-        {
-            throw new NotImplementedException();
+        {           
+            List<UserModel> users = new List<UserModel>();
+            using var context = new MvvmloginDbContext();
+            {
+                var result = context.Users.ToList();
+                foreach (var user in result)
+                {
+                    users.Add(new UserModel() { Name = user.Name, LastName = user.LastName, CardNumber = user.CardNumber, Username = user.LoginUser});
+                }
+            }
+            return users;
         }
         public UserModel GetById(int id)
         {
