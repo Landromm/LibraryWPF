@@ -127,7 +127,6 @@ namespace LibraryWPF.ViewModel
         {
             var isValidUser = userRepository.ConfirmUsername(Username);
             ValidPassword(Password, PasswordConfirm);
-            // РАССМОТРЕТЬ КЛАСС "GenericPrincipal" ДЛЯ УСТАНОВЛЕНИЯ РОЛЕЙ. 
             var userModel = new UserModel();
             userModel.Name = Name;
             userModel.LastName = LastName;

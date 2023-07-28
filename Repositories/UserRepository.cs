@@ -181,6 +181,22 @@ namespace LibraryWPF.Repositories
             return userEF;
         }
 
+        public string GetUserRole(string login)
+        {
+            var resultRole = string.Empty;
+            using var context = new MvvmloginDbContext();
+            {
+                var role = from roleT in context.Roles
+                           join loginUserT in context.LoginUsers on roleT.Id equals loginUserT.RoleId
+                           where loginUserT.Login == login
+                           select roleT.RoleUsers.ToString();
+
+                resultRole = role.First();
+            }
+
+            return resultRole;
+        }
+
         public void Remove(int id)
         {
             throw new NotImplementedException();

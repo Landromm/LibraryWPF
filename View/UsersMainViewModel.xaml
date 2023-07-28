@@ -1,4 +1,4 @@
-﻿<Window x:Class="LibraryWPF.MainWindow"
+﻿<Window x:Class="LibraryWPF.View.UsersMainViewModel"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -27,10 +27,6 @@
             <local:ReadersView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:SettingsAdminViewModel}">
-            <local:SettingsAdminView/>
-        </DataTemplate>
-        
     </Window.Resources>
 
     <Border CornerRadius="20"
@@ -79,9 +75,9 @@
                                    VerticalAlignment="Center"
                                    Margin="10,0,0,0"/>
                     </StackPanel>
-                    
+
                     <!--Меню кнопок-->
-                    <RadioButton Style="{StaticResource menuButton}"
+                    <!--<RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color1}"
                                  IsChecked="True"
                                  Command="{Binding ShowHomeViewCommand}">
@@ -90,9 +86,9 @@
                             <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Статистика" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
-                    </RadioButton>
+                    </RadioButton>-->
 
-                    <RadioButton Style="{StaticResource menuButton}"
+                    <!--<RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color6}"
                                  Command="{Binding ShowReadersViewCommand}">
 
@@ -100,7 +96,7 @@
                             <fa:IconImage Icon="User" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Читатели" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
-                    </RadioButton>
+                    </RadioButton>-->
 
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color3}">
@@ -129,18 +125,17 @@
                         </StackPanel>
                     </RadioButton>
 
-                    <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color5}"
-                                 Command="{Binding ShowSettingsAdminViewCommand}">
+                    <!--<RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color5}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Gear" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Настройки" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
-                    </RadioButton>
+                    </RadioButton>-->
 
                 </StackPanel>
-                
+
             </Border>
 
             <Border CornerRadius="0,20,20,0"
@@ -163,7 +158,7 @@
                         <!--Секция контента / Дочернее представление-->
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    
+
                     <!--Панель управления-->
                     <StackPanel x:Name="pnlControlBar"
                                 Grid.Row="0"
@@ -187,7 +182,7 @@
                                 Click="btnMaximize_Click">
                             <fa:IconImage Icon="Square" Style="{StaticResource controlButtonIcon}"/>
                         </Button>
-                        
+
                         <Button x:Name="btnMinimize"
                                 Style="{StaticResource controlButton}"
                                 Tag="{StaticResource color8}"
@@ -196,7 +191,7 @@
                         </Button>
 
                     </StackPanel>
-                    
+
                     <!--Заголовок-->
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
@@ -221,7 +216,7 @@
                                        FontWeight="Medium"
                                        VerticalAlignment="Center"/>
                         </StackPanel>
-                        
+
                         <!--Параметры работы пользователя-->
                         <StackPanel Grid.Column="1"
                                     Orientation="Horizontal"
@@ -257,8 +252,8 @@
                                 <fa:IconImage Icon="Bell" Style="{StaticResource iconButtonIcon}"/>
                             </Button>
 
-                        </StackPanel>                        
-                        
+                        </StackPanel>
+
                     </Grid>
 
                     <!--Секция контента / Дочернее представление-->
@@ -267,11 +262,11 @@
                                     Margin="10"/>
 
                 </Grid>
-                
+
             </Border>
 
         </Grid>
 
     </Border>
-    
+
 </Window>
