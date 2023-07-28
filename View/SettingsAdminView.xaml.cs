@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace LibraryWPF.View
 {
     /// <summary>
-    /// Interaction logic for HomeView.xaml
-    /// </summary>  
-    public partial class HomeView : UserControl
+    /// Interaction logic for SettingsAdminView.xaml
+    /// </summary>
+    public partial class SettingsAdminView : UserControl
     {
-        public HomeView()
+        public SettingsAdminView()
         {
             InitializeComponent();
         }

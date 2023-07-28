@@ -62,6 +62,7 @@ namespace LibraryWPF.ViewModel
         //--> Commands
         public ICommand ShowHomeViewCommand { get; }
         public ICommand ShowReadersViewCommand { get; }
+        public ICommand ShowSettingsAdminViewCommand { get; }
 
         public MainViewModel()
         {
@@ -71,11 +72,19 @@ namespace LibraryWPF.ViewModel
             //Инициализация комманд (ICommand ..)
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowReadersViewCommand = new ViewModelCommand(ExecuteShowReadersViewCommand);
+            ShowSettingsAdminViewCommand = new ViewModelCommand(ExecuteShowSettingsAdminViewCommand);
 
             //Вид по умолчанию.
             ExecuteShowHomeViewCommand(null);
 
             LoadCurrentUserData();
+        }
+
+        private void ExecuteShowSettingsAdminViewCommand(object obj)
+        {
+            CurrentChildView = new SettingsAdminViewModel();
+            Caption = "Настройки";
+            Icon = IconChar.Gears;
         }
 
         private void ExecuteShowReadersViewCommand(object obj)

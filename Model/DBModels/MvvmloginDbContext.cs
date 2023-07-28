@@ -31,6 +31,8 @@ public partial class MvvmloginDbContext : DbContext
 
     public virtual DbSet<RequestListBookRequest> RequestListBookRequests { get; set; }
 
+    public virtual DbSet<Role> Roles { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -93,6 +95,11 @@ public partial class MvvmloginDbContext : DbContext
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Login).HasMaxLength(50);
             entity.Property(e => e.Password).HasMaxLength(50);
+            entity.Property(e => e.RoleId).HasDefaultValue(2);
+
+            entity.HasOne(d => d.Role).WithMany(p => p.LoginUsers)
+                .HasForeignKey(d => d.RoleId)
+                .HasConstraintName("FK_LoginUser_Role");
         });
 
         modelBuilder.Entity<Rack>(entity =>
@@ -150,6 +157,15 @@ public partial class MvvmloginDbContext : DbContext
                 .HasForeignKey(d => d.Number)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Request_ListBookRequest_Request");
+        });
+
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.ToTable("Role");
+
+            entity.Property(e => e.RoleUsers)
+                .HasMaxLength(10)
+                .IsFixedLength();
         });
 
         modelBuilder.Entity<User>(entity =>

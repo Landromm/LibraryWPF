@@ -17,6 +17,7 @@ namespace LibraryWPF.Model
         void Edit(UserModel userModel);
         void Delete(UserModel userModel);
         void Remove(int id);
+        string GetUserRole(string login);
         UserModel GetById(int id);
         UserModel GetByUsername(string username);
         ObservableCollection<UserModel> GetByAll();

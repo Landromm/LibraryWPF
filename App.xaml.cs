@@ -1,4 +1,5 @@
-﻿using LibraryWPF.View;
+﻿using LibraryWPF.Repositories;
+using LibraryWPF.View;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -16,15 +17,56 @@ namespace LibraryWPF
     {
         protected void ApplicationStart(object sender, EventArgs e)
         {
+            UserRepository userRepository = new UserRepository();            
             var loginView = new LoginView();
+            var roleUsers = string.Empty;
+
             loginView.Show();
             loginView.IsVisibleChanged += (s, ev) =>
             {
                 if (loginView.IsVisible == false && loginView.IsLoaded)
                 {
-                    var mainView = new MainWindow();
-                    mainView.Show();
-                    loginView.Close();
+                    roleUsers = userRepository.GetUserRole(loginView.txtUser.Text).Trim();
+                    if(roleUsers != null)
+                    {
+                        switch (roleUsers) 
+                        {
+                            case "Admin":
+                                {
+                                    var mainView = new MainWindow();
+                                    mainView.Show();
+                                    loginView.Close();
+                                } break;
+                            case "User":
+                                {
+                                    var usersMainView = new UsersMainViewModel();
+                                    usersMainView.Show();
+                                    loginView.Close();
+                                } break;
+
+                            default:
+                                {
+                                    var usersMainView = new UsersMainViewModel();
+                                    usersMainView.Show();
+                                    loginView.Close();
+                                }break;
+                        }
+                    }
+
+
+
+                    //if (roleUsers != null && roleUsers.Equals("Admin")) 
+                    //{
+                    //    var mainView = new MainWindow();
+                    //    mainView.Show();
+                    //    loginView.Close();
+                    //}
+                    //else
+                    //{
+                    //    var usersMainView = new UsersMainViewModel();
+                    //    usersMainView.Show();
+                    //    loginView.Close();
+                    //}
                 }
             };
 
