@@ -121,6 +121,21 @@ namespace LibraryWPF.Repositories
             }
             return users;
         }
+
+        public ObservableCollection<Autor> GetByAllAutors()
+        {
+            ObservableCollection<Autor> autors = new ObservableCollection<Autor>();
+            using var context = new MvvmloginDbContext();
+            {
+                var result = context.Autors.ToList();
+                foreach (var autor in result)
+                {
+                    autors.Add(new Autor() { Name = autor.Name, LastName = autor.LastName });
+                }
+            }
+            return autors;
+        }
+
         public UserModel GetById(int id)
         {
             throw new NotImplementedException();
