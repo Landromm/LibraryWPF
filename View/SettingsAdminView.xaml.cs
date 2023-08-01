@@ -24,5 +24,12 @@ namespace LibraryWPF.View
         {
             InitializeComponent();
         }
+
+        private void btn_ResetClick(object sender, RoutedEventArgs e)
+        {
+            dgAutorTable.SelectedItem = null;
+            txtName.Text = string.Empty;
+            txtLastName.Text = string.Empty;
+        }
     }
 }

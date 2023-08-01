@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LibraryWPF.Model.DBModels;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace LibraryWPF.Model
         UserModel GetById(int id);
         UserModel GetByUsername(string username);
         ObservableCollection<UserModel> GetByAll();
+        ObservableCollection<Autor> GetByAllAutors();
         
         // ...
     }
