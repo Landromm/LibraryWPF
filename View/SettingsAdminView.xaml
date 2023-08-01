@@ -8,36 +8,261 @@
              xmlns:sys="clr-namespace:System;assembly=mscorlib" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
+    
     <Grid>
         <StackPanel>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="50"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
 
-                <StackPanel Grid.Row="0"
-                            Orientation="Horizontal">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+            <!--Кнопка открытия панели редактирвоания "Autors"-->
+            <Button Command="{Binding ClickHeaderAutorsCommand}">
 
-                        <RadioButton Grid.Row="0"
-                                     Style="{StaticResource menuButtonSettings}"
-                                     Tag="{StaticResource color2}"
-                                     Command="{Binding ShowTAutorsCommand}">
-                            <StackPanel Orientation="Horizontal">
-                                <fa:IconImage Icon="ArrowRight" Style="{StaticResource menuButtonIconSettings}"/>
-                                <fa:IconImage Icon="UserAlt" Style="{StaticResource menuButtonIconSettings}"/>
-                                <TextBlock Text="Авторы" Style="{StaticResource menuButtonText}"/>
-                            </StackPanel>
-                        </RadioButton>
-                    </Grid>
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+                            
+                        <fa:IconImage>
+                            <fa:IconImage.Style>
+                                <Style TargetType="fa:IconImage">
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                    <Setter Property="Icon" Value="ArrowRight"/>
+                                    <Setter Property="Width" Value="25"/>
+                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                                        
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsClickedHeaderAutors, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                            <Setter Property="Icon" Value="ArrowDown"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                        
+                                </Style>
+                            </fa:IconImage.Style>
+                        </fa:IconImage>
+
+                        <TextBlock Text="Авторы" 
+                                    VerticalAlignment="Center"
+                                    Margin="25,0,0,0"
+                                    FontFamily="Montserrat"
+                                    FontSize="24"
+                                    Foreground="LightGray"/>
+
+                    </StackPanel>
+                </Button.Content>                                  
                     
-                </StackPanel>
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="BorderBrush" Value="{StaticResource color2}"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource color2}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>                        
+                </Button.Style>
+                    
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                            BorderThickness="0,0,0,2"
+                                            BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+                
+            </Button>
+            <Grid>
+                <Border BorderThickness="1"
+                        CornerRadius="10"
+                        Margin="5,7,5,7"
+                        Background="{StaticResource panelActiveColor}">
+
+                    <StackPanel Height="200"
+                                Background="Transparent">
+
+                    </StackPanel>
+                        
+                </Border>
+
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Height" Value="0"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsClickedHeaderAutors, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <Setter Property="Height" Value="Auto"/>
+                            </DataTrigger>
+                                
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
             </Grid>
+
+            <!--Кнопка открытия панели редактирвоания "Rack"-->
+            <Button Command="{Binding ClickHeaderRackCommand}">
+
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+
+                        <fa:IconImage>
+                            <fa:IconImage.Style>
+                                <Style TargetType="fa:IconImage">
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                    <Setter Property="Icon" Value="ArrowRight"/>
+                                    <Setter Property="Width" Value="25"/>
+                                    <Setter Property="Margin" Value="5,0,0,0"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsClickedHeaderRack, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                            <Setter Property="Icon" Value="ArrowDown"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </fa:IconImage.Style>
+                        </fa:IconImage>
+
+                        <TextBlock Text="Стелажи" 
+                                       VerticalAlignment="Center"
+                                       Margin="25,0,0,0"
+                                       FontFamily="Montserrat"
+                                       FontSize="24"
+                                       Foreground="LightGray"/>
+
+                    </StackPanel>
+                </Button.Content>
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="BorderBrush" Value="{StaticResource color2}"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource color2}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                                BorderThickness="0,0,0,2"
+                                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+            <Grid>
+                <Border BorderThickness="1"
+                            CornerRadius="10"
+                            Margin="5,7,5,7"
+                            Background="{StaticResource panelActiveColor}">
+
+                    <StackPanel Height="200"
+                                    Background="Transparent">
+
+                    </StackPanel>
+
+                </Border>
+
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Height" Value="0"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsClickedHeaderRack, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <Setter Property="Height" Value="Auto"/>
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+            </Grid>
+
+            <!--Кнопка открытия панели редактирвоания "ReadPlace"-->
+            <Button Command="{Binding ClickHeaderReadPlaceCommand}">
+
+                <Button.Content>
+                    <StackPanel Orientation="Horizontal">
+
+                        <fa:IconImage>
+                            <fa:IconImage.Style>
+                                <Style TargetType="fa:IconImage">
+                                    <Setter Property="Foreground" Value="Gray"/>
+                                    <Setter Property="Icon" Value="ArrowRight"/>
+                                    <Setter Property="Width" Value="25"/>
+                                    <Setter Property="Margin" Value="5,0,0,0"/>
+
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsClickedHeaderReadPlace, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                            <Setter Property="Icon" Value="ArrowDown"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+
+                                </Style>
+                            </fa:IconImage.Style>
+                        </fa:IconImage>
+
+                        <TextBlock Text="Места для чтения" 
+                                       VerticalAlignment="Center"
+                                       Margin="25,0,0,0"
+                                       FontFamily="Montserrat"
+                                       FontSize="24"
+                                       Foreground="LightGray"/>
+
+                    </StackPanel>
+                </Button.Content>
+
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="BorderBrush" Value="{StaticResource color2}"/>
+                        <Setter Property="Background" Value="Transparent"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource color2}"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                                BorderThickness="0,0,0,2"
+                                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+            <Grid>
+                <Border BorderThickness="1"
+                            CornerRadius="10"
+                            Margin="5,7,5,7"
+                            Background="{StaticResource panelActiveColor}">
+
+                    <StackPanel Height="200"
+                                    Background="Transparent">
+
+                    </StackPanel>
+
+                </Border>
+
+                <Grid.Style>
+                    <Style TargetType="Grid">
+                        <Setter Property="Height" Value="0"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsClickedHeaderReadPlace, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <Setter Property="Height" Value="Auto"/>
+                            </DataTrigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </Grid.Style>
+            </Grid>
+
         </StackPanel>
+            
     </Grid>
 </UserControl>
