@@ -63,57 +63,10 @@
 
                         <!--Таблица "Autor"-->
                         <DataGrid Grid.Row="0"
-                                  Name="dgAutorTable"
-                                  ColumnWidth="*"
-                                  Background="{StaticResource panelColor}"
-                                  HorizontalGridLinesBrush="{StaticResource color2}"
-                                  VerticalGridLinesBrush="{StaticResource color2}"
-                                  BorderThickness="0"
-                                  AutoGenerateColumns="False"
+                                  Name="dgAutorTable"                                  
                                   ItemsSource="{Binding Autors, UpdateSourceTrigger=PropertyChanged}"
-                                  CanUserReorderColumns="True" 
-                                  CanUserResizeColumns="True" 
-                                  CanUserResizeRows="False" 
-                                  CanUserSortColumns="True"
-                                  IsReadOnly="True"
-                                  SelectionMode="Single"
-                                  SelectedItem="{Binding CurrentAutor}">
-
-                            <DataGrid.ColumnHeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="Background" Value="{StaticResource panelActiveColor}"/>
-                                    <Setter Property="Foreground" Value="{StaticResource titleColor3}"/>
-                                    <Setter Property="Padding" Value="5,5,0,5"/>
-                                    <Setter Property="FontFamily" Value="Montserrat"/>
-                                    <Setter Property="FontSize" Value="20"/>
-                                    <Setter Property="BorderThickness" Value="1"/>
-                                    <Setter Property="BorderBrush" Value="{StaticResource color2}"/>
-                                </Style>
-                            </DataGrid.ColumnHeaderStyle>
-
-                            <DataGrid.RowStyle>
-                                <Style TargetType="DataGridRow">
-                                    <Setter Property="FontSize" Value="16"/>
-                                    <Setter Property="FontFamily" Value="Montserrat"/>
-                                    <Setter Property="Foreground" Value="{StaticResource titleColor3}"/>
-                                    <Setter Property="Height" Value="35"/>
-                                    <Setter Property="Background" Value="{StaticResource panelColor}"/>
-                                    <Setter Property="BorderBrush" Value="{StaticResource color2}"/>
-                                </Style>
-                            </DataGrid.RowStyle>
-
-                            <DataGrid.CellStyle>
-                                <Style TargetType="DataGridCell">
-                                    <Style.Triggers>
-                                        <Trigger Property="IsSelected" Value="True">
-                                            <Setter Property="Background" Value="{StaticResource color5}"/>
-                                            <Setter Property="FontSize" Value="18"/>
-                                            <Setter Property="Foreground" Value="Black"/>
-                                            <Setter Property="BorderBrush" Value="{StaticResource color2}"/>
-                                        </Trigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </DataGrid.CellStyle>
+                                  SelectedItem="{Binding CurrentAutor}"
+                                  Style="{StaticResource dataGridSettings}">
 
                             <DataGrid.Columns>
                                 <DataGridTextColumn Binding="{Binding Name}" Header="Имя"/>
