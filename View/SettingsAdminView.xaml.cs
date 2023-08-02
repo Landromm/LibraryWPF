@@ -31,5 +31,18 @@ namespace LibraryWPF.View
             txtName.Text = string.Empty;
             txtLastName.Text = string.Empty;
         }
+
+        private void btn_ResetRackClick(object sender, RoutedEventArgs e)
+        {
+            dgRackTable.SelectedItem = null;
+            txtStackNumber.Text = string.Empty;
+            txtStorageSize.Text = string.Empty;
+        }
+
+        private void btn_ResetReadPlaceClick(object sender, RoutedEventArgs e)
+        {
+            dgReadPlaceTable.SelectedItem = null;
+            txtReadPlace.Text = string.Empty;
+        }
     }
 }
