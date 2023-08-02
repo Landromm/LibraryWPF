@@ -108,20 +108,32 @@ namespace LibraryWPF.Repositories
             }
         }
 
-        public ObservableCollection<UserModel> GetByAll()
+        public ObservableCollection<ReadPlace> GetByAllReadPlaces()
         {
-            ObservableCollection<UserModel> users = new ObservableCollection<UserModel>();
+            ObservableCollection<ReadPlace> readPlaces = new ObservableCollection<ReadPlace>();
             using var context = new MvvmloginDbContext();
             {
-                var result = context.Users.ToList();
-                foreach (var user in result)
+                var result = context.ReadPlaces.ToList();
+                foreach (var readPlace in result)
                 {
-                    users.Add(new UserModel() { Name = user.Name, LastName = user.LastName, CardNumber = user.CardNumber, Username = user.LoginUser});
+                    readPlaces.Add(new ReadPlace() { ReadPlace1 = readPlace.ReadPlace1 });
                 }
             }
-            return users;
+            return readPlaces;
         }
-
+        public ObservableCollection<Rack> GetByAllRacks()
+        {
+            ObservableCollection<Rack> racks = new ObservableCollection<Rack>();
+            using var context = new MvvmloginDbContext();
+            {
+                var result = context.Racks.ToList();
+                foreach (var rack in result)
+                {
+                    racks.Add(new Rack() { StackNumber = rack.StackNumber, StorageSize = rack.StorageSize });
+                }
+            }
+            return racks;
+        }
         public ObservableCollection<Autor> GetByAllAutors()
         {
             ObservableCollection<Autor> autors = new ObservableCollection<Autor>();
@@ -134,6 +146,19 @@ namespace LibraryWPF.Repositories
                 }
             }
             return autors;
+        }
+        public ObservableCollection<UserModel> GetByAll()
+        {
+            ObservableCollection<UserModel> users = new ObservableCollection<UserModel>();
+            using var context = new MvvmloginDbContext();
+            {
+                var result = context.Users.ToList();
+                foreach (var user in result)
+                {
+                    users.Add(new UserModel() { Name = user.Name, LastName = user.LastName, CardNumber = user.CardNumber, Username = user.LoginUser });
+                }
+            }
+            return users;
         }
 
         public UserModel GetById(int id)

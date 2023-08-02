@@ -16,12 +16,19 @@ namespace LibraryWPF.ViewModel
     public class SettingsAdminViewModel : ViewModelBase
     {
         private Autor _currentAutor;
+        private Rack _currentRack;
+        private ReadPlace _currentReadPlace;
+
         private ObservableCollection<Autor> _autors;
+        private ObservableCollection<Rack> _rack;
+        private ObservableCollection<ReadPlace> _readPlace;
 
         private bool _isClickedHeaderAutors = false;
         private bool _isClickedHeaderRack = false;
         private bool _isClickedHeaderReadPlace = false;
-        private bool _isClickedMore = false;
+        private bool _isClickedMoreAutor = false;
+        private bool _isClickedMoreRack = false;
+        private bool _isClickedMoreReadPlace = false;
 
         private IUserRepository userRepository;
 
@@ -42,6 +49,44 @@ namespace LibraryWPF.ViewModel
             {
                 _autors = value;
                 OnPropertyChanged(nameof(Autors));
+            }
+        }
+
+        public Rack CurrentRack
+        {
+            get => _currentRack;
+            set
+            {
+                _currentRack = value;
+                OnPropertyChanged(nameof(CurrentRack));
+            }
+        }
+        public ObservableCollection<Rack> Racks
+        {
+            get => _rack ?? (_rack = new ObservableCollection<Rack>());
+            set
+            {
+                _rack = value;
+                OnPropertyChanged(nameof(Racks));
+            }
+        }
+
+        public ReadPlace CurrentReadPlace
+        {
+            get => _currentReadPlace;
+            set
+            {
+                _currentReadPlace = value;
+                OnPropertyChanged(nameof(CurrentReadPlace));
+            }
+        }
+        public ObservableCollection<ReadPlace> ReadPlaces
+        {
+            get => _readPlace ?? (_readPlace = new ObservableCollection<ReadPlace>());
+            set
+            {
+                _readPlace = value;
+                OnPropertyChanged(nameof(ReadPlaces));
             }
         }
 
@@ -72,20 +117,40 @@ namespace LibraryWPF.ViewModel
                 OnPropertyChanged(nameof(IsClickedHeaderReadPlace));
             }
         }
-        public bool IsClickedMore
+        public bool IsClickedMoreAutor
         {
-            get => _isClickedMore;
+            get => _isClickedMoreAutor;
             set
             {
-                _isClickedMore= value;
-                OnPropertyChanged(nameof(IsClickedMore));
+                _isClickedMoreAutor = value;
+                OnPropertyChanged(nameof(IsClickedMoreAutor));
+            }
+        }
+        public bool IsClickedMoreRack
+        {
+            get => _isClickedMoreRack;
+            set
+            {
+                _isClickedMoreRack = value;
+                OnPropertyChanged(nameof(IsClickedMoreRack));
+            }
+        }
+        public bool IsClickedMoreReadPlace
+        {
+            get => _isClickedMoreReadPlace;
+            set
+            {
+                _isClickedMoreReadPlace= value;
+                OnPropertyChanged(nameof(IsClickedMoreReadPlace));
             }
         }
 
         public ICommand ClickHeaderAutorsCommand { get; }
         public ICommand ClickHeaderRackCommand { get; }
         public ICommand ClickHeaderReadPlaceCommand { get; }
-        public ICommand ClickMoreCommand { get; }
+        public ICommand ClickMoreAutorCommand { get; }
+        public ICommand ClickMoreRackCommand { get; }
+        public ICommand ClickMoreReadPlaceCommand { get; }
 
         public SettingsAdminViewModel() 
         {
@@ -93,38 +158,64 @@ namespace LibraryWPF.ViewModel
             ClickHeaderAutorsCommand = new ViewModelCommand(p => ExecuteClickHeaderAutorsCommand());
             ClickHeaderRackCommand = new ViewModelCommand(p => ExecuteClickHeaderRackCommand());
             ClickHeaderReadPlaceCommand = new ViewModelCommand(p => ExecuteClickHeaderReadPlaceCommand());
-            ClickMoreCommand = new ViewModelCommand(p => ExecuteClickMoreCommand());
+            ClickMoreAutorCommand = new ViewModelCommand(p => ExecuteClickMoreAutorCommand());
+            ClickMoreRackCommand = new ViewModelCommand(p => ExecuteClickMoreRackCommand());
+            ClickMoreReadPlaceCommand = new ViewModelCommand(p => ExecuteCkickMoreReadPlaceCommand());
             ExecuteShowListAutorCommand();
+            ExecuteShowListRackCommand();
+            ExecuteShowListReadPlaceCommand();
         }
 
-        private void ExecuteClickMoreCommand()
-        {
-            IsClickedMore = IsClickedMore == true ? false : true;
-        }
 
-        private void ExecuteShowListAutorCommand()
+
+        private void ExecuteCkickMoreReadPlaceCommand()
         {
-            Autors = new ObservableCollection<Autor>();
-            var tempCollection = userRepository.GetByAllAutors();
-            foreach (var user in tempCollection)
-            {
-                Autors.Add(user);
-            }
+            IsClickedMoreReadPlace = IsClickedMoreReadPlace == true ? false : true;
+        }
+        private void ExecuteClickMoreRackCommand()
+        {
+            IsClickedMoreRack = IsClickedMoreRack == true ? false : true;
+        }
+        private void ExecuteClickMoreAutorCommand()
+        {
+            IsClickedMoreAutor = IsClickedMoreAutor == true ? false : true;
         }
 
         private void ExecuteClickHeaderReadPlaceCommand()
         {
             IsClickedHeaderReadPlace = IsClickedHeaderReadPlace == true ? false : true;
         }
-
         private void ExecuteClickHeaderRackCommand()
         {
             IsClickedHeaderRack = IsClickedHeaderRack == true ? false : true;
         }
-
         private void ExecuteClickHeaderAutorsCommand()
         {
             IsClickedHeaderAutors = IsClickedHeaderAutors == true ? false : true;
         }
+
+        private void ExecuteShowListReadPlaceCommand()
+        {
+            ReadPlaces = new ObservableCollection<ReadPlace>();
+            var tempCollection = userRepository.GetByAllReadPlaces();
+            foreach (var readPlace in tempCollection)
+                ReadPlaces.Add(readPlace);
+        }
+        private void ExecuteShowListRackCommand()
+        {
+            Racks = new ObservableCollection<Rack>();
+            var tempCollection = userRepository.GetByAllRacks();
+            foreach (var rack in tempCollection)
+                Racks.Add(rack);
+        }
+        private void ExecuteShowListAutorCommand()
+        {
+            Autors = new ObservableCollection<Autor>();
+            var tempCollection = userRepository.GetByAllAutors();
+            foreach (var autor in tempCollection)
+                Autors.Add(autor);
+        }
+
+
     }
 }

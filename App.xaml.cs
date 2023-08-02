@@ -52,21 +52,6 @@ namespace LibraryWPF
                                 }break;
                         }
                     }
-
-
-
-                    //if (roleUsers != null && roleUsers.Equals("Admin")) 
-                    //{
-                    //    var mainView = new MainWindow();
-                    //    mainView.Show();
-                    //    loginView.Close();
-                    //}
-                    //else
-                    //{
-                    //    var usersMainView = new UsersMainViewModel();
-                    //    usersMainView.Show();
-                    //    loginView.Close();
-                    //}
                 }
             };
 
