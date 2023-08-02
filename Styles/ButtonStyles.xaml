@@ -118,5 +118,123 @@
         <Setter Property="Width" Value="16"/>
         <Setter Property="Height" Value="16"/>
     </Style>
+    
+    
+    <!--СТИЛИ ИЗ ОКНА НАСТРОЕК-->
+    
+    <!--Стиль кнопки раскрытия основной табличной панели в "SettingsAdmin"-->
+    <Style x:Key="openPanelTableButton" TargetType="Button">
+        <Setter Property="BorderBrush" Value="{StaticResource color2}"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}"
+                                BorderThickness="0,0,0,2"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource color2}"/>
+            </Trigger>
+        </Style.Triggers>
+        
+    </Style>
+    
+    <!--Стиль кнопки раскрытия подменю редактирования в "SettingsAdmin"-->
+    <Style x:Key="openMorePanel" TargetType="Button">
+        <Setter Property="Background" Value="{StaticResource color2}"/>
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Content" Value="Внести измененний"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="150" 
+                            Height="40"
+                            CornerRadius="10"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsClickedMore}" Value="True">
+                <Setter Property="Content" Value="Закрыть панель"/>
+            </DataTrigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource color5}"/>
+                <Setter Property="Foreground" Value="{StaticResource color11}"/>
+            </Trigger>
+        </Style.Triggers>
 
+    </Style>
+
+    <!--Стиль кнопки очистки данных в панели подменю в "SettingsAdmin"-->
+    <Style x:Key="clearButton" TargetType="Button">
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Background" Value="{StaticResource color12}"/>
+        <Setter Property="Foreground" Value="DarkGray"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="70" 
+                            Height="25"
+                            CornerRadius="5"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource color5}"/>
+                <Setter Property="Foreground" Value="{StaticResource color11}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--Стиль кнопок CRUD редактирования данных в панели подменю в "SettingsAdmin"-->
+    <Style x:Key="CRUDControlButton" TargetType="Button">
+        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Background" Value="{Binding Path=Tag, RelativeSource={RelativeSource Self}}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Width="120" 
+                            Height="40"
+                            CornerRadius="20"
+                            Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center"
+                                          HorizontalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>        
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource color5}"/>
+                <Setter Property="Foreground" Value="{StaticResource color11}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>
