@@ -14,8 +14,8 @@
         <StackPanel>
 
             <!--Кнопка открытия панели редактирвоания "Autors"-->
-            <Button Command="{Binding ClickHeaderAutorsCommand}">
-
+            <Button Command="{Binding ClickHeaderAutorsCommand}"
+                    Style="{StaticResource openPanelTableButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
                             
@@ -26,19 +26,19 @@
                                     <Setter Property="Icon" Value="AngleRight"/>
                                     <Setter Property="Width" Value="25"/>
                                     <Setter Property="Height" Value="25"/>
-                                    <Setter Property="Margin" Value="5,0,0,0"/>
-                                        
+                                    <Setter Property="Margin" Value="5,0,0,0"/>   
+                                    
                                     <Style.Triggers>
                                         <DataTrigger Binding="{Binding IsClickedHeaderAutors, UpdateSourceTrigger=PropertyChanged}" Value="True">
                                             <Setter Property="Icon" Value="AngleDown"/>                                            
                                         </DataTrigger>
-                                    </Style.Triggers>
-                                        
+                                    </Style.Triggers>   
+                                    
                                 </Style>
                             </fa:IconImage.Style>
                         </fa:IconImage>
 
-                        <TextBlock Text="Авторы" 
+                        <TextBlock  Text="Авторы" 
                                     VerticalAlignment="Center"
                                     Margin="25,0,0,0"
                                     FontFamily="Montserrat"
@@ -46,30 +46,7 @@
                                     Foreground="LightGray"/>
 
                     </StackPanel>
-                </Button.Content>                                  
-                    
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="BorderBrush" Value="{StaticResource color2}"/>
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{StaticResource color2}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>                        
-                </Button.Style>
-                    
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                            BorderThickness="0,0,0,2"
-                                            BorderBrush="{TemplateBinding BorderBrush}">
-                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-                
+                </Button.Content>                  
             </Button>
             <Grid>
                 <Border BorderThickness="1"
@@ -150,40 +127,10 @@
                                     VerticalAlignment="Center">
 
                             <Button x:Name="btnMore"
-                                    Command="{Binding ClickMoreCommand}"
-                                    BorderThickness="0"
-                                    FontSize="14"
-                                    FontFamily="Montserrat"
-                                    Cursor="Hand"                           
-                                    Margin="5,0,0,0">
-
-                                <Button.Style>
-                                    <Style TargetType="Button">
-                                        <Setter Property="Background" Value="{StaticResource color2}"/>
-                                        <Setter Property="Foreground" Value="Black"/>
-                                        <Setter Property="Content" Value="Внести измененний"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding IsClickedMore}" Value="True">
-                                                <Setter Property="Content" Value="Закрыть панель"/>
-                                            </DataTrigger>
-                                            <Trigger Property="IsMouseOver" Value="True">
-                                                <Setter Property="Background" Value="{StaticResource color5}"/>
-                                                <Setter Property="Foreground" Value="{StaticResource color11}"/>
-                                            </Trigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Button.Style>
-                                <Button.Template>
-                                    <ControlTemplate TargetType="Button">
-                                        <Border Width="150" 
-                                                Height="40"
-                                                CornerRadius="10"
-                                                Background="{TemplateBinding Background}">
-                                            <ContentPresenter VerticalAlignment="Center"
-                                                        HorizontalAlignment="Center"/>
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
+                                    Command="{Binding ClickMoreCommand}"          
+                                    Margin="5,0,0,0"
+                                    Style="{StaticResource openMorePanel}">
+                                
                             </Button>
                         </StackPanel>
 
@@ -263,37 +210,11 @@
                                             VerticalAlignment="Bottom">
 
                                     <Button x:Name="btnClearAutor"
-                                            BorderThickness="0"
                                             Content="Очистить"
-                                            FontSize="14"
-                                            FontFamily="Montserrat"
-                                            Cursor="Hand" 
-                                            Height="25"
                                             Margin="20,10,0,10"
-                                            Click="btn_ResetClick">
-
-                                        <Button.Style>
-                                            <Style TargetType="Button">
-                                                <Setter Property="Background" Value="{StaticResource color12}"/>
-                                                <Setter Property="Foreground" Value="DarkGray"/>
-                                                <Style.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter Property="Background" Value="{StaticResource color5}"/>
-                                                        <Setter Property="Foreground" Value="{StaticResource color11}"/>
-                                                    </Trigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </Button.Style>
-                                        <Button.Template>
-                                            <ControlTemplate TargetType="Button">
-                                                <Border Width="70" Height="25"
-                                                CornerRadius="5"
-                                                Background="{TemplateBinding Background}">
-                                                    <ContentPresenter VerticalAlignment="Center"
-                                                    HorizontalAlignment="Center"/>
-                                                </Border>
-                                            </ControlTemplate>
-                                        </Button.Template>
+                                            Click="btn_ResetClick"
+                                            Style="{StaticResource clearButton}">
+                                        
                                     </Button>
                                 </StackPanel>
 
@@ -305,102 +226,26 @@
                                         VerticalAlignment="Center">
 
                                 <Button x:Name="btnEditAutor"
-                                    Command="{Binding EditAutorCommand}"
-                                    BorderThickness="0"
-                                    Content="ИЗМЕНИТЬ"
-                                    FontSize="14"
-                                    FontFamily="Montserrat"
-                                    Cursor="Hand"                           
-                                    Margin="0,10,0,10">
-
-                                    <Button.Style>
-                                        <Style TargetType="Button">
-                                            <Setter Property="Background" Value="{StaticResource color9}"/>
-                                            <Setter Property="Foreground" Value="Black"/>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="{StaticResource color5}"/>
-                                                    <Setter Property="Foreground" Value="{StaticResource color11}"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Width="120" Height="40"
-                                                CornerRadius="20"
-                                                Background="{TemplateBinding Background}">
-                                                <ContentPresenter VerticalAlignment="Center"
-                                                    HorizontalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-                                <Button x:Name="btnDeleteAutor"
-                                    Command="{Binding DeleteAutorCommand}"
-                                    BorderThickness="0"
-                                    Content="УДАЛИТЬ"
-                                    FontSize="14"
-                                    FontFamily="Montserrat"
-                                    Cursor="Hand"                           
-                                    Margin="0,0,0,10">
-
-                                    <Button.Style>
-                                        <Style TargetType="Button">
-                                            <Setter Property="Background" Value="{StaticResource color7}"/>
-                                            <Setter Property="Foreground" Value="Black"/>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="{StaticResource color5}"/>
-                                                    <Setter Property="Foreground" Value="{StaticResource color11}"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Width="120" Height="40"
-                                                CornerRadius="20"
-                                                Background="{TemplateBinding Background}">
-                                                <ContentPresenter VerticalAlignment="Center"
-                                                    HorizontalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
-                                <Button x:Name="btnAddAutor"
-                                    Command="{Binding AddAutorCommand}"
-                                    BorderThickness="0"
-                                    Content="ДОБАВИТЬ"
-                                    FontSize="14"
-                                    FontFamily="Montserrat"
-                                    Cursor="Hand"                           
-                                    Margin="0,0,0,10">
-
-                                    <Button.Style>
-                                        <Style TargetType="Button">
-                                            <Setter Property="Background" Value="{StaticResource color8}"/>
-                                            <Setter Property="Foreground" Value="Black"/>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="{StaticResource color5}"/>
-                                                    <Setter Property="Foreground" Value="{StaticResource color11}"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                    <Button.Template>
-                                        <ControlTemplate TargetType="Button">
-                                            <Border Width="120" Height="40"
-                                                CornerRadius="20"
-                                                Background="{TemplateBinding Background}">
-                                                <ContentPresenter VerticalAlignment="Center"
-                                                    HorizontalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Button.Template>
-                                </Button>
+                                        Command="{Binding EditAutorCommand}"
+                                        Tag="{StaticResource color9}"                                        
+                                        Style="{StaticResource CRUDControlButton}"
+                                        Content="ИЗМЕНИТЬ"                        
+                                        Margin="0,10,0,10"/>
                                 
+                                <Button x:Name="btnDeleteAutor"
+                                        Command="{Binding DeleteAutorCommand}"
+                                        Tag="{StaticResource color7}"
+                                        Style="{StaticResource CRUDControlButton}"                                        
+                                        Content="УДАЛИТЬ"                
+                                        Margin="0,0,0,10"/>
+                                
+                                <Button x:Name="btnAddAutor"
+                                        Command="{Binding AddAutorCommand}"
+                                        Tag="{StaticResource color8}"
+                                        Style="{StaticResource CRUDControlButton}"
+                                        Content="ДОБАВИТЬ"                     
+                                        Margin="0,0,0,10"/>
+
                             </StackPanel>
 
                             <Grid.Style>
@@ -432,8 +277,8 @@
             </Grid>
 
             <!--Кнопка открытия панели редактирвоания "Rack"-->
-            <Button Command="{Binding ClickHeaderRackCommand}">
-
+            <Button Command="{Binding ClickHeaderRackCommand}"
+                    Style="{StaticResource openPanelTableButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
 
@@ -464,30 +309,7 @@
                                        Foreground="LightGray"/>
 
                     </StackPanel>
-                </Button.Content>
-
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="BorderBrush" Value="{StaticResource color2}"/>
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{StaticResource color2}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                                BorderThickness="0,0,0,2"
-                                                BorderBrush="{TemplateBinding BorderBrush}">
-                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-
+                </Button.Content>                
             </Button>
             <Grid>
                 <Border BorderThickness="1"
@@ -516,8 +338,8 @@
             </Grid>
 
             <!--Кнопка открытия панели редактирвоания "ReadPlace"-->
-            <Button Command="{Binding ClickHeaderReadPlaceCommand}">
-
+            <Button Command="{Binding ClickHeaderReadPlaceCommand}"
+                    Style="{StaticResource openPanelTableButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
 
@@ -549,29 +371,6 @@
 
                     </StackPanel>
                 </Button.Content>
-
-                <Button.Style>
-                    <Style TargetType="Button">
-                        <Setter Property="BorderBrush" Value="{StaticResource color2}"/>
-                        <Setter Property="Background" Value="Transparent"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{StaticResource color2}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </Button.Style>
-
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}"
-                                                BorderThickness="0,0,0,2"
-                                                BorderBrush="{TemplateBinding BorderBrush}">
-                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
-
             </Button>
             <Grid>
                 <Border BorderThickness="1"
