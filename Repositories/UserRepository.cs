@@ -29,7 +29,6 @@ namespace LibraryWPF.Repositories
                 context.SaveChanges();
             }
         }
-
         // Аутентификация зарегистрированного пользователя.
         public bool AuthenticateUser(NetworkCredential credential)
         {
@@ -57,7 +56,6 @@ namespace LibraryWPF.Repositories
             }
             return validUser;
         }
-
         // Проверка уникальности UserName при регистрации нового пользователя.
         public bool ConfirmUsername(string username)
         {
@@ -73,12 +71,10 @@ namespace LibraryWPF.Repositories
 
             return validUsername;
         }
-
         public void Delete(UserModel userModel)
         {
             using var context = new MvvmloginDbContext();
             {
-                LoginUser loginUser = new LoginUser();
                 var findId = context.LoginUsers
                     .Where(login => login.Login.Equals(userModel.Username))
                     .Select(s => s.Id)
@@ -91,7 +87,6 @@ namespace LibraryWPF.Repositories
                 context.SaveChanges();
             }
         }
-
         public void Edit(UserModel userModel)
         {
             using var context = new MvvmloginDbContext();
@@ -104,6 +99,118 @@ namespace LibraryWPF.Repositories
                     LoginUser = userModel.Username 
                 };
                 context.Update(user);
+                context.SaveChanges();
+            }
+        }
+
+        public void EditAutor(Autor autor)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                var autorTemp = new Autor()
+                {
+                    Id = autor.Id,
+                    Name = autor.Name,
+                    LastName = autor.LastName
+                };
+                context.Update(autorTemp);
+                context.SaveChanges();
+            }
+        }
+        public void DeleteAutor(Autor autor)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                var findId = context.Autors
+                    .Where(autorId => autorId.Name.Equals(autor.Name) && autorId.LastName.Equals(autor.LastName))
+                    .Select(s => s.Id)
+                    .ToList();
+
+                var result = context.Autors
+                    .Find(findId.First());
+
+                context.Autors.Remove(result);
+                context.SaveChanges();
+            }
+        }
+        public void AddAutor(Autor autor)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                var autorTemp = new Autor() { Name = autor.Name, LastName = autor.LastName };
+                context.Add(autorTemp);
+                context.SaveChanges();
+            }
+        }
+
+        public void EditRack(Rack rack)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                var rackTemp = new Rack()
+                {
+                    StackNumber = rack.StackNumber,
+                    StorageSize = rack.StorageSize
+                };
+                context.Update(rackTemp);
+                context.SaveChanges();
+            }
+        }
+        public void DeleteRack(Rack rack)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                var rackTemp = new Rack()
+                {
+                    StackNumber = rack.StackNumber,
+                    StorageSize = rack.StorageSize
+                };
+                context.Racks.Remove(rackTemp);
+                context.SaveChanges();
+            }
+        }
+        public void AddRack(Rack rack)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                var rackTemp = new Rack() { StackNumber = rack.StackNumber, StorageSize = rack.StorageSize };
+                context.Add(rackTemp);
+                context.SaveChanges();
+            }
+        }
+
+        public void EditReadPlace(ReadPlace readPlace)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                var rdTepm = new ReadPlace()
+                {
+                    Id = readPlace.Id,
+                    ReadPlace1 = readPlace.ReadPlace1
+                };
+                context.Update(rdTepm);
+                context.SaveChanges();
+            }
+        }
+        public void DeleteReadPlace(ReadPlace readPlace)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                var rdTemp = new ReadPlace()
+                {
+                    Id = readPlace.Id,
+                    ReadPlace1 = readPlace.ReadPlace1
+                };
+                context.Update(rdTemp);
+                context.SaveChanges();
+            }
+        }
+        public void AddReadPlace(ReadPlace readPlace)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                var rdTemp = new ReadPlace() { Id = readPlace.Id, ReadPlace1 = readPlace.ReadPlace1 };
+                context.Add(rdTemp);
                 context.SaveChanges();
             }
         }
@@ -142,7 +249,7 @@ namespace LibraryWPF.Repositories
                 var result = context.Autors.ToList();
                 foreach (var autor in result)
                 {
-                    autors.Add(new Autor() { Name = autor.Name, LastName = autor.LastName });
+                    autors.Add(new Autor() { Id = autor.Id, Name = autor.Name, LastName = autor.LastName });
                 }
             }
             return autors;
@@ -165,7 +272,6 @@ namespace LibraryWPF.Repositories
         {
             throw new NotImplementedException();
         }
-
         //Возвращает объект UserModel с данными по конткретному Логину.
         public UserModel GetByUsername(string username)
         {
@@ -241,5 +347,7 @@ namespace LibraryWPF.Repositories
         {
             throw new NotImplementedException();
         }
+
+       
     }
 }

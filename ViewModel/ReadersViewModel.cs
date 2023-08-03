@@ -56,7 +56,6 @@ namespace LibraryWPF.ViewModel
         public ICommand DeleteReaderCommand { get; }
 
 
-
         public ReadersViewModel()
         {
             userRepository = new UserRepository();
