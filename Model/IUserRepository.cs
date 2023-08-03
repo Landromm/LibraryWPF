@@ -20,6 +20,10 @@ namespace LibraryWPF.Model
         void Remove(int id);
         string GetUserRole(string login);
 
+        void EditAutor(Autor autor);
+        void DeleteAutor(Autor autor);
+        void AddAutor(Autor autor);
+
         UserModel GetById(int id);
         UserModel GetByUsername(string username);
 

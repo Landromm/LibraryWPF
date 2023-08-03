@@ -10,112 +10,123 @@
              d:DesignHeight="450" d:DesignWidth="800">
     
     
-    <Grid>
-        <StackPanel>
+    <Grid Height="Auto">
+        <ScrollViewer CanContentScroll="True" 
+                      VerticalScrollBarVisibility="Auto">
+            
+            <StackPanel>
 
-            <!--Кнопка открытия панели редактирвоания "Autors"-->
-            <Button Command="{Binding ClickHeaderAutorsCommand}"
+                <!--Кнопка открытия панели редактирвоания "Autors"-->
+                <Button Command="{Binding ClickHeaderAutorsCommand}"
                     Style="{StaticResource openPanelTableButton}">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
-                            
-                        <fa:IconImage>
-                            <fa:IconImage.Style>
-                                <Style TargetType="fa:IconImage">
-                                    <Setter Property="Foreground" Value="Gray"/>
-                                    <Setter Property="Icon" Value="AngleRight"/>
-                                    <Setter Property="Width" Value="25"/>
-                                    <Setter Property="Height" Value="25"/>
-                                    <Setter Property="Margin" Value="5,0,0,0"/>   
-                                    
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsClickedHeaderAutors, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                            <Setter Property="Icon" Value="AngleDown"/>                                            
-                                        </DataTrigger>
-                                    </Style.Triggers>   
-                                    
-                                </Style>
-                            </fa:IconImage.Style>
-                        </fa:IconImage>
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
 
-                        <TextBlock  Text="Авторы" 
+                            <fa:IconImage>
+                                <fa:IconImage.Style>
+                                    <Style TargetType="fa:IconImage">
+                                        <Setter Property="Foreground" Value="Gray"/>
+                                        <Setter Property="Icon" Value="AngleRight"/>
+                                        <Setter Property="Width" Value="25"/>
+                                        <Setter Property="Height" Value="25"/>
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
+
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsClickedHeaderAutors, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                <Setter Property="Icon" Value="AngleDown"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+
+                                    </Style>
+                                </fa:IconImage.Style>
+                            </fa:IconImage>
+
+                            <TextBlock  Text="Авторы" 
                                     VerticalAlignment="Center"
                                     Margin="25,0,0,0"
                                     FontFamily="Montserrat"
                                     FontSize="24"
                                     Foreground="LightGray"/>
 
-                    </StackPanel>
-                </Button.Content>                  
-            </Button>
-            <Grid>
-                <Border BorderThickness="1"
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Grid>
+                    <Border BorderThickness="1"
                         CornerRadius="10"
                         Margin="5,7,5,7"
                         Background="{StaticResource panelActiveColor}">
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <!--Таблица "Autor"-->
-                        <DataGrid Grid.Row="0"
+                            <!--Таблица "Autor"-->
+                            <DataGrid Grid.Row="0"
                                   Name="dgAutorTable"                                  
                                   ItemsSource="{Binding Autors, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedItem="{Binding CurrentAutor}"
+                                  SelectedItem="{Binding CurrentAutor, UpdateSourceTrigger=PropertyChanged}"
                                   Style="{StaticResource dataGridSettings}">
 
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding Name}" Header="Имя"/>
-                                <DataGridTextColumn Binding="{Binding LastName}" Header="Фамилия"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding Id}" Header="ID"
+                                                        Width="50"/>
+                                    <DataGridTextColumn Binding="{Binding Name}" Header="Имя"/>
+                                    <DataGridTextColumn Binding="{Binding LastName}" Header="Фамилия"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
 
-                        <!--Кнопка развертывания панели изменений-->
-                        <StackPanel Grid.Row="1"
+                            <!--Кнопка развертывания панели изменений-->
+                            <StackPanel Grid.Row="1"
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
 
-                            <Button Command="{Binding ClickMoreAutorCommand}"          
+                                <Button Command="{Binding ClickMoreAutorCommand}"          
                                     Margin="5,0,0,0"
                                     Style="{StaticResource openMorePanel}">
-                                
-                            </Button>
-                        </StackPanel>
 
-                        <!--Панель изменений таблицы "Autor"-->
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="150"/>
-                            </Grid.ColumnDefinitions>
+                                </Button>
+                            </StackPanel>
 
-                            <!--Панель выбранных данных-->
-                            <Grid Grid.Column="0"
-                                  VerticalAlignment="Top"
-                                  Height="80">
-                                
+                            <!--Панель изменений таблицы "Autor"-->
+                            <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="250"/>
-                                    <ColumnDefinition Width="260"/>
                                     <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="150"/>
                                 </Grid.ColumnDefinitions>
 
-                                <!--Поля "Имя"-->
-                                <StackPanel Grid.Column="0"
+                                <!--Панель выбранных данных-->
+                                <Grid Grid.Column="0"
+                                      VerticalAlignment="Top">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="80"/>
+                                        <RowDefinition Height="50"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="260"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+
+                                        <!--Поля "Имя"-->
+                                        <StackPanel Grid.Column="0"
                                             Orientation="Vertical"
                                             VerticalAlignment="Center">
-                                    
-                                    <TextBlock Text="Имя"
+
+                                            <TextBlock Text="Имя"
                                                Foreground="DarkGray"
                                                FontSize="14"
                                                FontWeight="Medium"
                                                FontFamily="Montserrat"                             
                                                Margin="5,10,0,0"/>
-                                    <TextBox x:Name="txtName" 
+                                            <TextBox x:Name="txtName" 
                                              Text="{Binding CurrentAutor.Name, UpdateSourceTrigger=PropertyChanged}"
                                              FontSize="13"
                                              FontWeight="Medium"
@@ -129,208 +140,236 @@
                                              Margin="5,5,0,0"
                                              Padding="20,0,0,0"
                                              Background="Transparent"/>
-                                </StackPanel>
-                                <!--Поля "Фамилия"-->
-                                <StackPanel Grid.Column="1"
+                                        </StackPanel>
+                                        <!--Поля "Фамилия"-->
+                                        <StackPanel Grid.Column="1"
                                             Orientation="Vertical"
                                             VerticalAlignment="Center">
 
-                                    <TextBlock Text="Фамилия"
+                                            <TextBlock Text="Фамилия"
                                                Foreground="DarkGray"
                                                FontSize="14"
                                                FontWeight="Medium"
                                                FontFamily="Montserrat"                             
                                                Margin="15,10,0,0"/>
-                                    <TextBox x:Name="txtLastName" 
-                                             Text="{Binding CurrentAutor.LastName, UpdateSourceTrigger=PropertyChanged}"
-                                             FontSize="13"
-                                             FontWeight="Medium"
-                                             FontFamily="Montserrat"                            
-                                             Foreground="White"
-                                             CaretBrush="LightGray"
-                                             BorderBrush="DarkGray"
-                                             BorderThickness="0,0,0,2"
-                                             Height="28"
-                                             VerticalContentAlignment="Center"
-                                             Margin="15,5,0,0"
-                                             Padding="20,0,0,0"
-                                             Background="Transparent"/>
-                                </StackPanel>
-                                <!--Поле очистки текущих данных-->
-                                <StackPanel Grid.Column="2"
+                                            <TextBox x:Name="txtLastName" 
+                                                 Text="{Binding CurrentAutor.LastName, UpdateSourceTrigger=PropertyChanged}"
+                                                 FontSize="13"
+                                                 FontWeight="Medium"
+                                                 FontFamily="Montserrat"                            
+                                                 Foreground="White"
+                                                 CaretBrush="LightGray"
+                                                 BorderBrush="DarkGray"
+                                                 BorderThickness="0,0,0,2"
+                                                 Height="28"
+                                                 VerticalContentAlignment="Center"
+                                                 Margin="15,5,0,0"
+                                                 Padding="20,0,0,0"
+                                                 Background="Transparent"/>
+                                        </StackPanel>
+                                        <!--Поле очистки текущих данных-->
+                                        <StackPanel Grid.Column="2"
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Bottom">
 
-                                    <Button x:Name="btnClearAutor"
+                                            <Button x:Name="btnClearAutor"
                                             Content="Очистить"
                                             Margin="20,10,0,10"
                                             Click="btn_ResetClick"
                                             Style="{StaticResource clearButton}">
-                                        
-                                    </Button>
-                                </StackPanel>
 
-                            </Grid>
-                            
-                            <!--Панель Кнопок CRUD-->
-                            <StackPanel Grid.Column="1"
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <StackPanel Grid.Row="1"
+                                                Orientation="Horizontal"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left"
+                                                Height="Auto">
+                                        <TextBlock x:Name="txtAutorErrorMessage"
+                                                   Text="{Binding AutorInformMessage}"
+                                                   Width="Auto"
+                                                   Margin="5,0,0,0"
+                                                   FontSize="18"
+                                                   FontFamily="Montserrat">
+                                            <TextBlock.Style >
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Width" Value="Auto"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource color13}"/>
+                                                    <Setter Property="FontSize" Value="18"/>
+                                                    <Setter Property="FontFamily" Value="Montserrat"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ErrorMessage}" Value="True">
+                                                            <Setter Property="Foreground" Value="{StaticResource color7}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </StackPanel>
+                                    
+                                </Grid>
+
+                                <!--Панель Кнопок CRUD-->
+                                <StackPanel Grid.Column="1"
                                         Orientation="Vertical"
                                         VerticalAlignment="Center">
 
-                                <Button x:Name="btnEditAutor"
+                                    <Button x:Name="btnEditAutor"
                                         Command="{Binding EditAutorCommand}"
                                         Tag="{StaticResource color9}"                                        
                                         Style="{StaticResource CRUDControlButton}"
                                         Content="ИЗМЕНИТЬ"                        
                                         Margin="0,10,0,10"/>
-                                
-                                <Button x:Name="btnDeleteAutor"
+
+                                    <Button x:Name="btnDeleteAutor"
                                         Command="{Binding DeleteAutorCommand}"
                                         Tag="{StaticResource color7}"
                                         Style="{StaticResource CRUDControlButton}"                                        
                                         Content="УДАЛИТЬ"                
                                         Margin="0,0,0,10"/>
-                                
-                                <Button x:Name="btnAddAutor"
+
+                                    <Button x:Name="btnAddAutor"
                                         Command="{Binding AddAutorCommand}"
                                         Tag="{StaticResource color8}"
                                         Style="{StaticResource CRUDControlButton}"
                                         Content="ДОБАВИТЬ"                     
                                         Margin="0,0,0,10"/>
 
-                            </StackPanel>
+                                </StackPanel>
 
-                            <Grid.Style>
-                                <Style TargetType="Grid">
-                                    <Setter Property="Height" Value="0"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsClickedMoreAutor, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                            <Setter Property="Height" Value="Auto"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Grid.Style>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Height" Value="0"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsClickedMoreAutor, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                <Setter Property="Height" Value="Auto"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
 
+                            </Grid>
                         </Grid>
-                    </Grid>                        
-                </Border>
+                    </Border>
 
-                <Grid.Style>
-                    <Style TargetType="Grid">
-                        <Setter Property="Height" Value="0"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsClickedHeaderAutors, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                <Setter Property="Height" Value="Auto"/>
-                            </DataTrigger>
-                                
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
-            </Grid>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Height" Value="0"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsClickedHeaderAutors, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                    <Setter Property="Height" Value="Auto"/>
+                                </DataTrigger>
 
-            <!--Кнопка открытия панели редактирвоания "Rack"-->
-            <Button Command="{Binding ClickHeaderRackCommand}"
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                </Grid>
+
+                <!--Кнопка открытия панели редактирвоания "Rack"-->
+                <Button Command="{Binding ClickHeaderRackCommand}"
                     Style="{StaticResource openPanelTableButton}">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
 
-                        <fa:IconImage>
-                            <fa:IconImage.Style>
-                                <Style TargetType="fa:IconImage">
-                                    <Setter Property="Foreground" Value="Gray"/>
-                                    <Setter Property="Icon" Value="AngleRight"/>
-                                    <Setter Property="Width" Value="25"/>
-                                    <Setter Property="Height" Value="25"/>
-                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                            <fa:IconImage>
+                                <fa:IconImage.Style>
+                                    <Style TargetType="fa:IconImage">
+                                        <Setter Property="Foreground" Value="Gray"/>
+                                        <Setter Property="Icon" Value="AngleRight"/>
+                                        <Setter Property="Width" Value="25"/>
+                                        <Setter Property="Height" Value="25"/>
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
 
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsClickedHeaderRack, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                            <Setter Property="Icon" Value="AngleDown"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsClickedHeaderRack, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                <Setter Property="Icon" Value="AngleDown"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
 
-                                </Style>
-                            </fa:IconImage.Style>
-                        </fa:IconImage>
+                                    </Style>
+                                </fa:IconImage.Style>
+                            </fa:IconImage>
 
-                        <TextBlock Text="Стелажи" 
+                            <TextBlock Text="Стелажи" 
                                        VerticalAlignment="Center"
                                        Margin="25,0,0,0"
                                        FontFamily="Montserrat"
                                        FontSize="24"
                                        Foreground="LightGray"/>
 
-                    </StackPanel>
-                </Button.Content>                
-            </Button>
-            <Grid>
-                <Border BorderThickness="1"
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Grid>
+                    <Border BorderThickness="1"
                         CornerRadius="10"
                         Margin="5,7,5,7"
                         Background="{StaticResource panelActiveColor}">
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <!--Таблица "Rack"-->
-                        <DataGrid Grid.Row="0"
+                            <!--Таблица "Rack"-->
+                            <DataGrid Grid.Row="0"
                                   Name="dgRackTable"                                  
                                   ItemsSource="{Binding Racks, UpdateSourceTrigger=PropertyChanged}"
                                   SelectedItem="{Binding CurrentRack}"
                                   Style="{StaticResource dataGridSettings}">
 
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding StackNumber}" Header="№ стелажа"/>
-                                <DataGridTextColumn Binding="{Binding StorageSize}" Header="Вместимость"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding StackNumber}" Header="№ стелажа"/>
+                                    <DataGridTextColumn Binding="{Binding StorageSize}" Header="Вместимость"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
 
-                        <!--Кнопка развертывания панели изменений-->
-                        <StackPanel Grid.Row="1"
+                            <!--Кнопка развертывания панели изменений-->
+                            <StackPanel Grid.Row="1"
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
 
-                            <Button Command="{Binding ClickMoreRackCommand}"          
+                                <Button Command="{Binding ClickMoreRackCommand}"          
                                     Margin="5,0,0,0"
                                     Style="{StaticResource openMorePanel}">
 
-                            </Button>
-                        </StackPanel>
+                                </Button>
+                            </StackPanel>
 
-                        <!--Панель изменений таблицы "Autor"-->
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="150"/>
-                            </Grid.ColumnDefinitions>
+                            <!--Панель изменений таблицы "Autor"-->
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="150"/>
+                                </Grid.ColumnDefinitions>
 
-                            <!--Панель выбранных данных-->
-                            <Grid Grid.Column="0"
+                                <!--Панель выбранных данных-->
+                                <Grid Grid.Column="0"
                                   VerticalAlignment="Top"
                                   Height="80">
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="250"/>
-                                    <ColumnDefinition Width="260"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="250"/>
+                                        <ColumnDefinition Width="260"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <!--Поля "Имя"-->
-                                <StackPanel Grid.Column="0"
+                                    <!--Поля "Имя"-->
+                                    <StackPanel Grid.Column="0"
                                             Orientation="Vertical"
                                             VerticalAlignment="Center">
 
-                                    <TextBlock Text="№ Стелажа"
+                                        <TextBlock Text="№ Стелажа"
                                                Foreground="DarkGray"
                                                FontSize="14"
                                                FontWeight="Medium"
                                                FontFamily="Montserrat"                             
                                                Margin="5,10,0,0"/>
-                                    <TextBox x:Name="txtStackNumber" 
+                                        <TextBox x:Name="txtStackNumber" 
                                              Text="{Binding CurrentRack.StackNumber, UpdateSourceTrigger=PropertyChanged}"
                                              FontSize="13"
                                              FontWeight="Medium"
@@ -344,19 +383,19 @@
                                              Margin="5,5,0,0"
                                              Padding="20,0,0,0"
                                              Background="Transparent"/>
-                                </StackPanel>
-                                <!--Поля "Фамилия"-->
-                                <StackPanel Grid.Column="1"
+                                    </StackPanel>
+                                    <!--Поля "Фамилия"-->
+                                    <StackPanel Grid.Column="1"
                                             Orientation="Vertical"
                                             VerticalAlignment="Center">
 
-                                    <TextBlock Text="Вместимость стелажа"
+                                        <TextBlock Text="Вместимость стелажа"
                                                Foreground="DarkGray"
                                                FontSize="14"
                                                FontWeight="Medium"
                                                FontFamily="Montserrat"                             
                                                Margin="15,10,0,0"/>
-                                    <TextBox x:Name="txtStorageSize" 
+                                        <TextBox x:Name="txtStorageSize" 
                                              Text="{Binding CurrentRack.StorageSize, UpdateSourceTrigger=PropertyChanged}"
                                              FontSize="13"
                                              FontWeight="Medium"
@@ -370,181 +409,181 @@
                                              Margin="15,5,0,0"
                                              Padding="20,0,0,0"
                                              Background="Transparent"/>
-                                </StackPanel>
-                                <!--Поле очистки текущих данных-->
-                                <StackPanel Grid.Column="2"
+                                    </StackPanel>
+                                    <!--Поле очистки текущих данных-->
+                                    <StackPanel Grid.Column="2"
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Bottom">
 
-                                    <Button x:Name="btnClearRack"
+                                        <Button x:Name="btnClearRack"
                                             Content="Очистить"
                                             Margin="20,10,0,10"
                                             Click="btn_ResetRackClick"
                                             Style="{StaticResource clearButton}">
 
-                                    </Button>
-                                </StackPanel>
+                                        </Button>
+                                    </StackPanel>
 
-                            </Grid>
+                                </Grid>
 
-                            <!--Панель Кнопок CRUD-->
-                            <StackPanel Grid.Column="1"
+                                <!--Панель Кнопок CRUD-->
+                                <StackPanel Grid.Column="1"
                                         Orientation="Vertical"
                                         VerticalAlignment="Center">
 
-                                <Button x:Name="btnEditRack"
+                                    <Button x:Name="btnEditRack"
                                         Command="{Binding EditRackCommand}"
                                         Tag="{StaticResource color9}"                                        
                                         Style="{StaticResource CRUDControlButton}"
                                         Content="ИЗМЕНИТЬ"                        
                                         Margin="0,10,0,10"/>
 
-                                <Button x:Name="btnDeleteRack"
+                                    <Button x:Name="btnDeleteRack"
                                         Command="{Binding DeleteRackCommand}"
                                         Tag="{StaticResource color7}"
                                         Style="{StaticResource CRUDControlButton}"                                        
                                         Content="УДАЛИТЬ"                
                                         Margin="0,0,0,10"/>
 
-                                <Button x:Name="btnAddRack"
+                                    <Button x:Name="btnAddRack"
                                         Command="{Binding AddRackCommand}"
                                         Tag="{StaticResource color8}"
                                         Style="{StaticResource CRUDControlButton}"
                                         Content="ДОБАВИТЬ"                     
                                         Margin="0,0,0,10"/>
 
-                            </StackPanel>
+                                </StackPanel>
 
-                            <Grid.Style>
-                                <Style TargetType="Grid">
-                                    <Setter Property="Height" Value="0"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsClickedMoreRack, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                            <Setter Property="Height" Value="Auto"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Grid.Style>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Height" Value="0"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsClickedMoreRack, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                <Setter Property="Height" Value="Auto"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
 
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </Border>
+                    </Border>
 
-                <Grid.Style>
-                    <Style TargetType="Grid">
-                        <Setter Property="Height" Value="0"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsClickedHeaderRack, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                <Setter Property="Height" Value="Auto"/>
-                            </DataTrigger>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Height" Value="0"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsClickedHeaderRack, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                    <Setter Property="Height" Value="Auto"/>
+                                </DataTrigger>
 
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
-            </Grid>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                </Grid>
 
-            <!--Кнопка открытия панели редактирвоания "ReadPlace"-->
-            <Button Command="{Binding ClickHeaderReadPlaceCommand}"
+                <!--Кнопка открытия панели редактирвоания "ReadPlace"-->
+                <Button Command="{Binding ClickHeaderReadPlaceCommand}"
                     Style="{StaticResource openPanelTableButton}">
-                <Button.Content>
-                    <StackPanel Orientation="Horizontal">
+                    <Button.Content>
+                        <StackPanel Orientation="Horizontal">
 
-                        <fa:IconImage>
-                            <fa:IconImage.Style>
-                                <Style TargetType="fa:IconImage">
-                                    <Setter Property="Foreground" Value="Gray"/>
-                                    <Setter Property="Icon" Value="AngleRight"/>
-                                    <Setter Property="Width" Value="25"/>
-                                    <Setter Property="Height" Value="25"/>
-                                    <Setter Property="Margin" Value="5,0,0,0"/>
+                            <fa:IconImage>
+                                <fa:IconImage.Style>
+                                    <Style TargetType="fa:IconImage">
+                                        <Setter Property="Foreground" Value="Gray"/>
+                                        <Setter Property="Icon" Value="AngleRight"/>
+                                        <Setter Property="Width" Value="25"/>
+                                        <Setter Property="Height" Value="25"/>
+                                        <Setter Property="Margin" Value="5,0,0,0"/>
 
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsClickedHeaderReadPlace, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                            <Setter Property="Icon" Value="AngleDown"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsClickedHeaderReadPlace, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                <Setter Property="Icon" Value="AngleDown"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
 
-                                </Style>
-                            </fa:IconImage.Style>
-                        </fa:IconImage>
+                                    </Style>
+                                </fa:IconImage.Style>
+                            </fa:IconImage>
 
-                        <TextBlock Text="Места для чтения" 
+                            <TextBlock Text="Места для чтения" 
                                        VerticalAlignment="Center"
                                        Margin="25,0,0,0"
                                        FontFamily="Montserrat"
                                        FontSize="24"
                                        Foreground="LightGray"/>
 
-                    </StackPanel>
-                </Button.Content>
-            </Button>
-            <Grid>
-                <Border BorderThickness="1"
+                        </StackPanel>
+                    </Button.Content>
+                </Button>
+                <Grid>
+                    <Border BorderThickness="1"
                             CornerRadius="10"
                             Margin="5,7,5,7"
                             Background="{StaticResource panelActiveColor}">
 
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
-                        <!--Таблица "Rack"-->
-                        <DataGrid Grid.Row="0"
+                            <!--Таблица "Rack"-->
+                            <DataGrid Grid.Row="0"
                                   Name="dgReadPlaceTable"                                  
                                   ItemsSource="{Binding ReadPlaces, UpdateSourceTrigger=PropertyChanged}"
                                   SelectedItem="{Binding CurrentReadPlace}"
                                   Style="{StaticResource dataGridSettings}">
 
-                            <DataGrid.Columns>
-                                <DataGridTextColumn Binding="{Binding ReadPlace1}" Header="Место для чтения"/>
-                            </DataGrid.Columns>
-                        </DataGrid>
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Binding="{Binding ReadPlace1}" Header="Место для чтения"/>
+                                </DataGrid.Columns>
+                            </DataGrid>
 
-                        <!--Кнопка развертывания панели изменений-->
-                        <StackPanel Grid.Row="1"
+                            <!--Кнопка развертывания панели изменений-->
+                            <StackPanel Grid.Row="1"
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
 
-                            <Button Command="{Binding ClickMoreReadPlaceCommand}"          
+                                <Button Command="{Binding ClickMoreReadPlaceCommand}"          
                                     Margin="5,0,0,0"
                                     Style="{StaticResource openMorePanel}">
 
-                            </Button>
-                        </StackPanel>
+                                </Button>
+                            </StackPanel>
 
-                        <!--Панель изменений таблицы "Autor"-->
-                        <Grid Grid.Row="2">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="150"/>
-                            </Grid.ColumnDefinitions>
+                            <!--Панель изменений таблицы "Autor"-->
+                            <Grid Grid.Row="2">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="150"/>
+                                </Grid.ColumnDefinitions>
 
-                            <!--Панель выбранных данных-->
-                            <Grid Grid.Column="0"
+                                <!--Панель выбранных данных-->
+                                <Grid Grid.Column="0"
                                   VerticalAlignment="Top"
                                   Height="80">
 
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="250"/>
-                                    <ColumnDefinition Width="10"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="250"/>
+                                        <ColumnDefinition Width="10"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
 
-                                <!--Поля "Место для чтения"-->
-                                <StackPanel Grid.Column="0"
+                                    <!--Поля "Место для чтения"-->
+                                    <StackPanel Grid.Column="0"
                                             Orientation="Vertical"
                                             VerticalAlignment="Center">
 
-                                    <TextBlock Text="Место для чтения"
+                                        <TextBlock Text="Место для чтения"
                                                Foreground="DarkGray"
                                                FontSize="14"
                                                FontWeight="Medium"
                                                FontFamily="Montserrat"                             
                                                Margin="5,10,0,0"/>
-                                    <TextBox x:Name="txtReadPlace" 
+                                        <TextBox x:Name="txtReadPlace" 
                                              Text="{Binding CurrentReadPlace.ReadPlace1, UpdateSourceTrigger=PropertyChanged}"
                                              FontSize="13"
                                              FontWeight="Medium"
@@ -558,81 +597,83 @@
                                              Margin="5,5,0,0"
                                              Padding="20,0,0,0"
                                              Background="Transparent"/>
-                                </StackPanel>
-                                <!--Поле очистки текущих данных-->
-                                <StackPanel Grid.Column="2"
+                                    </StackPanel>
+                                    <!--Поле очистки текущих данных-->
+                                    <StackPanel Grid.Column="2"
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Bottom">
 
-                                    <Button x:Name="btnClearReadPlace"
+                                        <Button x:Name="btnClearReadPlace"
                                             Content="Очистить"
                                             Margin="20,10,0,10"
                                             Click="btn_ResetReadPlaceClick"
                                             Style="{StaticResource clearButton}">
 
-                                    </Button>
-                                </StackPanel>
+                                        </Button>
+                                    </StackPanel>
 
-                            </Grid>
+                                </Grid>
 
-                            <!--Панель Кнопок CRUD-->
-                            <StackPanel Grid.Column="1"
+                                <!--Панель Кнопок CRUD-->
+                                <StackPanel Grid.Column="1"
                                         Orientation="Vertical"
                                         VerticalAlignment="Center">
 
-                                <Button x:Name="btnEditReadPlace"
+                                    <Button x:Name="btnEditReadPlace"
                                         Command="{Binding EditReadPlaceCommand}"
                                         Tag="{StaticResource color9}"                                        
                                         Style="{StaticResource CRUDControlButton}"
                                         Content="ИЗМЕНИТЬ"                        
                                         Margin="0,10,0,10"/>
 
-                                <Button x:Name="btnDeleteReadPlace"
+                                    <Button x:Name="btnDeleteReadPlace"
                                         Command="{Binding DeleteReadPlaceCommand}"
                                         Tag="{StaticResource color7}"
                                         Style="{StaticResource CRUDControlButton}"                                        
                                         Content="УДАЛИТЬ"                
                                         Margin="0,0,0,10"/>
 
-                                <Button x:Name="btnAddReadPlace"
+                                    <Button x:Name="btnAddReadPlace"
                                         Command="{Binding AddReadPlaceCommand}"
                                         Tag="{StaticResource color8}"
                                         Style="{StaticResource CRUDControlButton}"
                                         Content="ДОБАВИТЬ"                     
                                         Margin="0,0,0,10"/>
 
-                            </StackPanel>
+                                </StackPanel>
 
-                            <Grid.Style>
-                                <Style TargetType="Grid">
-                                    <Setter Property="Height" Value="0"/>
-                                    <Style.Triggers>
-                                        <DataTrigger Binding="{Binding IsClickedMoreReadPlace, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                            <Setter Property="Height" Value="Auto"/>
-                                        </DataTrigger>
-                                    </Style.Triggers>
-                                </Style>
-                            </Grid.Style>
+                                <Grid.Style>
+                                    <Style TargetType="Grid">
+                                        <Setter Property="Height" Value="0"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsClickedMoreReadPlace, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                                <Setter Property="Height" Value="Auto"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Grid.Style>
 
+                            </Grid>
                         </Grid>
-                    </Grid>
 
-                </Border>
+                    </Border>
 
-                <Grid.Style>
-                    <Style TargetType="Grid">
-                        <Setter Property="Height" Value="0"/>
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsClickedHeaderReadPlace, UpdateSourceTrigger=PropertyChanged}" Value="True">
-                                <Setter Property="Height" Value="Auto"/>
-                            </DataTrigger>
+                    <Grid.Style>
+                        <Style TargetType="Grid">
+                            <Setter Property="Height" Value="0"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsClickedHeaderReadPlace, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                    <Setter Property="Height" Value="Auto"/>
+                                </DataTrigger>
 
-                        </Style.Triggers>
-                    </Style>
-                </Grid.Style>
-            </Grid>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                </Grid>
 
-        </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
             
     </Grid>
 </UserControl>

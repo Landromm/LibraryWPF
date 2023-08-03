@@ -1,6 +1,7 @@
 ﻿using LibraryWPF.Model;
 using LibraryWPF.Model.DBModels;
 using LibraryWPF.Repositories;
+using Microsoft.Identity.Client;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,10 @@ namespace LibraryWPF.ViewModel
         private bool _isClickedMoreAutor = false;
         private bool _isClickedMoreRack = false;
         private bool _isClickedMoreReadPlace = false;
+        private bool _errorMessage = false;
+        private string _autorInformMessage;
+        private string _rackInformMessage;
+        private string _readPlaceInformMessage;
 
         private IUserRepository userRepository;
 
@@ -144,6 +149,43 @@ namespace LibraryWPF.ViewModel
                 OnPropertyChanged(nameof(IsClickedMoreReadPlace));
             }
         }
+        public bool ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
+            }
+        }
+
+        public string AutorInformMessage
+        {
+            get => _autorInformMessage;
+            set
+            {
+                _autorInformMessage = value;
+                OnPropertyChanged(nameof(AutorInformMessage));
+            }
+        }
+        public string RackInformMessage
+        {
+            get => _rackInformMessage;
+            set
+            {
+                _rackInformMessage = value;
+                OnPropertyChanged(nameof(RackInformMessage));
+            }
+        }
+        public string ReadPlaceInformMessage
+        {
+            get => _readPlaceInformMessage;
+            set
+            {
+                _readPlaceInformMessage = value;
+                OnPropertyChanged(nameof(ReadPlaceInformMessage));
+            }
+        }
 
         public ICommand ClickHeaderAutorsCommand { get; }
         public ICommand ClickHeaderRackCommand { get; }
@@ -151,6 +193,16 @@ namespace LibraryWPF.ViewModel
         public ICommand ClickMoreAutorCommand { get; }
         public ICommand ClickMoreRackCommand { get; }
         public ICommand ClickMoreReadPlaceCommand { get; }
+
+        public ICommand EditAutorCommand { get; }
+        public ICommand EditRackCommand { get; }
+        public ICommand EditReadPlaceCommand { get; }
+        public ICommand DeleteAutorCommand { get; }
+        public ICommand DeleteRackCommand { get; }
+        public ICommand DeleteReadPlaceCommand { get; }
+        public ICommand AddAutorCommand { get; }
+        public ICommand AddRackCommand { get; }
+        public ICommand AddReadPlaceCommand { get; }
 
         public SettingsAdminViewModel() 
         {
@@ -161,12 +213,93 @@ namespace LibraryWPF.ViewModel
             ClickMoreAutorCommand = new ViewModelCommand(p => ExecuteClickMoreAutorCommand());
             ClickMoreRackCommand = new ViewModelCommand(p => ExecuteClickMoreRackCommand());
             ClickMoreReadPlaceCommand = new ViewModelCommand(p => ExecuteCkickMoreReadPlaceCommand());
+
+            EditAutorCommand = new ViewModelCommand(ExecuteEditAutorCommand, CanExecuteEditAutorCommand);
+            //EditRackCommand = new ViewModelCommand(ExecuteEditRackCommand, CanExecuteEditRackCommand);
+            //EditReadPlaceCommand = new ViewModelCommand(ExecuteEditReadPlaceCommand, CanExecuteEditReadPlaceCommand);
+
+            DeleteAutorCommand = new ViewModelCommand(ExecuteDeleteAutorCommand, CanExecuteDeleteAutorCommand);
+            //DeleteRackCommand = new ViewModelCommand(ExecuteDeleteRackCommand, CanExecuteDeleteRackCommand);
+            //DeleteReadPlaceCommand = new ViewModelCommand(ExecuteDeleteReadPlaceCommand, CanExecuteDeleteReadPlaceCommand);
+
+            AddAutorCommand = new ViewModelCommand(ExecuteAddAutorCommand, CanExecuteAddAutorCommand);
+            //AddRackCommand = new ViewModelCommand(ExecuteAddRackCommand, CanExecuteAddRackCommand);
+            //AddReadPlaceCommand = new ViewModelCommand(ExecuteAddReadPlaceCommand, CanExecuteAddReadPlaceCommand);
+
             ExecuteShowListAutorCommand();
             ExecuteShowListRackCommand();
             ExecuteShowListReadPlaceCommand();
         }
 
+        private bool CanExecuteAddAutorCommand(object obj)
+        {
+            return CurrentAutor != null;
+        }
+        private void ExecuteAddAutorCommand(object obj)
+        {
+            try
+            {
+                ErrorMessage = false;
+                userRepository.AddAutor(CurrentAutor); 
+                ExecuteShowListAutorCommand();
+                AutorInformMessage = "Новый автор успешно добавлен!";
 
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = true;
+                AutorInformMessage = "Произошла ошибка добавления нового автора!";
+            }
+        }
+
+        private bool CanExecuteDeleteAutorCommand(object obj)
+        {
+            return CurrentAutor != null;
+        }
+
+        private void ExecuteDeleteAutorCommand(object obj)
+        {
+            try
+            {
+                ErrorMessage = false;
+                var confirm = MessageBox.Show("Вы точно хотите удалить данного автора?",
+                                                "Внимание!",
+                                                MessageBoxButton.YesNo,
+                                                MessageBoxImage.Question,
+                                                MessageBoxResult.Yes);
+                if ((int)confirm == 6)
+                {
+                    userRepository.DeleteAutor(CurrentAutor);
+                    Autors.Remove(CurrentAutor);
+                    AutorInformMessage = "Пользователь успешно удален из системы!";
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = true;
+                AutorInformMessage = "ВНИАНИЕ! Произошла ошибка удаления данных!.";
+            }
+        }
+
+        private bool CanExecuteEditAutorCommand(object obj)
+        {
+            return CurrentAutor != null;
+        }
+
+        private void ExecuteEditAutorCommand(object obj)
+        {
+            try
+            {
+                ErrorMessage = false;
+                userRepository.EditAutor(CurrentAutor);
+                AutorInformMessage = "Изменения успешно приняты.";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = true;
+                AutorInformMessage = "ВНИАНИЕ! Произошла ошибка обновления данных!.";
+            }
+        }
 
         private void ExecuteCkickMoreReadPlaceCommand()
         {
