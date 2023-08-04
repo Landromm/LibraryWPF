@@ -10,11 +10,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     
     
-    <Grid Height="Auto">
-        <ScrollViewer CanContentScroll="True" 
-                      VerticalScrollBarVisibility="Auto">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             
-            <StackPanel>
+            <StackPanel ScrollViewer.CanContentScroll="True">
 
                 <!--Кнопка открытия панели редактирвоания "Autors"-->
                 <Button Command="{Binding ClickHeaderAutorsCommand}"
@@ -42,11 +41,11 @@
                             </fa:IconImage>
 
                             <TextBlock  Text="Авторы" 
-                                    VerticalAlignment="Center"
-                                    Margin="25,0,0,0"
-                                    FontFamily="Montserrat"
-                                    FontSize="24"
-                                    Foreground="LightGray"/>
+                                        VerticalAlignment="Center"
+                                        Margin="25,0,0,0"
+                                        FontFamily="Montserrat"
+                                        FontSize="24"
+                                        Foreground="LightGray"/>
 
                         </StackPanel>
                     </Button.Content>
@@ -126,20 +125,21 @@
                                                FontWeight="Medium"
                                                FontFamily="Montserrat"                             
                                                Margin="5,10,0,0"/>
+                                            
                                             <TextBox x:Name="txtName" 
-                                             Text="{Binding CurrentAutor.Name, UpdateSourceTrigger=PropertyChanged}"
-                                             FontSize="13"
-                                             FontWeight="Medium"
-                                             FontFamily="Montserrat"                            
-                                             Foreground="White"
-                                             CaretBrush="LightGray"
-                                             BorderBrush="DarkGray"
-                                             BorderThickness="0,0,0,2"
-                                             Height="28"
-                                             VerticalContentAlignment="Center"
-                                             Margin="5,5,0,0"
-                                             Padding="20,0,0,0"
-                                             Background="Transparent"/>
+                                                     Text="{Binding CurrentAutor.Name, UpdateSourceTrigger=PropertyChanged}"
+                                                     FontSize="13"
+                                                     FontWeight="Medium"
+                                                     FontFamily="Montserrat"                            
+                                                     Foreground="White"
+                                                     CaretBrush="LightGray"
+                                                     BorderBrush="DarkGray"
+                                                     BorderThickness="0,0,0,2"
+                                                     Height="28"
+                                                     VerticalContentAlignment="Center"
+                                                     Margin="5,5,0,0"
+                                                     Padding="20,0,0,0"
+                                                     Background="Transparent"/>
                                         </StackPanel>
                                         <!--Поля "Фамилия"-->
                                         <StackPanel Grid.Column="1"
@@ -182,6 +182,7 @@
                                         </StackPanel>
                                     </Grid>
 
+                                    <!--Скрытая строка вывода ОШИБКИ-->
                                     <StackPanel Grid.Row="1"
                                                 Orientation="Horizontal"
                                                 VerticalAlignment="Center"
@@ -340,7 +341,7 @@
                                 </Button>
                             </StackPanel>
 
-                            <!--Панель изменений таблицы "Autor"-->
+                            <!--Панель изменений таблицы "Rack"-->
                             <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -349,53 +350,58 @@
 
                                 <!--Панель выбранных данных-->
                                 <Grid Grid.Column="0"
-                                  VerticalAlignment="Top"
-                                  Height="80">
+                                      VerticalAlignment="Top">
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="250"/>
-                                        <ColumnDefinition Width="260"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="80"/>
+                                        <RowDefinition Height="50"/>
+                                    </Grid.RowDefinitions>
 
-                                    <!--Поля "Имя"-->
-                                    <StackPanel Grid.Column="0"
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="260"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!--Поля "Имя"-->
+                                        <StackPanel Grid.Column="0"
+                                                    Orientation="Vertical"
+                                                    VerticalAlignment="Center">
+
+                                            <TextBlock Text="№ Стелажа"
+                                                       Foreground="DarkGray"
+                                                       FontSize="14"
+                                                       FontWeight="Medium"
+                                                       FontFamily="Montserrat"                             
+                                                       Margin="5,10,0,0"/>
+                                            <TextBox x:Name="txtStackNumber" 
+                                                     Text="{Binding CurrentRack.StackNumber, UpdateSourceTrigger=PropertyChanged}"
+                                                     FontSize="13"
+                                                     FontWeight="Medium"
+                                                     FontFamily="Montserrat"                            
+                                                     Foreground="White"
+                                                     CaretBrush="LightGray"
+                                                     BorderBrush="DarkGray"
+                                                     BorderThickness="0,0,0,2"
+                                                     Height="28"
+                                                     VerticalContentAlignment="Center"
+                                                     Margin="5,5,0,0"
+                                                     Padding="20,0,0,0"
+                                                     Background="Transparent"/>
+                                        </StackPanel>
+                                        <!--Поля "Фамилия"-->
+                                        <StackPanel Grid.Column="1"
                                             Orientation="Vertical"
                                             VerticalAlignment="Center">
 
-                                        <TextBlock Text="№ Стелажа"
-                                               Foreground="DarkGray"
-                                               FontSize="14"
-                                               FontWeight="Medium"
-                                               FontFamily="Montserrat"                             
-                                               Margin="5,10,0,0"/>
-                                        <TextBox x:Name="txtStackNumber" 
-                                             Text="{Binding CurrentRack.StackNumber, UpdateSourceTrigger=PropertyChanged}"
-                                             FontSize="13"
-                                             FontWeight="Medium"
-                                             FontFamily="Montserrat"                            
-                                             Foreground="White"
-                                             CaretBrush="LightGray"
-                                             BorderBrush="DarkGray"
-                                             BorderThickness="0,0,0,2"
-                                             Height="28"
-                                             VerticalContentAlignment="Center"
-                                             Margin="5,5,0,0"
-                                             Padding="20,0,0,0"
-                                             Background="Transparent"/>
-                                    </StackPanel>
-                                    <!--Поля "Фамилия"-->
-                                    <StackPanel Grid.Column="1"
-                                            Orientation="Vertical"
-                                            VerticalAlignment="Center">
-
-                                        <TextBlock Text="Вместимость стелажа"
+                                            <TextBlock Text="Вместимость стелажа"
                                                Foreground="DarkGray"
                                                FontSize="14"
                                                FontWeight="Medium"
                                                FontFamily="Montserrat"                             
                                                Margin="15,10,0,0"/>
-                                        <TextBox x:Name="txtStorageSize" 
+                                            <TextBox x:Name="txtStorageSize" 
                                              Text="{Binding CurrentRack.StorageSize, UpdateSourceTrigger=PropertyChanged}"
                                              FontSize="13"
                                              FontWeight="Medium"
@@ -409,19 +415,48 @@
                                              Margin="15,5,0,0"
                                              Padding="20,0,0,0"
                                              Background="Transparent"/>
-                                    </StackPanel>
-                                    <!--Поле очистки текущих данных-->
-                                    <StackPanel Grid.Column="2"
+                                        </StackPanel>
+                                        <!--Поле очистки текущих данных-->
+                                        <StackPanel Grid.Column="2"
                                             HorizontalAlignment="Left"
                                             VerticalAlignment="Bottom">
 
-                                        <Button x:Name="btnClearRack"
+                                            <Button x:Name="btnClearRack"
                                             Content="Очистить"
                                             Margin="20,10,0,10"
                                             Click="btn_ResetRackClick"
                                             Style="{StaticResource clearButton}">
 
-                                        </Button>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <!--Скрытая строка вывода ОШИБКИ-->
+                                    <StackPanel Grid.Row="1"
+                                                    Orientation="Horizontal"
+                                                    VerticalAlignment="Center"
+                                                    HorizontalAlignment="Left"
+                                                    Height="Auto">
+                                        <TextBlock x:Name="txtRackErrorMessage"
+                                                       Text="{Binding RackInformMessage}"
+                                                       Width="Auto"
+                                                       Margin="5,0,0,0"
+                                                       FontSize="18"
+                                                       FontFamily="Montserrat">
+                                            <TextBlock.Style >
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Width" Value="Auto"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource color13}"/>
+                                                    <Setter Property="FontSize" Value="18"/>
+                                                    <Setter Property="FontFamily" Value="Montserrat"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ErrorMessage}" Value="True">
+                                                            <Setter Property="Foreground" Value="{StaticResource color7}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
                                     </StackPanel>
 
                                 </Grid>
@@ -530,12 +565,12 @@
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
-                            <!--Таблица "Rack"-->
+                            <!--Таблица "ReadPlace"-->
                             <DataGrid Grid.Row="0"
-                                  Name="dgReadPlaceTable"                                  
-                                  ItemsSource="{Binding ReadPlaces, UpdateSourceTrigger=PropertyChanged}"
-                                  SelectedItem="{Binding CurrentReadPlace}"
-                                  Style="{StaticResource dataGridSettings}">
+                                      Name="dgReadPlaceTable"                                  
+                                      ItemsSource="{Binding ReadPlaces, UpdateSourceTrigger=PropertyChanged}"
+                                      SelectedItem="{Binding CurrentReadPlace}"
+                                      Style="{StaticResource dataGridSettings}">
 
                                 <DataGrid.Columns>
                                     <DataGridTextColumn Binding="{Binding ReadPlace1}" Header="Место для чтения"/>
@@ -554,7 +589,7 @@
                                 </Button>
                             </StackPanel>
 
-                            <!--Панель изменений таблицы "Autor"-->
+                            <!--Панель изменений таблицы "ReadPlace"-->
                             <Grid Grid.Row="2">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -563,53 +598,87 @@
 
                                 <!--Панель выбранных данных-->
                                 <Grid Grid.Column="0"
-                                  VerticalAlignment="Top"
-                                  Height="80">
+                                      VerticalAlignment="Top">
 
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="250"/>
-                                        <ColumnDefinition Width="10"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="80"/>
+                                        <RowDefinition Height="50"/>
+                                    </Grid.RowDefinitions>
 
-                                    <!--Поля "Место для чтения"-->
-                                    <StackPanel Grid.Column="0"
-                                            Orientation="Vertical"
-                                            VerticalAlignment="Center">
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="250"/>
+                                            <ColumnDefinition Width="10"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
 
-                                        <TextBlock Text="Место для чтения"
-                                               Foreground="DarkGray"
-                                               FontSize="14"
-                                               FontWeight="Medium"
-                                               FontFamily="Montserrat"                             
-                                               Margin="5,10,0,0"/>
-                                        <TextBox x:Name="txtReadPlace" 
-                                             Text="{Binding CurrentReadPlace.ReadPlace1, UpdateSourceTrigger=PropertyChanged}"
-                                             FontSize="13"
-                                             FontWeight="Medium"
-                                             FontFamily="Montserrat"                            
-                                             Foreground="White"
-                                             CaretBrush="LightGray"
-                                             BorderBrush="DarkGray"
-                                             BorderThickness="0,0,0,2"
-                                             Height="28"
-                                             VerticalContentAlignment="Center"
-                                             Margin="5,5,0,0"
-                                             Padding="20,0,0,0"
-                                             Background="Transparent"/>
-                                    </StackPanel>
-                                    <!--Поле очистки текущих данных-->
-                                    <StackPanel Grid.Column="2"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Bottom">
+                                        <!--Поля "Место для чтения"-->
+                                        <StackPanel Grid.Column="0"
+                                                    Orientation="Vertical"
+                                                    VerticalAlignment="Center">
 
-                                        <Button x:Name="btnClearReadPlace"
-                                            Content="Очистить"
-                                            Margin="20,10,0,10"
-                                            Click="btn_ResetReadPlaceClick"
-                                            Style="{StaticResource clearButton}">
+                                            <TextBlock Text="Место для чтения"
+                                                       Foreground="DarkGray"
+                                                       FontSize="14"
+                                                       FontWeight="Medium"
+                                                       FontFamily="Montserrat"                             
+                                                       Margin="5,10,0,0"/>
+                                            <TextBox x:Name="txtReadPlace" 
+                                                     Text="{Binding CurrentReadPlace.ReadPlace1, UpdateSourceTrigger=PropertyChanged}"
+                                                     FontSize="13"
+                                                     FontWeight="Medium"
+                                                     FontFamily="Montserrat"                            
+                                                     Foreground="White"
+                                                     CaretBrush="LightGray"
+                                                     BorderBrush="DarkGray"
+                                                     BorderThickness="0,0,0,2"
+                                                     Height="28"
+                                                     VerticalContentAlignment="Center"
+                                                     Margin="5,5,0,0"
+                                                     Padding="20,0,0,0"
+                                                     Background="Transparent"/>
+                                        </StackPanel>
+                                        <!--Поле очистки текущих данных-->
+                                        <StackPanel Grid.Column="2"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Bottom">
 
-                                        </Button>
+                                            <Button x:Name="btnClearReadPlace"
+                                                    Content="Очистить"
+                                                    Margin="20,10,0,10"
+                                                    Click="btn_ResetReadPlaceClick"
+                                                    Style="{StaticResource clearButton}">
+
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <!--Скрытая строка вывода ОШИБКИ-->
+                                    <StackPanel Grid.Row="1"
+                                                Orientation="Horizontal"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Left"
+                                                Height="Auto">
+                                        <TextBlock x:Name="txtReadPlaceErrorMessage"
+                                                    Text="{Binding ReadPlaceInformMessage}"
+                                                    Width="Auto"
+                                                    Margin="5,0,0,0"
+                                                    FontSize="18"
+                                                    FontFamily="Montserrat">
+                                            <TextBlock.Style >
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Width" Value="Auto"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource color13}"/>
+                                                    <Setter Property="FontSize" Value="18"/>
+                                                    <Setter Property="FontFamily" Value="Montserrat"/>
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding ErrorMessage}" Value="True">
+                                                            <Setter Property="Foreground" Value="{StaticResource color7}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
                                     </StackPanel>
 
                                 </Grid>
@@ -672,8 +741,6 @@
                 </Grid>
 
             </StackPanel>
-        </ScrollViewer>
-
-            
+        </ScrollViewer>            
     </Grid>
 </UserControl>

@@ -215,20 +215,150 @@ namespace LibraryWPF.ViewModel
             ClickMoreReadPlaceCommand = new ViewModelCommand(p => ExecuteCkickMoreReadPlaceCommand());
 
             EditAutorCommand = new ViewModelCommand(ExecuteEditAutorCommand, CanExecuteEditAutorCommand);
-            //EditRackCommand = new ViewModelCommand(ExecuteEditRackCommand, CanExecuteEditRackCommand);
-            //EditReadPlaceCommand = new ViewModelCommand(ExecuteEditReadPlaceCommand, CanExecuteEditReadPlaceCommand);
+            EditRackCommand = new ViewModelCommand(ExecuteEditRackCommand, CanExecuteEditRackCommand);
+            EditReadPlaceCommand = new ViewModelCommand(ExecuteEditReadPlaceCommand, CanExecuteEditReadPlaceCommand);
 
             DeleteAutorCommand = new ViewModelCommand(ExecuteDeleteAutorCommand, CanExecuteDeleteAutorCommand);
-            //DeleteRackCommand = new ViewModelCommand(ExecuteDeleteRackCommand, CanExecuteDeleteRackCommand);
-            //DeleteReadPlaceCommand = new ViewModelCommand(ExecuteDeleteReadPlaceCommand, CanExecuteDeleteReadPlaceCommand);
+            DeleteRackCommand = new ViewModelCommand(ExecuteDeleteRackCommand, CanExecuteDeleteRackCommand);
+            DeleteReadPlaceCommand = new ViewModelCommand(ExecuteDeleteReadPlaceCommand, CanExecuteDeleteReadPlaceCommand);
 
             AddAutorCommand = new ViewModelCommand(ExecuteAddAutorCommand, CanExecuteAddAutorCommand);
-            //AddRackCommand = new ViewModelCommand(ExecuteAddRackCommand, CanExecuteAddRackCommand);
-            //AddReadPlaceCommand = new ViewModelCommand(ExecuteAddReadPlaceCommand, CanExecuteAddReadPlaceCommand);
+            AddRackCommand = new ViewModelCommand(ExecuteAddRackCommand, CanExecuteAddRackCommand);
+            AddReadPlaceCommand = new ViewModelCommand(ExecuteAddReadPlaceCommand, CanExecuteAddReadPlaceCommand);
 
             ExecuteShowListAutorCommand();
             ExecuteShowListRackCommand();
             ExecuteShowListReadPlaceCommand();
+        }
+
+        private bool CanExecuteAddReadPlaceCommand(object obj)
+        {
+            return CurrentReadPlace != null;
+        }
+        private void ExecuteAddReadPlaceCommand(object obj)
+        {
+            try
+            {
+                ErrorMessage = false;
+                userRepository.AddReadPlace(CurrentReadPlace);
+                ExecuteShowListReadPlaceCommand();
+                ReadPlaceInformMessage = "Новое место успешно добавлен!";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = true;
+                ReadPlaceInformMessage = "Произошла ошибка добавления нового места!";
+            }
+        }
+        private bool CanExecuteDeleteReadPlaceCommand(object obj)
+        {
+            return CurrentReadPlace != null;
+        }
+        private void ExecuteDeleteReadPlaceCommand(object obj)
+        {
+            try
+            {
+                ErrorMessage = false;
+                var confirm = MessageBox.Show("Вы точно хотите удалить выбранное место для чтения?",
+                                                "Внимание!",
+                                                MessageBoxButton.YesNo,
+                                                MessageBoxImage.Question,
+                                                MessageBoxResult.Yes);
+                if ((int)confirm == 6)
+                {
+                    userRepository.DeleteReadPlace(CurrentReadPlace);
+                    ReadPlaces.Remove(CurrentReadPlace);
+                    ReadPlaceInformMessage = "Место для чтнеия успешно удален из системы!";
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = true;
+                ReadPlaceInformMessage = "ВНИАНИЕ! Произошла ошибка удаления данных!.";
+            }
+        }
+        private bool CanExecuteEditReadPlaceCommand(object obj)
+        {
+            return CurrentReadPlace != null;
+        }
+        private void ExecuteEditReadPlaceCommand(object obj)
+        {
+            try
+            {
+                ErrorMessage = false;
+                userRepository.EditReadPlace(CurrentReadPlace);
+                ReadPlaceInformMessage = "Изменения успешно приняты.";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = true;
+                ReadPlaceInformMessage = "ВНИАНИЕ! Произошла ошибка обновления данных!.";
+            }
+        }
+
+        private bool CanExecuteAddRackCommand(object obj)
+        {
+            return CurrentRack != null;
+        }
+        private void ExecuteAddRackCommand(object obj)
+        {
+            try
+            {
+                ErrorMessage = false;
+                userRepository.AddRack(CurrentRack);
+                ExecuteShowListRackCommand();
+                RackInformMessage = "Новый стелаж успешно добавлен!";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = true;
+                RackInformMessage = "Произошла ошибка добавления нового сталажа!";
+            }
+        }
+        private bool CanExecuteDeleteRackCommand(object obj)
+        {
+            return CurrentRack != null;
+        }
+        private void ExecuteDeleteRackCommand(object obj)
+        {
+            try
+            {
+                ErrorMessage = false;
+                var confirm = MessageBox.Show("Вы точно хотите удалить данный стелаж?",
+                                                "Внимание!",
+                                                MessageBoxButton.YesNo,
+                                                MessageBoxImage.Question,
+                                                MessageBoxResult.Yes);
+                if ((int)confirm == 6)
+                {
+                    userRepository.DeleteRack(CurrentRack);
+                    Racks.Remove(CurrentRack);
+                    RackInformMessage = "Стелаж успешно удален из системы!";
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = true;
+                AutorInformMessage = "ВНИАНИЕ! Произошла ошибка удаления данных!.";
+            }
+        }
+        private bool CanExecuteEditRackCommand(object obj)
+        {
+            return CurrentRack != null;
+        }
+        private void ExecuteEditRackCommand(object obj)
+        {
+            try
+            {
+                ErrorMessage = false;
+                userRepository.EditRack(CurrentRack);
+                RackInformMessage = "Изменения успешно приняты.";
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = true;
+                RackInformMessage = "ВНИАНИЕ! Произошла ошибка обновления данных!.";
+            }
         }
 
         private bool CanExecuteAddAutorCommand(object obj)
@@ -251,12 +381,10 @@ namespace LibraryWPF.ViewModel
                 AutorInformMessage = "Произошла ошибка добавления нового автора!";
             }
         }
-
         private bool CanExecuteDeleteAutorCommand(object obj)
         {
             return CurrentAutor != null;
         }
-
         private void ExecuteDeleteAutorCommand(object obj)
         {
             try
@@ -280,12 +408,10 @@ namespace LibraryWPF.ViewModel
                 AutorInformMessage = "ВНИАНИЕ! Произошла ошибка удаления данных!.";
             }
         }
-
         private bool CanExecuteEditAutorCommand(object obj)
         {
             return CurrentAutor != null;
         }
-
         private void ExecuteEditAutorCommand(object obj)
         {
             try

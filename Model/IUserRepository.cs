@@ -24,6 +24,14 @@ namespace LibraryWPF.Model
         void DeleteAutor(Autor autor);
         void AddAutor(Autor autor);
 
+        void EditRack(Rack rack);
+        void DeleteRack(Rack rack);
+        void AddRack(Rack rack);
+
+        void EditReadPlace(ReadPlace readPlace);
+        void DeleteReadPlace(ReadPlace readPlace);
+        void AddReadPlace(ReadPlace readPlace);
+
         UserModel GetById(int id);
         UserModel GetByUsername(string username);
 
