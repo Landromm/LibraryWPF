@@ -201,7 +201,7 @@ namespace LibraryWPF.Repositories
                     Id = readPlace.Id,
                     ReadPlace1 = readPlace.ReadPlace1
                 };
-                context.Update(rdTemp);
+                context.ReadPlaces.Remove(rdTemp);
                 context.SaveChanges();
             }
         }
@@ -209,7 +209,7 @@ namespace LibraryWPF.Repositories
         {
             using var context = new MvvmloginDbContext();
             {
-                var rdTemp = new ReadPlace() { Id = readPlace.Id, ReadPlace1 = readPlace.ReadPlace1 };
+                var rdTemp = new ReadPlace() {ReadPlace1 = readPlace.ReadPlace1 };
                 context.Add(rdTemp);
                 context.SaveChanges();
             }
