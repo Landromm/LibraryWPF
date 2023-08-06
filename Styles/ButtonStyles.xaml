@@ -168,15 +168,32 @@
             </Setter.Value>
         </Setter>
         <Style.Triggers>
-            <DataTrigger Binding="{Binding IsClickedMore}" Value="True">
-                <Setter Property="Content" Value="Закрыть панель"/>
-            </DataTrigger>
             <Trigger Property="IsMouseOver" Value="True">
                 <Setter Property="Background" Value="{StaticResource color5}"/>
                 <Setter Property="Foreground" Value="{StaticResource color11}"/>
             </Trigger>
         </Style.Triggers>
-
+    </Style>
+    <Style x:Key="openMorePanelAutor" TargetType="Button" BasedOn="{StaticResource openMorePanel}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsClickedMoreAutor}" Value="True">
+                <Setter Property="Content" Value="Закрыть панель"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="openMorePanelRack" TargetType="Button" BasedOn="{StaticResource openMorePanel}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsClickedMoreRack}" Value="True">
+                <Setter Property="Content" Value="Закрыть панель"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="openMorePanelReadPlace" TargetType="Button" BasedOn="{StaticResource openMorePanel}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsClickedMoreReadPlace}" Value="True">
+                <Setter Property="Content" Value="Закрыть панель"/>
+            </DataTrigger>
+        </Style.Triggers>
     </Style>
 
     <!--Стиль кнопки очистки данных в панели подменю в "SettingsAdmin"-->
