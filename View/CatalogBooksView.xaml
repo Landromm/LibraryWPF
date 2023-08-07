@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="LibraryWPF.View.CatalogBooksView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LibraryWPF.View"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"         
+             xmlns:customItemListView="clr-namespace:LibraryWPF.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <ListView ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}"
+                  Background="Transparent">
+            <ListView.Resources>
+                <DataTemplate x:Key="DefaultTemplate">
+                    <customItemListView:ItemListViewBookDefault/>
+                </DataTemplate>
+                <DataTemplate x:Key="SelectedItem">
+                    <customItemListView:ItemListViewBookSelected/>
+                </DataTemplate>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="ContentTemplate" Value="{StaticResource DefaultTemplate}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="ContentTemplate" Value="{StaticResource SelectedItem}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+        </ListView>
+    </Grid>
+</UserControl>

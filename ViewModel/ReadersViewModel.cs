@@ -116,10 +116,9 @@ namespace LibraryWPF.ViewModel
         {
             Users = new ObservableCollection<UserModel>();
             var tempCollection = userRepository.GetByAll();
+            
             foreach ( var user in tempCollection )
-            {
                 Users.Add(user);
-            }
         }
 
     }

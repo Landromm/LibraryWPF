@@ -1,0 +1,39 @@
+﻿<UserControl x:Class="LibraryWPF.CustomControls.ItemListViewBookDefault"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:LibraryWPF.CustomControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                                    Orientation="Horizontal">
+            <TextBlock Text="{Binding Title}"
+                           Margin="5,0,5,0"
+                           FontFamily="Montserrat"
+                           FontSize="14"/>
+            <TextBlock Text="{Binding YearPublich}"
+                           Margin="5,0,5,0"
+                           FontFamily="Montserrat"
+                           FontSize="14"/>
+            <TextBlock Text="{Binding Serias}"
+                               Margin="5,0,5,0"
+                               FontFamily="Montserrat"
+                               FontSize="14"/>
+            <TextBlock Text="{Binding NameAutor}"
+                               Margin="5,0,5,0"
+                               FontFamily="Montserrat"
+                               FontSize="14"/>
+            <TextBlock Text="{Binding LastNameAutor}"
+                               Margin="5,0,5,0"
+                               FontFamily="Montserrat"
+                               FontSize="14"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

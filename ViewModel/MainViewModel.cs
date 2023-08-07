@@ -63,6 +63,7 @@ namespace LibraryWPF.ViewModel
         public ICommand ShowHomeViewCommand { get; }
         public ICommand ShowReadersViewCommand { get; }
         public ICommand ShowSettingsAdminViewCommand { get; }
+        public ICommand ShowCatalogsBookViewCommand { get; }
 
         public MainViewModel()
         {
@@ -73,11 +74,19 @@ namespace LibraryWPF.ViewModel
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
             ShowReadersViewCommand = new ViewModelCommand(ExecuteShowReadersViewCommand);
             ShowSettingsAdminViewCommand = new ViewModelCommand(ExecuteShowSettingsAdminViewCommand);
+            ShowCatalogsBookViewCommand = new ViewModelCommand(ExecuteShowCatalogsBooksViewCommand);
 
             //Вид по умолчанию.
             ExecuteShowHomeViewCommand(null);
 
             LoadCurrentUserData();
+        }
+
+        private void ExecuteShowCatalogsBooksViewCommand(object obj)
+        {
+            CurrentChildView = new CatalogBooksViewModel();
+            Caption = "Каталог книг";
+            Icon = IconChar.Book;
         }
 
         private void ExecuteShowSettingsAdminViewCommand(object obj)

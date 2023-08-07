@@ -31,6 +31,10 @@
             <local:SettingsAdminView/>
         </DataTemplate>
         
+        <DataTemplate DataType="{x:Type viewModel:CatalogBooksViewModel}">
+            <local:CatalogBooksView/>
+        </DataTemplate>
+        
     </Window.Resources>
 
     <Border CornerRadius="20"
@@ -112,7 +116,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color4}">
+                                 Tag="{StaticResource color4}"
+                                 Command="{Binding ShowCatalogsBookViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Book" Style="{StaticResource menuButtonIcon}"/>
