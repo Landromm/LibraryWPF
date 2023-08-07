@@ -5,35 +5,110 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:LibraryWPF.CustomControls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
+             d:DesignHeight="120" d:DesignWidth="800">
+            
+    <Border BorderThickness="2"
+                CornerRadius="15">
+                <Border.BorderBrush>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                        <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
+                        <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"/>
+                        <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                        <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
+                        <GradientStop Color="{StaticResource primaryBackColor1}" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.Background>
 
-        <StackPanel Grid.Row="0"
-                                    Orientation="Horizontal">
-            <TextBlock Text="{Binding Title}"
-                           Margin="5,0,5,0"
+                <Grid Background="Transparent"
+                    Margin="10,5,5,10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="400"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="400"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="45"/>
+                            <RowDefinition Height="25"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0"
+                        Orientation="Vertical">
+                            <TextBlock Text="Наименование:"
                            FontFamily="Montserrat"
-                           FontSize="14"/>
-            <TextBlock Text="{Binding YearPublich}"
-                           Margin="5,0,5,0"
+                           Foreground="{StaticResource titleColor3}"
+                           FontSize="16"/>
+                            <TextBlock Text="{Binding Title}"
+                           FontFamily="Cascadia Code"
+                           Foreground="{StaticResource color11}"
+                           FontSize="20"/>
+                        </StackPanel>
+
+                        <TextBlock Grid.Row="1"
+                               Text="Автор:"
+                               FontFamily="Montserrat"
+                               Foreground="{StaticResource titleColor3}"
+                               FontSize="16"/>
+
+                        <StackPanel Grid.Row="2"
+                                Orientation="Horizontal">
+
+                            <TextBlock Grid.Row="1"
+                                   Text="{Binding NameAutor}"
+                                   FontFamily="Cascadia Code"
+                                   Foreground="{StaticResource color11}"
+                                   FontSize="18"
+                                   Margin="0,0,10,0"/>
+                            <TextBlock Grid.Row="1"
+                                   Text="{Binding LastNameAutor}"
+                                   FontFamily="Cascadia Code"
+                                   Foreground="{StaticResource color11}"
+                                   FontSize="18"/>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Column="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Grid.Row="0"
+                                    Orientation="Vertical">
+                            <TextBlock Text="Серия:"
                            FontFamily="Montserrat"
-                           FontSize="14"/>
-            <TextBlock Text="{Binding Serias}"
-                               Margin="5,0,5,0"
-                               FontFamily="Montserrat"
-                               FontSize="14"/>
-            <TextBlock Text="{Binding NameAutor}"
-                               Margin="5,0,5,0"
-                               FontFamily="Montserrat"
-                               FontSize="14"/>
-            <TextBlock Text="{Binding LastNameAutor}"
-                               Margin="5,0,5,0"
-                               FontFamily="Montserrat"
-                               FontSize="14"/>
-        </StackPanel>
-    </Grid>
+                           Foreground="{StaticResource titleColor3}"
+                           FontSize="16"/>
+                            <TextBlock Text="{Binding Serias}"
+                           FontFamily="Cascadia Code"
+                           Foreground="{StaticResource color11}"
+                           FontSize="18"/>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1"
+                        Orientation="Vertical">
+                            <TextBlock Text="Год издания:"
+                           FontFamily="Montserrat"
+                           Foreground="{StaticResource titleColor3}"
+                           FontSize="16"/>
+                            <TextBlock Text="{Binding YearPublich}"
+                           FontFamily="Cascadia Code"
+                           Foreground="{StaticResource color11}"
+                           FontSize="20"/>
+                        </StackPanel>
+
+                    </Grid>
+
+
+                </Grid>
+
+
+            </Border>
+   
 </UserControl>

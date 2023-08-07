@@ -36,8 +36,9 @@ public partial class MvvmloginDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     //  Server=LAPTOP-TMRQF3QP\\LANDROMMSQLSERV;
+    //  Server=ASUTP-RADKEVICH;
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=ASUTP-RADKEVICH; Database=MVVMLoginDb; Integrated Security=True; TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=LAPTOP-TMRQF3QP\\LANDROMMSQLSERV; Database=MVVMLoginDb; Integrated Security=True; TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
