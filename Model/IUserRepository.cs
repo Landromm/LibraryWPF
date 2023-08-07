@@ -39,6 +39,8 @@ namespace LibraryWPF.Model
         ObservableCollection<Autor> GetByAllAutors();
         ObservableCollection<Rack> GetByAllRacks();
         ObservableCollection<ReadPlace> GetByAllReadPlaces();
+
+        ObservableCollection<CatalogBooksModel> GetByAllCatalogBooks();
         
         // ...
     }
