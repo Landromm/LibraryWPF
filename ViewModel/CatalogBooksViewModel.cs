@@ -52,6 +52,7 @@ namespace LibraryWPF.ViewModel
         private bool CanExecuteAddListBookRequestCommand(object obj)
         {
             return CurrentCatalogBook != null;
+            //return CurrentCatalogBook != null && CurrentCatalogBook.CheckAvailability;
         }
 
         private void ExecuteAddListBookRequestCommand(object obj)
@@ -60,6 +61,7 @@ namespace LibraryWPF.ViewModel
             {
                 _userRepository.AddListBookRequest(CurrentCatalogBook);
                 CurrentCatalogBook.CheckAvailability = !CurrentCatalogBook.CheckAvailability;
+                ExecuteShowListCatalogBooks();
             }
             catch (Exception ex)
             {

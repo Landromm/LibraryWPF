@@ -255,8 +255,14 @@
                                             </Trigger>
                                             <DataTrigger Binding="{Binding CheckAvailability, UpdateSourceTrigger=PropertyChanged}" Value="False">
                                                 <!--<Setter Property="IsEnabled" Value="False"/>-->
-                                                <Setter Property="BorderBrush" Value="DarkSlateGray"/>
-                                                <Setter Property="Background" Value="LightGray"/>
+                                                <Setter Property="Background">
+                                                    <Setter.Value>
+                                                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                                            <GradientStop Color="#9c91a1" Offset="0"/>
+                                                            <GradientStop Color="#2d2b2e" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Setter.Value>
+                                                </Setter>
                                             </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
