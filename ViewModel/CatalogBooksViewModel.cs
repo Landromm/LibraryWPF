@@ -6,6 +6,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace LibraryWPF.ViewModel
 {
@@ -39,10 +40,32 @@ namespace LibraryWPF.ViewModel
         }
 
 
+        public ICommand AddListBookRequestCommand { get; }
+
         public CatalogBooksViewModel()
         {
             _userRepository = new UserRepository();
+            AddListBookRequestCommand = new ViewModelCommand(ExecuteAddListBookRequestCommand, CanExecuteAddListBookRequestCommand);
             ExecuteShowListCatalogBooks();
+        }
+
+        private bool CanExecuteAddListBookRequestCommand(object obj)
+        {
+            return CurrentCatalogBook != null;
+        }
+
+        private void ExecuteAddListBookRequestCommand(object obj)
+        {
+            try
+            {
+                _userRepository.AddListBookRequest(CurrentCatalogBook);
+                CurrentCatalogBook.CheckAvailability = !CurrentCatalogBook.CheckAvailability;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
         }
 
         private void ExecuteShowListCatalogBooks()
