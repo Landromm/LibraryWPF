@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:LibraryWPF.CustomControls"
+             xmlns:local="clr-namespace:LibraryWPF.CustomControls" xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
              d:DesignWidth="800">
 
@@ -196,30 +196,96 @@
                         <StackPanel Orientation="Vertical"
                                     VerticalAlignment="Center"
                                     HorizontalAlignment="Center">
-                            <Border BorderThickness="2"
-                                    CornerRadius="5"
-                                    HorizontalAlignment="Stretch">
-                                <Border.BorderBrush>
-                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                        <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
-                                        <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"/>
-                                        <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Border.BorderBrush>
-                                <Border.Background>
-                                    <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                        <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
-                                        <GradientStop Color="{StaticResource primaryBackColor1}" Offset="1"/>
-                                    </LinearGradientBrush>
-                                </Border.Background>
-                                <Button Height="40"
-                                        Width="40"
-                                        BorderThickness="0"
-                                        Background="Transparent">
-                                    
-                                </Button>
-                                
-                            </Border>
+
+                            <Button Command="{Binding AddListBookRequestCommand}">
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Height" Value="40"/>
+                                        <Setter Property="Width" Value="40"/>
+                                        <Setter Property="BorderThickness" Value="2"/>
+                                        <Setter Property="BorderBrush">
+                                            <Setter.Value>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                        <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
+                                                        <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"/>
+                                                        <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
+                                                    </LinearGradientBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                                    <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
+                                                    <GradientStop Color="{StaticResource primaryBackColor1}" Offset="1"/>
+                                                </LinearGradientBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="Button">
+                                                    <Border Background="{TemplateBinding Background}"                                                            
+                                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                                            BorderThickness="2"
+                                                            CornerRadius="5">
+                                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                    </Border>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                        
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background">
+                                                    <Setter.Value>
+                                                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
+                                                            <GradientStop Color="#6ff794" Offset="0"/>
+                                                            <GradientStop Color="#004212" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Setter.Value>
+                                                </Setter>
+                                                <Setter Property="BorderBrush">
+                                                    <Setter.Value>
+                                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                            <GradientStop Color="#005718" Offset="0"/>
+                                                            <GradientStop Color="#4c52f5" Offset="0.75"/>
+                                                            <GradientStop Color="#38ff6e" Offset="1"/>
+                                                        </LinearGradientBrush>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                            <DataTrigger Binding="{Binding CheckAvailability, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                                <!--<Setter Property="IsEnabled" Value="False"/>-->
+                                                <Setter Property="BorderBrush" Value="DarkSlateGray"/>
+                                                <Setter Property="Background" Value="LightGray"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal"
+                                                HorizontalAlignment="Center">
+                                        <fa:IconImage>
+                                            <fa:IconImage.Style>
+                                                <Style TargetType="fa:IconImage">
+                                                    <Setter Property="Icon" Value="FileCirclePlus"/>
+                                                    <Setter Property="Foreground" Value="{StaticResource color11}"/>
+                                                    <Setter Property="Width" Value="25"/>
+                                                    <Setter Property="Height" Value="25"/>
+                                                    <Setter Property="Margin" Value="5,0,0,0"/>
+
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding CheckAvailability, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                                            <Setter Property="Icon" Value="FileCircleCheck"/>
+                                                            <Setter Property="Foreground" Value="{StaticResource color7}"/>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+
+                                                </Style>
+                                            </fa:IconImage.Style>
+                                        </fa:IconImage>
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
                         </StackPanel>
                     </Grid>
                     

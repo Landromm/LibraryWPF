@@ -103,6 +103,7 @@ namespace LibraryWPF.Repositories
             }
         }
 
+        #region For Frame SettingsAdmin
         public void EditAutor(Autor autor)
         {
             using var context = new MvvmloginDbContext();
@@ -214,6 +215,45 @@ namespace LibraryWPF.Repositories
                 context.SaveChanges();
             }
         }
+        #endregion
+
+        #region For Frame Catalog Books
+        public void AddListBookRequest(CatalogBooksModel book)
+        {
+
+            using var context = new MvvmloginDbContext();
+            {
+                var idAutor = context.Autors
+                    .Where(autor => autor.Name.Equals(book.NameAutor) &&
+                    autor.LastName.Equals(book.LastNameAutor))
+                    .Select(id => id.Id) 
+                    .ToList()
+                    .First();
+
+                var idReadPlace = context.ReadPlaces
+                    .Where(rp => rp.ReadPlace1.Equals(book.ReadPlace))
+                    .Select(id => id.Id)
+                    .ToList()
+                    .First();
+
+                var tempBook = new Book()
+                {
+                    Id = book.Id,
+                    Title = book.Title,
+                    Serias = book.Serias,
+                    YearPublich = book.YearPublich,
+                    Pages = book.Pages,
+                    AutorId = idAutor,
+                    StackNumber = book.StackNumber,
+                    ReadPlace = idReadPlace,
+                    Publisher = book.Publisher,
+                    CheckAvailability = !book.CheckAvailability
+                };
+                context.Books.Update(tempBook); 
+                context.SaveChanges();
+            }
+        }
+        #endregion
 
         public ObservableCollection<ReadPlace> GetByAllReadPlaces()
         {

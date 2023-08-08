@@ -20,6 +20,7 @@ namespace LibraryWPF.Model
         void Remove(int id);
         string GetUserRole(string login);
 
+        #region For Frame SettingsAdmin
         void EditAutor(Autor autor);
         void DeleteAutor(Autor autor);
         void AddAutor(Autor autor);
@@ -31,6 +32,11 @@ namespace LibraryWPF.Model
         void EditReadPlace(ReadPlace readPlace);
         void DeleteReadPlace(ReadPlace readPlace);
         void AddReadPlace(ReadPlace readPlace);
+        #endregion
+
+        #region For Frame CatalogBooks
+        void AddListBookRequest(CatalogBooksModel book);
+        #endregion
 
         UserModel GetById(int id);
         UserModel GetByUsername(string username);
