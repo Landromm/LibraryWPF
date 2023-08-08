@@ -11,25 +11,31 @@
              d:DesignHeight="450" d:DesignWidth="800">    
             
     <ListView ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}"
-                  Background="Transparent"
-                  HorizontalAlignment="Stretch">
-                <ListView.Resources>
-                    <DataTemplate x:Key="DefaultTemplate">
-                        <customItemListView:ItemListViewBookDefault/>
-                    </DataTemplate>
-                    <DataTemplate x:Key="SelectedItem">
-                        <customItemListView:ItemListViewBookSelected/>
-                    </DataTemplate>
-                </ListView.Resources>
-                <ListView.ItemContainerStyle>
-                    <Style TargetType="ListBoxItem">
-                        <Setter Property="ContentTemplate" Value="{StaticResource DefaultTemplate}"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="ContentTemplate" Value="{StaticResource SelectedItem}"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </ListView.ItemContainerStyle>
-            </ListView>
+              HorizontalAlignment="Stretch"
+              Background="Transparent">
+                
+        <ListView.Resources>
+            <DataTemplate x:Key="DefaultTemplateItem">
+                <customItemListView:ItemListViewBookDefault/>
+            </DataTemplate>
+            <DataTemplate x:Key="SelectedTemplateItem">
+                <customItemListView:ItemListViewBookSelected/>
+            </DataTemplate>
+        </ListView.Resources>        
+                
+        <ListView.ItemContainerStyle>
+            <Style TargetType="ListViewItem">
+                <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                <Setter Property="ContentTemplate" Value="{StaticResource DefaultTemplateItem}"/>
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="ContentTemplate" Value="{StaticResource SelectedTemplateItem}"/>
+                    </Trigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="White"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ListView.ItemContainerStyle>
+    </ListView>
 </UserControl>
