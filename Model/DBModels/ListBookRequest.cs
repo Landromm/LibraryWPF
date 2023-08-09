@@ -14,4 +14,6 @@ public partial class ListBookRequest
     public DateOnly DateReturn { get; set; }
 
     public virtual Book Book { get; set; } = null!;
+
+    public virtual TempListBook IdNavigation { get; set; } = null!;
 }

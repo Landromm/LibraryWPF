@@ -42,8 +42,4 @@
     </Resource>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Model\DBModels\" />
-  </ItemGroup>
-
 </Project>

@@ -1,4 +1,5 @@
 ﻿using LibraryWPF.Model;
+using LibraryWPF.Model.DBModels;
 using LibraryWPF.Repositories;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace LibraryWPF.ViewModel
     {
         // Fields
         private CatalogBooksModel? _currentCatalogBook;
+        private UserAccountModel? _currentUser;
         private ObservableCollection<CatalogBooksModel>? _books;
 
         IUserRepository _userRepository;
@@ -27,6 +29,15 @@ namespace LibraryWPF.ViewModel
             {
                 _currentCatalogBook = value;
                 OnPropertyChanged(nameof(CurrentCatalogBook));
+            }
+        }
+        public UserAccountModel? CurrentUser
+        {
+            get => _currentUser;
+            set
+            {
+                _currentUser = value;
+                OnPropertyChanged(nameof(CurrentUser));
             }
         }
         public ObservableCollection<CatalogBooksModel> Books
@@ -48,7 +59,6 @@ namespace LibraryWPF.ViewModel
             AddListBookRequestCommand = new ViewModelCommand(ExecuteAddListBookRequestCommand, CanExecuteAddListBookRequestCommand);
             ExecuteShowListCatalogBooks();
         }
-
         private bool CanExecuteAddListBookRequestCommand(object obj)
         {
             return CurrentCatalogBook != null;
