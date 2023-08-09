@@ -18,6 +18,8 @@ namespace LibraryWPF.ViewModel
         private UserAccountModel? _currentUser;
         private ObservableCollection<CatalogBooksModel>? _books;
 
+        private int _countBookInRequest;
+
         IUserRepository _userRepository;
 
 
@@ -50,25 +52,40 @@ namespace LibraryWPF.ViewModel
             }
         }
 
+        public int CountBookInRequest
+        {
+            get => _countBookInRequest;
+            set
+            {
+                _countBookInRequest = value;
+                OnPropertyChanged(nameof(CountBookInRequest));
+            }
+        }
+
 
         public ICommand AddListBookRequestCommand { get; }
 
         public CatalogBooksViewModel()
         {
             _userRepository = new UserRepository();
-            AddListBookRequestCommand = new ViewModelCommand(ExecuteAddListBookRequestCommand, CanExecuteAddListBookRequestCommand);
+            AddListBookRequestCommand = new ViewModelCommand(ExecuteAddTempListBookCommand, CanExecuteAddListBookRequestCommand);
             ExecuteShowListCatalogBooks();
         }
+
         private bool CanExecuteAddListBookRequestCommand(object obj)
         {
-            return CurrentCatalogBook != null;
-            //return CurrentCatalogBook != null && CurrentCatalogBook.CheckAvailability;
+            //return CurrentCatalogBook != null;
+            return CurrentCatalogBook != null && CurrentCatalogBook.CheckAvailability;
         }
 
-        private void ExecuteAddListBookRequestCommand(object obj)
+        private void ExecuteAddTempListBookCommand(object obj)
         {
             try
             {
+                var tempBook = new TempListBook { IdBook = CurrentCatalogBook.Id, CardNumberUser = CurrentUser.CardNumber };
+                _userRepository.AddTempListBook(tempBook);
+                CountBookInRequest = _userRepository.GetCountBookInRequest(CurrentUser.CardNumber);
+
                 _userRepository.AddListBookRequest(CurrentCatalogBook);
                 CurrentCatalogBook.CheckAvailability = !CurrentCatalogBook.CheckAvailability;
                 ExecuteShowListCatalogBooks();
@@ -87,6 +104,8 @@ namespace LibraryWPF.ViewModel
            
             foreach (var book in tempBooks)
                 Books.Add(book);
+
+            //ExecuteShowCountBookInRequest();
         }
     }
 }
