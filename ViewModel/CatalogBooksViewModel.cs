@@ -64,11 +64,19 @@ namespace LibraryWPF.ViewModel
 
 
         public ICommand AddListBookRequestCommand { get; }
+        public ICommand RefreshViewCommand { get; }
 
         public CatalogBooksViewModel()
         {
             _userRepository = new UserRepository();
             AddListBookRequestCommand = new ViewModelCommand(ExecuteAddTempListBookCommand, CanExecuteAddListBookRequestCommand);
+            RefreshViewCommand = new ViewModelCommand(ExecuteRefreshViewCommand);
+            ExecuteShowListCatalogBooks();
+        }
+
+        private void ExecuteRefreshViewCommand(object obj)
+        {
+            CountBookInRequest = _userRepository.GetCountBookInRequest(CurrentUser.CardNumber);
             ExecuteShowListCatalogBooks();
         }
 

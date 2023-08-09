@@ -52,7 +52,8 @@
                         Margin="0,0,10,0">
                 
                 <Button Style="{StaticResource iconButtonCatalog}"
-                        Tag="{StaticResource color4}">
+                        Tag="{StaticResource color4}"
+                        Command="{Binding DeleteBookCommand}">
                     
                     <fa:IconImage Icon="Remove" 
                                   Style="{StaticResource iconButtonCatalogIcon}"
@@ -62,7 +63,8 @@
                 </Button>
 
                 <Button Style="{StaticResource iconButtonCatalog}"
-                        Tag="{StaticResource color13}">
+                        Tag="{StaticResource color13}"
+                        Command="{Binding AddBookCommand}">
 
                     <fa:IconImage Icon="Add" 
                                   Style="{StaticResource iconButtonCatalogIcon}"/>
@@ -70,7 +72,18 @@
                 </Button>
 
                 <Button Style="{StaticResource iconButtonCatalog}"
+                        Tag="{StaticResource color3}"           
+                        Command="{Binding RefreshViewCommand}"
+                        Margin="40,0,0,0">
+
+                    <fa:IconImage Icon="Refresh" 
+                                  Style="{StaticResource iconButtonCatalogIcon}"/>
+
+                </Button>
+
+                <Button Style="{StaticResource iconButtonCatalog}"
                         Tag="{StaticResource color4}"
+                        Command="{Binding ResetListBookCommand}"
                         Margin="40,0,0,0">
 
                     <fa:IconImage Icon="Cancel" 
@@ -80,6 +93,7 @@
 
                 <Button Style="{StaticResource iconButtonCatalog}"
                         Tag="{StaticResource color13}"
+                        Command="{Binding SendListForRequstCommand}"
                         Margin="0,0,0,0">
 
                     <fa:IconImage Icon="FileImport" 
