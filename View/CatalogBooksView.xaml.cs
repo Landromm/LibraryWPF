@@ -1,4 +1,7 @@
-﻿using System;
+﻿using LibraryWPF.CustomControls;
+using LibraryWPF.Model;
+using LibraryWPF.Model.DBModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +23,19 @@ namespace LibraryWPF.View
     /// </summary>
     public partial class CatalogBooksView : UserControl
     {
+        public static readonly DependencyProperty CurrentUserProperty =
+            DependencyProperty.Register("CurrentUser", typeof(UserAccountModel), typeof(BindablePasswordBox));
+
+        public UserAccountModel CurrentUser
+        {
+            get => (UserAccountModel)GetValue(CurrentUserProperty);
+            set => SetValue(CurrentUserProperty, value);
+        }
+
         public CatalogBooksView()
         {
             InitializeComponent();
         }
+
     }
 }

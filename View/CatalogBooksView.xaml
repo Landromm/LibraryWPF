@@ -6,7 +6,9 @@
              xmlns:local="clr-namespace:LibraryWPF.View"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib"         
-             xmlns:customItemListView="clr-namespace:LibraryWPF.CustomControls"
+             xmlns:customItemListView="clr-namespace:LibraryWPF.CustomControls" 
+             xmlns:viewmodel="clr-namespace:LibraryWPF.ViewModel" 
+             d:DataContext="{d:DesignInstance Type=viewmodel:CatalogBooksViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -14,7 +16,17 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/> 
-        </Grid.RowDefinitions>        
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+
+        </Grid>
 
         <ListView   Grid.Row="1" 
                     ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}"

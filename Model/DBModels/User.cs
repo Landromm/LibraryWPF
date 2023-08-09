@@ -16,4 +16,6 @@ public partial class User
     public virtual LoginUser LoginUserNavigation { get; set; } = null!;
 
     public virtual ICollection<Request> Requests { get; set; } = new List<Request>();
+
+    public virtual ICollection<TempListBook> TempListBooks { get; set; } = new List<TempListBook>();
 }

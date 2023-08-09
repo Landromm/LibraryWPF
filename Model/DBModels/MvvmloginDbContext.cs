@@ -33,12 +33,13 @@ public partial class MvvmloginDbContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
+    public virtual DbSet<TempListBook> TempListBooks { get; set; }
+
     public virtual DbSet<User> Users { get; set; }
 
-    //  Server=LAPTOP-TMRQF3QP\\LANDROMMSQLSERV;
-    //  Server=ASUTP-RADKEVICH;
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=LAPTOP-TMRQF3QP\\LANDROMMSQLSERV; Database=MVVMLoginDb; Integrated Security=True; TrustServerCertificate=True");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseSqlServer("Server=ASUTP-RADKEVICH; Database=MVVMLoginDb; Integrated Security=True; TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -83,15 +84,20 @@ public partial class MvvmloginDbContext : DbContext
                 .HasForeignKey(d => d.BookId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ListBookRequest_Books");
+
+            entity.HasOne(d => d.IdNavigation).WithOne(p => p.ListBookRequest)
+                .HasPrincipalKey<TempListBook>(p => p.IdBook)
+                .HasForeignKey<ListBookRequest>(d => d.Id)
+                .HasConstraintName("FK_ListBookRequest_TempListBook");
         });
 
         modelBuilder.Entity<LoginUser>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LoginUse__3214EC0744C9119A");
+            entity.HasKey(e => e.Id).HasName("PK__LoginUse__3214EC07810A340D");
 
             entity.ToTable("LoginUser");
 
-            entity.HasIndex(e => e.Login, "UQ__LoginUse__5E55825BA54C208E").IsUnique();
+            entity.HasIndex(e => e.Login, "UQ__LoginUse__5E55825B2E88A173").IsUnique();
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Login).HasMaxLength(50);
@@ -167,6 +173,19 @@ public partial class MvvmloginDbContext : DbContext
             entity.Property(e => e.RoleUsers)
                 .HasMaxLength(10)
                 .IsFixedLength();
+        });
+
+        modelBuilder.Entity<TempListBook>(entity =>
+        {
+            entity.ToTable("TempListBook");
+
+            entity.HasIndex(e => e.IdBook, "IX_TempListBook").IsUnique();
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+
+            entity.HasOne(d => d.CardNumberUserNavigation).WithMany(p => p.TempListBooks)
+                .HasForeignKey(d => d.CardNumberUser)
+                .HasConstraintName("FK_TempListBook_User");
         });
 
         modelBuilder.Entity<User>(entity =>

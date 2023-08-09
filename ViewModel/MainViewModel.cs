@@ -14,6 +14,7 @@ namespace LibraryWPF.ViewModel
     public class MainViewModel: ViewModelBase
     {
         //Fields
+        private CatalogBooksViewModel _catalogBooksVM;
         private UserAccountModel _currentUserAccount;
         private ViewModelBase _currentChildView;
         private string _caption;
@@ -22,6 +23,15 @@ namespace LibraryWPF.ViewModel
         private IUserRepository userRepository;
 
         //Properties
+        public CatalogBooksViewModel CatalogBooksVM
+        {
+            get => _catalogBooksVM;
+            set
+            {
+                _catalogBooksVM = value;
+                OnPropertyChanged(nameof(CatalogBooksVM));
+            }
+        }
         public UserAccountModel CurrentUserAccount 
         { 
             get => _currentUserAccount;
@@ -78,13 +88,12 @@ namespace LibraryWPF.ViewModel
 
             //Вид по умолчанию.
             ExecuteShowHomeViewCommand(null);
-
             LoadCurrentUserData();
         }
 
         private void ExecuteShowCatalogsBooksViewCommand(object obj)
         {
-            CurrentChildView = new CatalogBooksViewModel();
+            CurrentChildView = new CatalogBooksViewModel() { CurrentUser = CurrentUserAccount};
             Caption = "Каталог книг";
             Icon = IconChar.Book;
         }
@@ -117,6 +126,7 @@ namespace LibraryWPF.ViewModel
             {
                 CurrentUserAccount.Username = user.Username;
                 CurrentUserAccount.DisplayName = $" {user.Name} {user.LastName}. Ч.Билет №{user.CardNumber}";
+                CurrentUserAccount.CardNumber = user.CardNumber;
                 CurrentUserAccount.ProfilePicture = null!;
             }
             else
