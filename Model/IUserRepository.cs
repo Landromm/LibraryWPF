@@ -36,6 +36,8 @@ namespace LibraryWPF.Model
 
         #region For Frame CatalogBooks
         void AddListBookRequest(CatalogBooksModel book);
+        int GetCountBookInRequest(int cardNumber);
+        void AddTempListBook(TempListBook book);
         #endregion
 
         UserModel GetById(int id);

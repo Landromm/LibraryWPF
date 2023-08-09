@@ -181,8 +181,6 @@ public partial class MvvmloginDbContext : DbContext
 
             entity.HasIndex(e => e.IdBook, "IX_TempListBook").IsUnique();
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
-
             entity.HasOne(d => d.CardNumberUserNavigation).WithMany(p => p.TempListBooks)
                 .HasForeignKey(d => d.CardNumberUser)
                 .HasConstraintName("FK_TempListBook_User");

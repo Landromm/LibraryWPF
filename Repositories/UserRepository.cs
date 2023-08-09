@@ -253,6 +253,25 @@ namespace LibraryWPF.Repositories
                 context.SaveChanges();
             }
         }
+        public int GetCountBookInRequest(int cardNumber)
+        {
+            int countBook = 0;
+            using var context = new MvvmloginDbContext();
+            {
+                var count = context.TempListBooks.Where(cb => cb.CardNumberUser.Equals(cardNumber)).Count();
+                if (count != null) 
+                    countBook = count;
+            }
+            return countBook;
+        }
+        public void AddTempListBook(TempListBook book)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                context.TempListBooks.Add(book);
+                context.SaveChanges();
+            }
+        }
         #endregion
 
         public ObservableCollection<ReadPlace> GetByAllReadPlaces()

@@ -36,6 +36,5 @@ namespace LibraryWPF.View
         {
             InitializeComponent();
         }
-
     }
 }

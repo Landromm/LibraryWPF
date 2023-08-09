@@ -24,7 +24,70 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            
+
+            <StackPanel Grid.Column="0"
+                        Orientation="Horizontal"
+                        VerticalAlignment="Bottom"
+                        Margin="10,0,0,10">
+
+                <TextBlock  Text="Количество книг в заявке:"
+                            Foreground="DarkGray"
+                            FontSize="14"
+                            FontWeight="Medium"
+                            FontFamily="Montserrat"
+                            VerticalAlignment="Bottom"/>
+
+                <TextBlock  Text="{Binding CountBookInRequest}"
+                            Foreground="White"                            
+                            FontSize="18"
+                            FontFamily="Cascadia Code"
+                            Margin="10,0,0,0"/>
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="1"
+                        Orientation="Horizontal"
+                        FlowDirection="RightToLeft"
+                        VerticalAlignment="Center"
+                        Margin="0,0,10,0">
+                
+                <Button Style="{StaticResource iconButtonCatalog}"
+                        Tag="{StaticResource color4}">
+                    
+                    <fa:IconImage Icon="Remove" 
+                                  Style="{StaticResource iconButtonCatalogIcon}"
+                                  Width="25"
+                                  Height="25"/>
+                    
+                </Button>
+
+                <Button Style="{StaticResource iconButtonCatalog}"
+                        Tag="{StaticResource color13}">
+
+                    <fa:IconImage Icon="Add" 
+                                  Style="{StaticResource iconButtonCatalogIcon}"/>
+
+                </Button>
+
+                <Button Style="{StaticResource iconButtonCatalog}"
+                        Tag="{StaticResource color4}"
+                        Margin="40,0,0,0">
+
+                    <fa:IconImage Icon="Cancel" 
+                                  Style="{StaticResource iconButtonCatalogIcon}"/>
+
+                </Button>
+
+                <Button Style="{StaticResource iconButtonCatalog}"
+                        Tag="{StaticResource color13}"
+                        Margin="0,0,0,0">
+
+                    <fa:IconImage Icon="FileImport" 
+                                  Style="{StaticResource iconButtonCatalogIcon}"/>
+
+                </Button>
+
+            </StackPanel>
 
         </Grid>
 
