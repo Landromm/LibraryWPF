@@ -272,6 +272,49 @@ namespace LibraryWPF.Repositories
                 context.SaveChanges();
             }
         }
+        public async void ResetCurrentListBook(int cardNumber)
+        {
+            List<int> listIdBook = new List<int>();
+            List<Book> books = new List<Book>();
+            using var context = new MvvmloginDbContext();
+            {
+                listIdBook = context.TempListBooks
+                    .Where(cn => cn.CardNumberUser == cardNumber)
+                    .Select(idBooks => idBooks.IdBook).ToList();
+
+                foreach (var tbook in listIdBook)
+                {
+                    var tempItemListBook = context.TempListBooks.Where(b => b.IdBook == tbook).First();
+                    context.TempListBooks.Remove(tempItemListBook);
+                    books.Add(context.Books.Find(tbook));
+                    context.SaveChanges();
+                 }
+            }
+            // Изменение состояния книг на "Доступно".
+            using var context2 = new MvvmloginDbContext();
+            {
+                foreach (var item in books)
+                {
+                    var tempBook = new Book()
+                    {
+                        Id = item.Id,
+                        Title = item.Title,
+                        Serias = item.Serias,
+                        YearPublich = item.YearPublich,
+                        Pages = item.Pages,
+                        AutorId = item.AutorId,
+                        StackNumber = item.StackNumber,
+                        ReadPlace = item.ReadPlace,
+                        Publisher = item.Publisher,
+                        CheckAvailability = !item.CheckAvailability
+                    };
+                    context2.Books.Update(tempBook);
+                    context2.SaveChanges();
+                }
+            }
+           
+
+        }
         #endregion
 
         public ObservableCollection<ReadPlace> GetByAllReadPlaces()
