@@ -114,7 +114,6 @@ namespace LibraryWPF.ViewModel
         {
             var singupView = new SingUpView();
             singupView.ShowDialog();
-
         }
     }
 }

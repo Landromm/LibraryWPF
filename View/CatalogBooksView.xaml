@@ -284,17 +284,17 @@
                                 <Setter Property="BorderBrush">
                                     <Setter.Value>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                            <GradientStop Color="{StaticResource winBorderColor1}" Offset="0"/>
-                                            <GradientStop Color="{StaticResource winBorderColor2}" Offset="0.75"/>
-                                            <GradientStop Color="{StaticResource winBorderColor3}" Offset="1"/>
+                                            <GradientStop Color="{StaticResource GreenBackColor2}" Offset="0"/>
+                                            <GradientStop Color="{StaticResource winBorderColor4}" Offset="0.75"/>
+                                            <GradientStop Color="{StaticResource GreenBackColor3}" Offset="1"/>
                                         </LinearGradientBrush>
                                     </Setter.Value>
                                 </Setter>
                                 <Setter Property="Background">
                                     <Setter.Value>
                                         <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                            <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
-                                            <GradientStop Color="{StaticResource primaryBackColor1}" Offset="1"/>
+                                            <GradientStop Color="{StaticResource GreenBackColor1}" Offset="0"/>
+                                            <GradientStop Color="{StaticResource GreenBackColor2}" Offset="1"/>
                                         </LinearGradientBrush>
                                     </Setter.Value>
                                 </Setter>
@@ -561,17 +561,17 @@
                                                                 <Setter Property="Background">
                                                                     <Setter.Value>
                                                                         <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                                                            <GradientStop Color="#6ff794" Offset="0"/>
-                                                                            <GradientStop Color="#004212" Offset="1"/>
+                                                                            <GradientStop Color="{StaticResource GreenBackColor3}" Offset="0"/>
+                                                                            <GradientStop Color="{StaticResource GreenBackColor2}" Offset="1"/>
                                                                         </LinearGradientBrush>
                                                                     </Setter.Value>
                                                                 </Setter>
                                                                 <Setter Property="BorderBrush">
                                                                     <Setter.Value>
                                                                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                                                                            <GradientStop Color="#005718" Offset="0"/>
-                                                                            <GradientStop Color="#4c52f5" Offset="0.75"/>
-                                                                            <GradientStop Color="#38ff6e" Offset="1"/>
+                                                                            <GradientStop Color="{StaticResource GreenBackColor2}" Offset="0"/>
+                                                                            <GradientStop Color="{StaticResource winBorderColor4}" Offset="0.75"/>
+                                                                            <GradientStop Color="{StaticResource GreenBackColor3}" Offset="1"/>
                                                                         </LinearGradientBrush>
                                                                     </Setter.Value>
                                                                 </Setter>

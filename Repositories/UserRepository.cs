@@ -253,6 +253,40 @@ namespace LibraryWPF.Repositories
                 context.SaveChanges();
             }
         }
+        public void DeleteCurrentBook(CatalogBooksModel book)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                var idAutor = context.Autors
+                    .Where(autor => autor.Name.Equals(book.NameAutor) &&
+                    autor.LastName.Equals(book.LastNameAutor))
+                    .Select(id => id.Id)
+                    .ToList()
+                    .First();
+
+                var idReadPlace = context.ReadPlaces
+                    .Where(rp => rp.ReadPlace1.Equals(book.ReadPlace))
+                    .Select(id => id.Id)
+                    .ToList()
+                    .First();
+
+                var tempBook = new Book()
+                {
+                    Id = book.Id,
+                    Title = book.Title,
+                    Serias = book.Serias,
+                    YearPublich = book.YearPublich,
+                    Pages = book.Pages,
+                    AutorId = idAutor,
+                    StackNumber = book.StackNumber,
+                    ReadPlace = idReadPlace,
+                    Publisher = book.Publisher,
+                    CheckAvailability = book.CheckAvailability
+                };
+                context.Books.Remove(tempBook);
+                context.SaveChanges();
+            }
+        }
         public int GetCountBookInRequest(int cardNumber)
         {
             int countBook = 0;

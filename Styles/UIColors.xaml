@@ -6,10 +6,14 @@
     <Color x:Key="primaryBackColor2">#1C0E49</Color>
     <Color x:Key="secondaryBackColor1">#24105F</Color>
     <Color x:Key="secondaryBackColor2">#210F55</Color>
+    <Color x:Key="GreenBackColor1">#001f08</Color>
+    <Color x:Key="GreenBackColor2">#004212</Color>
+    <Color x:Key="GreenBackColor3">#38ff6e</Color>
     <!--Window Border Colors-->
     <Color x:Key="winBorderColor1">#6D2FFF</Color>
     <Color x:Key="winBorderColor2">#FB539B</Color>
     <Color x:Key="winBorderColor3">#836EFB</Color>
+    <Color x:Key="winBorderColor4">#4c52f5</Color>
     <!--Color Palette-->
     <SolidColorBrush x:Key="color1" Color="#E285DE"/>
     <SolidColorBrush x:Key="color2" Color="#784DFD"/>
