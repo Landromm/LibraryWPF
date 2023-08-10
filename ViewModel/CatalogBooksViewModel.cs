@@ -1,12 +1,14 @@
 ﻿using LibraryWPF.Model;
 using LibraryWPF.Model.DBModels;
 using LibraryWPF.Repositories;
+using LibraryWPF.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace LibraryWPF.ViewModel
@@ -64,8 +66,8 @@ namespace LibraryWPF.ViewModel
 
 
         public ICommand AddListBookRequestCommand { get; }
-        //public ICommand DeleteBookCommand { get; }
-        //public ICommand AddBookCommand { get; }
+        public ICommand DeleteBookCommand { get; }
+        public ICommand AddBookCommand { get; }
         public ICommand RefreshViewCommand { get; }
         public ICommand ResetListBookCommand { get; }
         //public ICommand SendListForRequstCommand { get; }
@@ -74,9 +76,35 @@ namespace LibraryWPF.ViewModel
         {
             _userRepository = new UserRepository();
             AddListBookRequestCommand = new ViewModelCommand(ExecuteAddTempListBookCommand, CanExecuteAddListBookRequestCommand);
+            DeleteBookCommand = new ViewModelCommand(ExecuteDeleteBookCommand, CanExecuteDeleteBookCommand);
+            AddBookCommand = new ViewModelCommand(p => ExecuteAddTempListBookCommand());
             RefreshViewCommand = new ViewModelCommand(ExecuteRefreshViewCommand);
             ResetListBookCommand = new ViewModelCommand(ExecutResetListBookCommand, CanExecutResetListBookCommand);
             ExecuteShowListCatalogBooks();
+        }
+
+        private bool CanExecuteDeleteBookCommand(object obj)
+        {
+            return CurrentCatalogBook != null;
+        }
+        private void ExecuteDeleteBookCommand(object obj)
+        {
+            var confirm = MessageBox.Show("Вы точно хотите удалить данную книгу?",
+                                                "Внимание!",
+                                                MessageBoxButton.YesNo,
+                                                MessageBoxImage.Question,
+                                                MessageBoxResult.Yes);
+            if ((int)confirm == 6)
+            {
+                _userRepository.DeleteCurrentBook(CurrentCatalogBook);
+                ExecuteShowListCatalogBooks();
+            }
+        }
+
+        private void ExecuteAddTempListBookCommand()
+        {
+            var addBook = new AddBookView();
+            addBook.ShowDialog();
         }
 
         private bool CanExecutResetListBookCommand(object obj)
@@ -85,7 +113,6 @@ namespace LibraryWPF.ViewModel
                 return true; 
             return false;
         }
-
         private void ExecutResetListBookCommand(object obj)
         {
             _userRepository.ResetCurrentListBook(CurrentUser.CardNumber);
@@ -104,7 +131,6 @@ namespace LibraryWPF.ViewModel
             //return CurrentCatalogBook != null;
             return CurrentCatalogBook != null && CurrentCatalogBook.CheckAvailability;
         }
-
         private void ExecuteAddTempListBookCommand(object obj)
         {
             try
@@ -139,5 +165,6 @@ namespace LibraryWPF.ViewModel
 
             //ExecuteShowCountBookInRequest();
         }
+
     }
 }
