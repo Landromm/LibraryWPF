@@ -8,7 +8,7 @@
         xmlns:customcontrols="clr-namespace:LibraryWPF.CustomControls" 
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"        
-        Title="AddBook" Height="760" Width="400"
+        Title="AddBook" Height="740" Width="400"
         WindowStyle="None"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
@@ -126,7 +126,7 @@
 
             </Grid>
 
-            <StackPanel Width="220"
+            <StackPanel Width="250"
                         Grid.Row="1"
                         Orientation="Vertical"
                         Margin="0,15,0,0">
@@ -198,6 +198,18 @@
                             Padding="20,0,0,0">
                 </TextBox>
 
+                <TextBlock  Text="Издательство:"
+                            Style="{StaticResource textBlockLabelDefault}"
+                            Margin="0,15,0,0"/>
+
+                <TextBox    x:Name="txtPublisher"
+                            Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged}"
+                            Style="{StaticResource textBoxDefault}"
+                            Height="28"
+                            Margin="0,5,0,0"
+                            Padding="20,0,0,0">
+                </TextBox>
+
                 <TextBlock  Text="Автор:"
                             Style="{StaticResource textBlockLabelDefault}"
                             Margin="0,15,0,0"/>
@@ -226,19 +238,7 @@
                             SelectedItem="{Binding SelectedReadPlace}"
                             Style="{DynamicResource ComboBoxFlatStyle}">
 
-                </ComboBox>
-
-                <TextBlock  Text="Издательство:"
-                            Style="{StaticResource textBlockLabelDefault}"
-                            Margin="0,15,0,0"/>
-
-                <TextBox    x:Name="txtPublisher"
-                            Text="{Binding Publisher, UpdateSourceTrigger=PropertyChanged}"
-                            Style="{StaticResource textBoxDefault}"
-                            Height="28"
-                            Margin="0,5,0,0"
-                            Padding="20,0,0,0">
-                </TextBox>
+                </ComboBox>                
 
                 <Button x:Name="btnReset"
                         Content="Сброс"
@@ -283,8 +283,8 @@
                             Margin="0,15,0,0"
                             TextWrapping="Wrap"/>
 
-                <Button x:Name="btnSingUp"
-                        Command="{Binding SingUpCommand}"
+                <Button x:Name="btnAddBook"
+                        Command="{Binding AddBookCommand}"
                         BorderThickness="0"
                         Content="ДОБАВИТЬ"
                         Foreground="White"
@@ -315,7 +315,7 @@
                     </Button.Template>
                 </Button>
                 <Button x:Name="btnCancel"
-                        Command="{Binding SingUpCommand}"
+                        Command="{Binding CancelCommand}"
                         BorderThickness="0"
                         Content="ОТМЕНА"
                         Foreground="White"
