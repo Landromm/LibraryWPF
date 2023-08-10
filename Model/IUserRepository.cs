@@ -38,6 +38,7 @@ namespace LibraryWPF.Model
         void AddListBookRequest(CatalogBooksModel book);
         int GetCountBookInRequest(int cardNumber);
         void AddTempListBook(TempListBook book);
+        void ResetCurrentListBook(int cardNumber);
         #endregion
 
         UserModel GetById(int id);

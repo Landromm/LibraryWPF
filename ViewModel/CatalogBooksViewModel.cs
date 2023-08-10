@@ -64,19 +64,38 @@ namespace LibraryWPF.ViewModel
 
 
         public ICommand AddListBookRequestCommand { get; }
+        //public ICommand DeleteBookCommand { get; }
+        //public ICommand AddBookCommand { get; }
         public ICommand RefreshViewCommand { get; }
+        public ICommand ResetListBookCommand { get; }
+        //public ICommand SendListForRequstCommand { get; }
 
         public CatalogBooksViewModel()
         {
             _userRepository = new UserRepository();
             AddListBookRequestCommand = new ViewModelCommand(ExecuteAddTempListBookCommand, CanExecuteAddListBookRequestCommand);
             RefreshViewCommand = new ViewModelCommand(ExecuteRefreshViewCommand);
+            ResetListBookCommand = new ViewModelCommand(ExecutResetListBookCommand, CanExecutResetListBookCommand);
+            ExecuteShowListCatalogBooks();
+        }
+
+        private bool CanExecutResetListBookCommand(object obj)
+        {
+            if (CountBookInRequest > 0)
+                return true; 
+            return false;
+        }
+
+        private void ExecutResetListBookCommand(object obj)
+        {
+            _userRepository.ResetCurrentListBook(CurrentUser.CardNumber);
+            ExecuteGetCountBookInRequest();
             ExecuteShowListCatalogBooks();
         }
 
         private void ExecuteRefreshViewCommand(object obj)
         {
-            CountBookInRequest = _userRepository.GetCountBookInRequest(CurrentUser.CardNumber);
+            ExecuteGetCountBookInRequest();
             ExecuteShowListCatalogBooks();
         }
 
@@ -92,7 +111,7 @@ namespace LibraryWPF.ViewModel
             {
                 var tempBook = new TempListBook { IdBook = CurrentCatalogBook.Id, CardNumberUser = CurrentUser.CardNumber };
                 _userRepository.AddTempListBook(tempBook);
-                CountBookInRequest = _userRepository.GetCountBookInRequest(CurrentUser.CardNumber);
+                ExecuteGetCountBookInRequest();
 
                 _userRepository.AddListBookRequest(CurrentCatalogBook);
                 CurrentCatalogBook.CheckAvailability = !CurrentCatalogBook.CheckAvailability;
@@ -103,6 +122,11 @@ namespace LibraryWPF.ViewModel
                 Console.WriteLine(ex);
                 throw;
             }
+        }
+
+        private void ExecuteGetCountBookInRequest()
+        {
+            CountBookInRequest = _userRepository.GetCountBookInRequest(CurrentUser.CardNumber);
         }
 
         private void ExecuteShowListCatalogBooks()
