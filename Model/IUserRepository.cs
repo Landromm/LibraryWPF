@@ -40,6 +40,8 @@ namespace LibraryWPF.Model
         void AddTempListBook(TempListBook book);
         void DeleteCurrentBook(CatalogBooksModel book);
         void ResetCurrentListBook(int cardNumber);
+        void AddBook(Book book);
+
         #endregion
 
         UserModel GetById(int id);

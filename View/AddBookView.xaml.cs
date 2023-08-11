@@ -42,7 +42,14 @@ namespace LibraryWPF.View
 
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-
+            txtTitle.Text = string.Empty;
+            txtSerias.Text = string.Empty;
+            txtYearPublich.Text = string.Empty;
+            txtPages.Text = string.Empty;
+            txtPublisher.Text = string.Empty;
+            cbAutorName.SelectedItem = null;
+            cbStackNumber.SelectedItem = null;
+            cbReadPlaceName.SelectedItem = null;
         }
     }
 }
