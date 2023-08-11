@@ -166,7 +166,7 @@
                             Style="{StaticResource textBlockLabelDefault}"
                             Margin="0,15,0,0"/>
 
-                <TextBox    x:Name="txtUsername"
+                <TextBox    x:Name="txtSerias"
                             Text="{Binding Serias, UpdateSourceTrigger=PropertyChanged}"
                             Style="{StaticResource textBoxDefault}"
                             Height="28"
@@ -179,11 +179,16 @@
                             Margin="0,15,0,0"/>
 
                 <TextBox    x:Name="txtYearPublich"
-                            Text="{Binding YearPublich, UpdateSourceTrigger=PropertyChanged}"
                             Style="{StaticResource textBoxDefault}"
                             Height="28"
                             Margin="0,5,0,0"
                             Padding="20,0,0,0">
+                    <TextBox.Text>
+                        <Binding Path="YearPublich" UpdateSourceTrigger="PropertyChanged">
+                            
+                            <Binding.ValidationRules/>
+                        </Binding>
+                    </TextBox.Text>
                 </TextBox>
 
                 <TextBlock  Text="Количество страниц:"
@@ -191,11 +196,15 @@
                             Margin="0,15,0,0"/>
 
                 <TextBox    x:Name="txtPages"
-                            Text="{Binding Pages, UpdateSourceTrigger=PropertyChanged}"
                             Style="{StaticResource textBoxDefault}"
                             Height="28"
                             Margin="0,5,0,0"
                             Padding="20,0,0,0">
+                    <TextBox.Text>
+                        <Binding Path="Pages" UpdateSourceTrigger="PropertyChanged">
+                            <Binding.ValidationRules/>
+                        </Binding>
+                    </TextBox.Text>
                 </TextBox>
 
                 <TextBlock  Text="Издательство:"
@@ -214,8 +223,9 @@
                             Style="{StaticResource textBlockLabelDefault}"
                             Margin="0,15,0,0"/>
 
-                <ComboBox   ItemsSource="{Binding ListAutor}"
-                            SelectedItem="{Binding SelectedAutor}"
+                <ComboBox   x:Name="cbAutorName"   
+                            ItemsSource="{Binding ListAutorName}"
+                            SelectedItem="{Binding SelectedAutorName}"
                             Style="{DynamicResource ComboBoxFlatStyle}">
                     
                 </ComboBox>
@@ -224,7 +234,8 @@
                             Style="{StaticResource textBlockLabelDefault}"
                             Margin="0,15,0,0"/>
 
-                <ComboBox   ItemsSource="{Binding ListStackNumber}"
+                <ComboBox   x:Name="cbStackNumber"     
+                            ItemsSource="{Binding ListStackNumber}"
                             SelectedItem="{Binding SelectedStackNumber}"
                             Style="{DynamicResource ComboBoxFlatStyle}">
 
@@ -234,7 +245,8 @@
                             Style="{StaticResource textBlockLabelDefault}"
                             Margin="0,15,0,0"/>
 
-                <ComboBox   ItemsSource="{Binding ListReadPlace}"
+                <ComboBox   x:Name="cbReadPlaceName"
+                            ItemsSource="{Binding ListReadPlaceName}"
                             SelectedItem="{Binding SelectedReadPlace}"
                             Style="{DynamicResource ComboBoxFlatStyle}">
 
@@ -315,14 +327,14 @@
                     </Button.Template>
                 </Button>
                 <Button x:Name="btnCancel"
-                        Command="{Binding CancelCommand}"
                         BorderThickness="0"
                         Content="ОТМЕНА"
                         Foreground="White"
                         FontSize="12"
                         FontFamily="Montserrat"
                         Cursor="Hand"                           
-                        Margin="0,15,0,0">
+                        Margin="0,15,0,0"
+                        Click="btnClose_Click">
 
                     <Button.Style>
                         <Style TargetType="Button">

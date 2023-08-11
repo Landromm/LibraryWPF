@@ -306,7 +306,7 @@ namespace LibraryWPF.Repositories
                 context.SaveChanges();
             }
         }
-        public async void ResetCurrentListBook(int cardNumber)
+        public void ResetCurrentListBook(int cardNumber)
         {
             List<int> listIdBook = new List<int>();
             List<Book> books = new List<Book>();
@@ -346,8 +346,14 @@ namespace LibraryWPF.Repositories
                     context2.SaveChanges();
                 }
             }
-           
-
+        }
+        public void AddBook(Book book)
+        {
+            using var context = new MvvmloginDbContext();
+            {
+                context.Books.Add(book);
+                context.SaveChanges();
+            }
         }
         #endregion
 
@@ -359,7 +365,7 @@ namespace LibraryWPF.Repositories
                 var result = context.ReadPlaces.ToList();
                 foreach (var readPlace in result)
                 {
-                    readPlaces.Add(new ReadPlace() { ReadPlace1 = readPlace.ReadPlace1 });
+                    readPlaces.Add(new ReadPlace() {Id = readPlace.Id, ReadPlace1 = readPlace.ReadPlace1 });
                 }
             }
             return readPlaces;

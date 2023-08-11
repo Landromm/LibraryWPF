@@ -64,7 +64,6 @@ namespace LibraryWPF.ViewModel
             }
         }
 
-
         public ICommand AddListBookRequestCommand { get; }
         public ICommand DeleteBookCommand { get; }
         public ICommand AddBookCommand { get; }
