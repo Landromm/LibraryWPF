@@ -35,7 +35,7 @@ namespace LibraryWPF.Model
         #endregion
 
         #region For Frame CatalogBooks
-        void AddListBookRequest(CatalogBooksModel book);
+        void ChangedCheckAvailabilityAddedBook(CatalogBooksModel book);
         int GetCountBookInRequest(int cardNumber);
         void AddTempListBook(TempListBook book);
         void DeleteCurrentBook(CatalogBooksModel book);
