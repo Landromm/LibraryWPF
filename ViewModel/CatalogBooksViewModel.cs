@@ -223,7 +223,7 @@ namespace LibraryWPF.ViewModel
             _userRepository = new UserRepository();
             AddListBookRequestCommand = new ViewModelCommand(ExecuteAddTempListBookCommand, CanExecuteAddListBookRequestCommand);
             DeleteBookCommand = new ViewModelCommand(ExecuteDeleteBookCommand, CanExecuteDeleteBookCommand);
-            AddBookCommand = new ViewModelCommand(p => ExecuteAddTempListBookCommand());
+            AddBookCommand = new ViewModelCommand(p => ExecuteAddBookCommand());
             RefreshViewCommand = new ViewModelCommand(ExecuteRefreshViewCommand);
             ResetListBookCommand = new ViewModelCommand(ExecutResetListBookCommand, CanExecutResetListBookCommand);
 
@@ -336,7 +336,7 @@ namespace LibraryWPF.ViewModel
             }
         }
 
-        private void ExecuteAddTempListBookCommand()
+        private void ExecuteAddBookCommand()
         {
             var addBook = new AddBookView();
             addBook.ShowDialog();
@@ -386,7 +386,7 @@ namespace LibraryWPF.ViewModel
                 _userRepository.AddTempListBook(tempBook);
                 ExecuteGetCountBookInRequest();
 
-                _userRepository.AddListBookRequest(CurrentCatalogBook);
+                _userRepository.ChangedCheckAvailabilityAddedBook(CurrentCatalogBook);
                 CurrentCatalogBook.CheckAvailability = !CurrentCatalogBook.CheckAvailability;
                 ExecuteShowListCatalogBooks();
             }

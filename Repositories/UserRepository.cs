@@ -218,7 +218,7 @@ namespace LibraryWPF.Repositories
         #endregion
 
         #region For Frame Catalog Books
-        public void AddListBookRequest(CatalogBooksModel book)
+        public void ChangedCheckAvailabilityAddedBook(CatalogBooksModel book)
         {
 
             using var context = new MvvmloginDbContext();
