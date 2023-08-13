@@ -180,7 +180,6 @@ namespace LibraryWPF.ViewModel
 
             return true;
         }
-
         private void ExecuteAddBookCommand(object obj)
         {
             var idReadPlace = ReadPlaces.Where(rd => rd.ReadPlace1.Equals(SelectedReadPlace)).Select(id => id.Id).ToList();
