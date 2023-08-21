@@ -1,6 +1,7 @@
 ﻿using LibraryWPF.Model;
 using LibraryWPF.Model.DBModels;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +10,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Security;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -353,6 +355,99 @@ namespace LibraryWPF.Repositories
             {
                 context.Books.Add(book);
                 context.SaveChanges();
+            }
+        }
+
+        public int AddListBookRequest(TempListBook tempListBook)
+        {
+            return 0;
+        }
+        public int AddRequest(Request request)
+        {
+            return 0;
+        }
+        public void AddRequest_ListBookRequest(int number, int id)
+        {
+
+        }
+
+        public void AddRequest(int cardNumber)
+        {
+            // Рандомная генерация номера списка книг в заявке.
+            Random rnd = new Random();
+            int rndListBook = rnd.Next(1000, 9999);
+            var listTempBook = new List<TempListBook>();
+            bool okRnd = false;
+
+            // Подбираем и проверяем уникальность номера списка книг для заявки.
+            while (!okRnd)
+            {
+                using var context1 = new MvvmloginDbContext();
+                {
+                    //var resultExistListBook = context1.ListBookRequests.Where(lb => lb.ListBooks.Equals(rndListBook));
+                    if (context1.ListBookRequests.Where(lb => lb.ListBooks.Equals(rndListBook)) != null)
+                    {
+                        okRnd = true; break;
+                    }
+                    else
+                        rndListBook = rnd.Next(1000, 9999);
+                }
+            }
+
+            // Создаем заявку и перемещаем книги из временно списка в постоянный.
+            using var context2 = new MvvmloginDbContext();
+            {
+                listTempBook = context2.TempListBooks.Where(userCardNumber => userCardNumber.CardNumberUser.Equals(cardNumber)).ToList();
+
+                var request = new Request
+                {
+                    ListBook = rndListBook,
+                    DateRegistrRequest = DateTime.Now,
+                    StatusRequest = false,
+                    UserCardNumber = cardNumber
+                };
+                context2.Requests.Add(request);
+
+                // Добавляем книги в постоянный список и удаляем из временного.
+                foreach (var itemListTempBook in listTempBook)
+                {
+                    var listBookRequest = new ListBookRequest
+                    {
+                        BookId = itemListTempBook.IdBook,
+                        DateOfissue = null,
+                        DateReturn = null,
+                        ListBooks = rndListBook
+                    };
+                    context2.ListBookRequests.Add(listBookRequest);
+                    context2.TempListBooks.Remove(itemListTempBook);
+                }
+                context2.SaveChanges();
+            }
+
+            // Соединяем 2 таблицы в соответсвии с заявкой и прилагаемой к ней списком книг.
+            using var context3 = new MvvmloginDbContext();
+            {
+                var numberRequest = context3.Requests
+                    .Where(lb => lb.ListBook.Equals(rndListBook))
+                    .Select(id => id.Number)
+                    .ToList()
+                    .First();
+
+                var listBookRequest = context3.ListBookRequests
+                    .Where(lb => lb.ListBooks.Equals(rndListBook))
+                    .Select(id => id.Id)
+                    .ToList();
+
+                foreach (var item in listBookRequest)
+                {
+                    var request_listBookRequest = new RequestListBookRequest
+                    {
+                        Number = numberRequest,
+                        IdListBook = item
+                    };
+                    context3.RequestListBookRequests.Add(request_listBookRequest);
+                }
+                context3.SaveChanges();
             }
         }
         #endregion

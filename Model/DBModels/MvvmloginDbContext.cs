@@ -78,26 +78,19 @@ public partial class MvvmloginDbContext : DbContext
         {
             entity.ToTable("ListBookRequest");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
-
             entity.HasOne(d => d.Book).WithMany(p => p.ListBookRequests)
                 .HasForeignKey(d => d.BookId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_ListBookRequest_Books");
-
-            entity.HasOne(d => d.IdNavigation).WithOne(p => p.ListBookRequest)
-                .HasPrincipalKey<TempListBook>(p => p.IdBook)
-                .HasForeignKey<ListBookRequest>(d => d.Id)
-                .HasConstraintName("FK_ListBookRequest_TempListBook");
         });
 
         modelBuilder.Entity<LoginUser>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__LoginUse__3214EC07810A340D");
+            entity.HasKey(e => e.Id).HasName("PK__LoginUse__3214EC07C62221CE");
 
             entity.ToTable("LoginUser");
 
-            entity.HasIndex(e => e.Login, "UQ__LoginUse__5E55825B2E88A173").IsUnique();
+            entity.HasIndex(e => e.Login, "UQ__LoginUse__5E55825BBECD97B9").IsUnique();
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.Login).HasMaxLength(50);
@@ -138,7 +131,7 @@ public partial class MvvmloginDbContext : DbContext
 
             entity.ToTable("Request");
 
-            entity.Property(e => e.Number).ValueGeneratedNever();
+            entity.Property(e => e.DateRegistrRequest).HasColumnType("datetime");
             entity.Property(e => e.StatusRequest).HasComment("True - Заявка одобрена, false - заявка на рассмотрении.");
 
             entity.HasOne(d => d.UserCardNumberNavigation).WithMany(p => p.Requests)
@@ -149,20 +142,17 @@ public partial class MvvmloginDbContext : DbContext
 
         modelBuilder.Entity<RequestListBookRequest>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("Request_ListBookRequest");
+            entity.ToTable("Request_ListBookRequest");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.IdListBook).HasColumnName("idListBook");
 
-            entity.HasOne(d => d.IdNavigation).WithMany()
-                .HasForeignKey(d => d.Id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
+            entity.HasOne(d => d.IdListBookNavigation).WithMany(p => p.RequestListBookRequests)
+                .HasForeignKey(d => d.IdListBook)
                 .HasConstraintName("FK_Request_ListBookRequest_ListBookRequest");
 
-            entity.HasOne(d => d.NumberNavigation).WithMany()
+            entity.HasOne(d => d.NumberNavigation).WithMany(p => p.RequestListBookRequests)
                 .HasForeignKey(d => d.Number)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Request_ListBookRequest_Request");
         });
 

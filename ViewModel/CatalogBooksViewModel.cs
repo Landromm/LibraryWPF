@@ -215,6 +215,7 @@ namespace LibraryWPF.ViewModel
         public ICommand ResetListBookCommand { get; }
 
         public ICommand AddNewBookCommand { get; }
+        public ICommand SendListForRequstCommand { get; }
 
         //public ICommand SendListForRequstCommand { get; }
 
@@ -228,10 +229,48 @@ namespace LibraryWPF.ViewModel
             ResetListBookCommand = new ViewModelCommand(ExecutResetListBookCommand, CanExecutResetListBookCommand);
 
             AddNewBookCommand = new ViewModelCommand(ExecuteAddNewBookCommand, CanExecuteAddNewBookCommand);
-            
-            ExecuteInitialListData();
+            SendListForRequstCommand = new ViewModelCommand(ExecuteSendListForRequstCommand, CanExecuteSendListForRequstCommand);
 
+
+            ExecuteInitialListData();
             ExecuteShowListCatalogBooks();
+        }
+
+        private bool CanExecuteSendListForRequstCommand(object obj)
+        {
+            try
+            {
+                if(CountBookInRequest > 0)
+                    return true;
+                else 
+                    return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return false;
+                throw;
+            }
+        }
+
+        private void ExecuteSendListForRequstCommand(object obj)
+        {
+            try
+            {
+                _userRepository.AddRequest(CurrentUser.CardNumber);
+                MessageBox.Show("Ваша заявка направлена администратору на одобрение.\n" +
+                                "В скором времени она будем рассмотрена!",
+                                "Отправка заявки!",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+
+                ExecuteRefreshViewCommand(obj);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                throw;
+            }
         }
 
         private bool CanExecuteAddNewBookCommand(object obj)
@@ -325,10 +364,10 @@ namespace LibraryWPF.ViewModel
         private void ExecuteDeleteBookCommand(object obj)
         {
             var confirm = MessageBox.Show("Вы точно хотите удалить данную книгу?",
-                                                "Внимание!",
-                                                MessageBoxButton.YesNo,
-                                                MessageBoxImage.Question,
-                                                MessageBoxResult.Yes);
+                                            "Внимание!",
+                                            MessageBoxButton.YesNo,
+                                            MessageBoxImage.Question,
+                                            MessageBoxResult.Yes);
             if ((int)confirm == 6)
             {
                 _userRepository.DeleteCurrentBook(CurrentCatalogBook);

@@ -9,13 +9,13 @@ public partial class ListBookRequest
 
     public int BookId { get; set; }
 
-    public DateOnly DateOfissue { get; set; }
+    public DateOnly? DateOfissue { get; set; }
 
-    public DateOnly DateReturn { get; set; }
+    public DateOnly? DateReturn { get; set; }
 
     public int ListBooks { get; set; }
 
     public virtual Book Book { get; set; } = null!;
 
-    public virtual TempListBook IdNavigation { get; set; } = null!;
+    public virtual ICollection<RequestListBookRequest> RequestListBookRequests { get; set; } = new List<RequestListBookRequest>();
 }
