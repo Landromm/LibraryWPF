@@ -12,6 +12,4 @@ public partial class TempListBook
     public int CardNumberUser { get; set; }
 
     public virtual User CardNumberUserNavigation { get; set; } = null!;
-
-    public virtual ListBookRequest? ListBookRequest { get; set; }
 }

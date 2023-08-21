@@ -21,5 +21,6 @@ go
 
 Select * from [User]
 
-// Генерация модели из БД (DB model first):
+// Генерация модели из БД (DB model first): 
 // Scaffold-DbContext "Server=ASUTP-RADKEVICH; Database=MVVMLoginDb; Integrated Security=True; TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model\DBModels
+// Scaffold-DbContext "Server=LAPTOP-TMRQF3QP\LANDROMMSQLSERV; Database=MVVMLoginDb; Integrated Security=True; TrustServerCertificate=True" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Model\DBModels

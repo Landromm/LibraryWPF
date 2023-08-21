@@ -9,7 +9,7 @@ public partial class Request
 
     public int ListBook { get; set; }
 
-    public DateOnly DateRegistrRequest { get; set; }
+    public DateTime DateRegistrRequest { get; set; }
 
     /// <summary>
     /// True - Заявка одобрена, false - заявка на рассмотрении.
@@ -17,6 +17,8 @@ public partial class Request
     public bool StatusRequest { get; set; }
 
     public int? UserCardNumber { get; set; }
+
+    public virtual ICollection<RequestListBookRequest> RequestListBookRequests { get; set; } = new List<RequestListBookRequest>();
 
     public virtual User? UserCardNumberNavigation { get; set; }
 }
