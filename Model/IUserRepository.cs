@@ -42,10 +42,6 @@ namespace LibraryWPF.Model
         void ResetCurrentListBook(int cardNumber);
         void AddBook(Book book);
 
-        int AddListBookRequest(TempListBook tempListBook);
-        int AddRequest(Request request);
-        void AddRequest_ListBookRequest(int number, int id);
-
         void AddRequest(int cardNumber);
 
         #endregion
@@ -59,6 +55,8 @@ namespace LibraryWPF.Model
         ObservableCollection<ReadPlace> GetByAllReadPlaces();
 
         ObservableCollection<CatalogBooksModel> GetByAllCatalogBooks();
+        ObservableCollection<RequestModel> GetByAllRequest();
+
         
         // ...
     }
