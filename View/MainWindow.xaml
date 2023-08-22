@@ -34,6 +34,10 @@
         <DataTemplate DataType="{x:Type viewModel:CatalogBooksViewModel}">
             <local:CatalogBooksView/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:RequestViewModel}">
+            <local:RequestAdminView/>
+        </DataTemplate>
         
     </Window.Resources>
 
@@ -87,7 +91,6 @@
                     <!--Меню кнопок-->
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color1}"
-                                 IsChecked="True"
                                  Command="{Binding ShowHomeViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
@@ -107,7 +110,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color3}">
+                                 Tag="{StaticResource color3}"
+                                 Command="{Binding ShowRequestAdminViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="PenToSquare" Style="{StaticResource menuButtonIcon}"/>
@@ -116,7 +120,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color4}"
+                                 Tag="{StaticResource color4}"                                 
+                                 IsChecked="True"
                                  Command="{Binding ShowCatalogsBookViewCommand}">
 
                         <StackPanel Orientation="Horizontal">

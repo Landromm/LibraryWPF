@@ -19,9 +19,9 @@ namespace LibraryWPF.View
     /// <summary>
     /// Interaction logic for UsersMainViewModel.xaml
     /// </summary>
-    public partial class UsersMainViewModel : Window
+    public partial class UsersMainWindow : Window
     {
-        public UsersMainViewModel()
+        public UsersMainWindow()
         {
             InitializeComponent();
         }

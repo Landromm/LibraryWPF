@@ -39,14 +39,14 @@ namespace LibraryWPF
                                 } break;
                             case "User":
                                 {
-                                    var usersMainView = new UsersMainViewModel();
+                                    var usersMainView = new UsersMainWindow();
                                     usersMainView.Show();
                                     loginView.Close();
                                 } break;
 
                             default:
                                 {
-                                    var usersMainView = new UsersMainViewModel();
+                                    var usersMainView = new UsersMainWindow();
                                     usersMainView.Show();
                                     loginView.Close();
                                 }break;

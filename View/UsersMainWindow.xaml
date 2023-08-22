@@ -1,4 +1,4 @@
-﻿<Window x:Class="LibraryWPF.View.UsersMainViewModel"
+﻿<Window x:Class="LibraryWPF.View.UsersMainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -25,6 +25,10 @@
 
         <DataTemplate DataType="{x:Type viewModel:ReadersViewModel}">
             <local:ReadersView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:CatalogBooksViewModel}">
+            <local:UserCatalogBooksView/>
         </DataTemplate>
 
     </Window.Resources>
@@ -108,7 +112,9 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color4}">
+                                 Tag="{StaticResource color4}"                                 
+                                 IsChecked="True"
+                                 Command="{Binding ShowCatalogsBookViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Book" Style="{StaticResource menuButtonIcon}"/>

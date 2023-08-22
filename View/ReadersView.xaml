@@ -30,10 +30,10 @@
                               Foreground="{StaticResource plainTextColor3}"/>
 
                 <TextBox x:Name="txtSearch"
-                    Text="Search..."   
+                    Text="Search..."
                     FontSize="13"
                     Height="24"
-                    Width="300"
+                    Width="500"
                     Background="Transparent"
                     FontWeight="Medium"
                     FontFamily="Montserrat"                            
