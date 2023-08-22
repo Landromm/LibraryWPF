@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="LibraryWPF.View.CatalogBooksView"
+﻿<UserControl x:Class="LibraryWPF.View.UserCatalogBooksView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -15,10 +15,9 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/> 
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <!--Header-->
         <Grid Grid.Row="0">
 
             <Grid.ColumnDefinitions>
@@ -26,7 +25,6 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <!--Количество книг-->
             <StackPanel Grid.Column="0"
                         Orientation="Horizontal"
                         VerticalAlignment="Bottom"
@@ -47,32 +45,13 @@
 
             </StackPanel>
 
-            <!--Панель управления-->
             <StackPanel Grid.Column="1"
                         Orientation="Horizontal"
                         FlowDirection="RightToLeft"
                         VerticalAlignment="Center"
                         Margin="0,0,10,0">
-                
-                <Button Style="{StaticResource iconButtonCatalog}"
-                        Tag="{StaticResource color4}"
-                        Command="{Binding DeleteBookCommand}">
-                    
-                    <fa:IconImage Icon="Remove" 
-                                  Style="{StaticResource iconButtonCatalogIcon}"
-                                  Width="25"
-                                  Height="25"/>
-                    
-                </Button>
 
-                <Button Style="{StaticResource iconButtonCatalog}"
-                        Tag="{StaticResource color13}"
-                        Command="{Binding AddBookCommand}">
-
-                    <fa:IconImage Icon="Add" 
-                                  Style="{StaticResource iconButtonCatalogIcon}"/>
-
-                </Button>
+               
 
                 <Button Style="{StaticResource iconButtonCatalog}"
                         Tag="{StaticResource color3}"           
@@ -108,7 +87,6 @@
 
         </Grid>
 
-        <!--Body-->
         <ListView   Grid.Row="1" 
                     ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding CurrentCatalogBook}"
@@ -116,9 +94,9 @@
                     Background="Transparent">
 
             <ListView.Resources>
-                
+
                 <DataTemplate x:Key="DefaultTemplateItem">
-                    
+
                     <Border BorderThickness="2"
                             CornerRadius="15"
                             HorizontalAlignment="Stretch">
@@ -154,7 +132,7 @@
                                         </Setter>
                                     </DataTrigger>
                                 </Style.Triggers>
-                            </Style>                            
+                            </Style>
                         </Border.Style>
 
                         <Grid>
@@ -166,7 +144,7 @@
                             <Grid Grid.Row="0" 
                                   Background="Transparent"
                                   Margin="10,5,5,10">
-                                
+
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="400"/>
                                     <ColumnDefinition Width="*"/>
@@ -183,12 +161,12 @@
 
                                     <StackPanel Grid.Row="0"
                                                 Orientation="Vertical">
-                                        
+
                                         <TextBlock  Text="Наименование:"
                                                     FontFamily="Montserrat"
                                                     Foreground="{StaticResource titleColor3}"
                                                     FontSize="16"/>
-                                        
+
                                         <TextBlock  Text="{Binding Title}"
                                                     FontFamily="Cascadia Code"
                                                     Foreground="{StaticResource color11}"
@@ -197,28 +175,27 @@
 
                                     <StackPanel Grid.Row="2"
                                                 Orientation="Vertical">
-                                        
+
                                         <TextBlock  Text="Автор:"
                                                     FontFamily="Montserrat"
                                                     Foreground="{StaticResource titleColor3}"
                                                     FontSize="16"/>
-                                        
+
                                         <StackPanel Orientation="Horizontal">
-                                            
-                                            <TextBlock  Grid.Row="1"
-                                                        Text="{Binding NameAutor}"
-                                                        FontFamily="Cascadia Code"
-                                                        Foreground="{StaticResource color11}"
-                                                        FontSize="18"
-                                                        Margin="0,0,10,0"/>
-                                            
-                                            <TextBlock  Grid.Row="1"
-                                                        Text="{Binding LastNameAutor}"
-                                                        FontFamily="Cascadia Code"
-                                                        Foreground="{StaticResource color11}"
-                                                        FontSize="18"/>
-                                            
+
+                                            <TextBlock Grid.Row="1"
+                            Text="{Binding NameAutor}"
+                            FontFamily="Cascadia Code"
+                            Foreground="{StaticResource color11}"
+                            FontSize="18"
+                            Margin="0,0,10,0"/>
+                                            <TextBlock Grid.Row="1"
+                            Text="{Binding LastNameAutor}"
+                            FontFamily="Cascadia Code"
+                            Foreground="{StaticResource color11}"
+                            FontSize="18"/>
                                         </StackPanel>
+
 
                                     </StackPanel>
                                 </Grid>
@@ -230,49 +207,40 @@
                                     </Grid.RowDefinitions>
 
                                     <StackPanel Grid.Row="0"
-                                                Orientation="Vertical">
-                                        
+                            Orientation="Vertical">
                                         <TextBlock  Text="Серия:"
-                                                    FontFamily="Montserrat"
-                                                    Foreground="{StaticResource titleColor3}"
-                                                    FontSize="16"
-                                                    TextWrapping="Wrap"/>
-                                        
+                                FontFamily="Montserrat"
+                                Foreground="{StaticResource titleColor3}"
+                                FontSize="16"
+                                TextWrapping="Wrap"/>
                                         <TextBlock  Text="{Binding Serias}"
-                                                    FontFamily="Cascadia Code"
-                                                    Foreground="{StaticResource color11}"
-                                                    FontSize="18"
-                                                    TextWrapping="Wrap"/>
-                                        
+                                FontFamily="Cascadia Code"
+                                Foreground="{StaticResource color11}"
+                                FontSize="18"
+                                TextWrapping="Wrap"/>
                                     </StackPanel>
-                                    
                                     <StackPanel Grid.Row="1"
-                                                Orientation="Vertical">
-                                        
+                            Orientation="Vertical">
                                         <TextBlock  Text="Год издания:"
-                                                    FontFamily="Montserrat"
-                                                    Foreground="{StaticResource titleColor3}"
-                                                    FontSize="16"/>
-                                        
+                                FontFamily="Montserrat"
+                                Foreground="{StaticResource titleColor3}"
+                                FontSize="16"/>
                                         <TextBlock  Text="{Binding YearPublich}"
-                                                    FontFamily="Cascadia Code"
-                                                    Foreground="{StaticResource color11}"
-                                                    FontSize="20"/>
-                                        
+                                FontFamily="Cascadia Code"
+                                Foreground="{StaticResource color11}"
+                                FontSize="20"/>
                                     </StackPanel>
 
                                 </Grid>
 
+
                             </Grid>
-                            
                         </Grid>
-                        
                     </Border>
-                    
                 </DataTemplate>
-                
+
                 <DataTemplate x:Key="SelectedTemplateItem">
-                    
+
                     <Border x:Name="BorderItemListView"
                             BorderThickness="2"
                             CornerRadius="15"
@@ -322,7 +290,7 @@
                             <Grid Grid.Row="0" 
                                   Background="Transparent"
                                   Margin="10,5,5,10">
-                                
+
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="400"/>
                                     <ColumnDefinition Width="*"/>
@@ -339,12 +307,12 @@
 
                                     <StackPanel Grid.Row="0"
                                                 Orientation="Vertical">
-                                        
+
                                         <TextBlock  Text="Наименование:"
                                                     FontFamily="Montserrat"
                                                     Foreground="{StaticResource titleColor3}"
                                                     FontSize="16"/>
-                                        
+
                                         <TextBlock  Text="{Binding Title}"
                                                     FontFamily="Cascadia Code"
                                                     Foreground="{StaticResource color11}"
@@ -353,21 +321,21 @@
 
                                     <StackPanel Grid.Row="2"
                                                 Orientation="Vertical">
-                                        
+
                                         <TextBlock  Text="Автор:"
                                                     FontFamily="Montserrat"
                                                     Foreground="{StaticResource titleColor3}"
                                                     FontSize="16"/>
-                                        
+
                                         <StackPanel Orientation="Horizontal">
-                                            
+
                                             <TextBlock  Grid.Row="1"
                                                         Text="{Binding NameAutor}"
                                                         FontFamily="Cascadia Code"
                                                         Foreground="{StaticResource color11}"
                                                         FontSize="18"
                                                         Margin="0,0,10,0"/>
-                                            
+
                                             <TextBlock  Grid.Row="1"
                                                         Text="{Binding LastNameAutor}"
                                                         FontFamily="Cascadia Code"
@@ -379,7 +347,7 @@
                                 </Grid>
 
                                 <Grid Grid.Column="2">
-                                    
+
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="*"/>
@@ -387,43 +355,43 @@
 
                                     <StackPanel Grid.Row="0"
                                                 Orientation="Vertical">
-                                        
+
                                         <TextBlock  Text="Серия:"
                                                     FontFamily="Montserrat"
                                                     Foreground="{StaticResource titleColor3}"
                                                     FontSize="16"
                                                     TextWrapping="Wrap"/>
-                                        
+
                                         <TextBlock  Text="{Binding Serias}"
                                                     FontFamily="Cascadia Code"
                                                     Foreground="{StaticResource color11}"
                                                     FontSize="18"
                                                     TextWrapping="Wrap"/>
-                                        
+
                                     </StackPanel>
-                                    
+
                                     <StackPanel Grid.Row="1"
                                                 Orientation="Vertical">
-                                        
+
                                         <TextBlock  Text="Год издания:"
                                                     FontFamily="Montserrat"
                                                     Foreground="{StaticResource titleColor3}"
                                                     FontSize="16"/>
-                                        
+
                                         <TextBlock  Text="{Binding YearPublich}"
                                                     FontFamily="Cascadia Code"
                                                     Foreground="{StaticResource color11}"
                                                     FontSize="20"/>
-                                        
+
                                     </StackPanel>
-                                    
+
                                 </Grid>
 
                             </Grid>
 
                             <!--Закрытая часть данных "АКТИВНА ПРИ ВЫБОРЕ-->
                             <Grid Grid.Row="1">
-                                
+
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*"/>
                                     <RowDefinition Height="*"/>
@@ -431,7 +399,7 @@
 
                                 <Grid Grid.Row="0" 
                                       Margin="10,5,5,10">
-                                    
+
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="200"/>
                                         <ColumnDefinition Width="200"/>
@@ -441,7 +409,7 @@
                                     </Grid.ColumnDefinitions>
 
                                     <Grid Grid.Column="0">
-                                        
+
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
@@ -449,23 +417,23 @@
 
                                         <StackPanel Grid.Row="0"
                                                     Orientation="Vertical">
-                                            
+
                                             <TextBlock  Text="Количество страниц:"
                                                         FontFamily="Montserrat"
                                                         Foreground="{StaticResource titleColor3}"
                                                         FontSize="16"/>
-                                            
+
                                             <TextBlock  Text="{Binding Pages}"
                                                         FontFamily="Cascadia Code"
                                                         Foreground="{StaticResource color11}"
                                                         FontSize="20"/>
-                                            
+
                                         </StackPanel>
-                                        
+
                                     </Grid>
-                                    
+
                                     <Grid Grid.Column="1">
-                                        
+
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
@@ -473,23 +441,23 @@
 
                                         <StackPanel Grid.Row="0"
                                                     Orientation="Vertical">
-                                            
+
                                             <TextBlock  Text="№ Стелажа"
                                                         FontFamily="Montserrat"
                                                         Foreground="{StaticResource titleColor3}"
                                                         FontSize="16"/>
-                                            
+
                                             <TextBlock  Text="{Binding StackNumber}"
                                                         FontFamily="Cascadia Code"
                                                         Foreground="{StaticResource color11}"
                                                         FontSize="20"/>
-                                            
+
                                         </StackPanel>
-                                        
+
                                     </Grid>
-                                    
+
                                     <Grid Grid.Column="2">
-                                        
+
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
@@ -497,29 +465,29 @@
 
                                         <StackPanel Grid.Row="0"
                                                     Orientation="Vertical">
-                                            
+
                                             <TextBlock  Text="Условия выдачи книги"
                                                         FontFamily="Montserrat"
                                                         Foreground="{StaticResource titleColor3}"
                                                         FontSize="16"/>
-                                            
+
                                             <TextBlock  Text="{Binding ReadPlace}"
                                                         FontFamily="Cascadia Code"
                                                         Foreground="{StaticResource color11}"
                                                         FontSize="20"/>
-                                            
+
                                         </StackPanel>
-                                        
+
                                     </Grid>
-                                    
+
                                     <Grid Grid.Column="4">
-                                        
+
                                         <StackPanel Orientation="Vertical"
                                                     VerticalAlignment="Center"
                                                     HorizontalAlignment="Center">
 
                                             <Button Command="{Binding DataContext.AddListBookRequestCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type UserControl}}}">
-                                                
+
                                                 <Button.Style>
                                                     <Style TargetType="Button">
                                                         <Setter Property="Height" Value="40"/>
@@ -582,15 +550,15 @@
                                                         </Style.Triggers>
                                                     </Style>
                                                 </Button.Style>
-                                                
+
                                                 <Button.Content>
-                                                    
+
                                                     <StackPanel Orientation="Horizontal"
                                                                 HorizontalAlignment="Center">
-                                                        
+
                                                         <fa:IconImage>
                                                             <fa:IconImage.Style>
-                                                                
+
                                                                 <Style TargetType="fa:IconImage">
                                                                     <Setter Property="Icon" Value="FileCirclePlus"/>
                                                                     <Setter Property="Foreground" Value="{StaticResource color11}"/>
@@ -608,15 +576,15 @@
                                                                 </Style>
                                                             </fa:IconImage.Style>
                                                         </fa:IconImage>
-                                                        
+
                                                     </StackPanel>
-                                                    
+
                                                 </Button.Content>
-                                                
+
                                             </Button>
-                                            
+
                                         </StackPanel>
-                                        
+
                                     </Grid>
 
                                 </Grid>
@@ -630,12 +598,12 @@
             </ListView.Resources>
 
             <ListView.ItemContainerStyle>
-                
+
                 <Style TargetType="ListViewItem">
-                    
+
                     <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                     <Setter Property="ContentTemplate" Value="{StaticResource DefaultTemplateItem}"/>
-                    
+
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="ContentTemplate" Value="{StaticResource SelectedTemplateItem}"/>
@@ -644,13 +612,13 @@
                             <Setter Property="Background" Value="White"/>
                         </Trigger>
                     </Style.Triggers>
-                    
-                </Style>
-                
-            </ListView.ItemContainerStyle>
-            
-        </ListView>
-        
-    </Grid>
 
+                </Style>
+
+            </ListView.ItemContainerStyle>
+
+        </ListView>
+
+    </Grid>
+    
 </UserControl>

@@ -1,6 +1,7 @@
 ﻿using FontAwesome.Sharp;
 using LibraryWPF.Model;
 using LibraryWPF.Repositories;
+using LibraryWPF.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,6 +75,7 @@ namespace LibraryWPF.ViewModel
         public ICommand ShowReadersViewCommand { get; }
         public ICommand ShowSettingsAdminViewCommand { get; }
         public ICommand ShowCatalogsBookViewCommand { get; }
+        public ICommand ShowRequestAdminViewCommand { get; }
 
         public MainViewModel()
         {
@@ -85,10 +87,21 @@ namespace LibraryWPF.ViewModel
             ShowReadersViewCommand = new ViewModelCommand(ExecuteShowReadersViewCommand);
             ShowSettingsAdminViewCommand = new ViewModelCommand(ExecuteShowSettingsAdminViewCommand);
             ShowCatalogsBookViewCommand = new ViewModelCommand(ExecuteShowCatalogsBooksViewCommand);
+            ShowRequestAdminViewCommand = new ViewModelCommand(ExecuteShowRequestAdminViewCommand);
+
+            LoadCurrentUserData();
 
             //Вид по умолчанию.
-            ExecuteShowHomeViewCommand(null);
-            LoadCurrentUserData();
+            //ExecuteShowHomeViewCommand(null);
+            ExecuteShowCatalogsBooksViewCommand(null);
+
+        }
+
+        private void ExecuteShowRequestAdminViewCommand(object obj)
+        {
+            CurrentChildView = new RequestViewModel();
+            Caption = "Заявки";
+            Icon = IconChar.PenToSquare;
         }
 
         private void ExecuteShowCatalogsBooksViewCommand(object obj)
