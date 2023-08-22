@@ -358,19 +358,6 @@ namespace LibraryWPF.Repositories
             }
         }
 
-        public int AddListBookRequest(TempListBook tempListBook)
-        {
-            return 0;
-        }
-        public int AddRequest(Request request)
-        {
-            return 0;
-        }
-        public void AddRequest_ListBookRequest(int number, int id)
-        {
-
-        }
-
         public void AddRequest(int cardNumber)
         {
             // Рандомная генерация номера списка книг в заявке.
@@ -504,7 +491,56 @@ namespace LibraryWPF.Repositories
             }
             return users;
         }
+        public ObservableCollection<RequestModel> GetByAllRequest()
+        {
+            ObservableCollection<RequestModel> requestModels = new ObservableCollection<RequestModel>();
+            using var context = new MvvmloginDbContext();
+            {
+                var requestModelsResult = from requestB in context.Requests
+                                    join userB in context.Users on requestB.UserCardNumber equals userB.CardNumber
+                                    join reqListbookReqB in context.RequestListBookRequests on requestB.Number equals reqListbookReqB.Number
+                                    join listBookReqB in context.ListBookRequests on reqListbookReqB.IdListBook equals listBookReqB.Id
+                                    join booksB in context.Books on listBookReqB.BookId equals booksB.Id
+                                    join autorB in context.Autors on booksB.AutorId equals autorB.Id
+                                    join readPlaceB in context.ReadPlaces on booksB.ReadPlace equals readPlaceB.Id
+                                    join rackB in context.Racks on booksB.StackNumber equals rackB.StackNumber
+                                    select new
+                                    {
+                                        NumberRequest = requestB.Number,
+                                        DateRegistred = requestB.DateRegistrRequest,
+                                        UserCardNumber = requestB.UserCardNumber,
+                                        DateOfissue = listBookReqB.DateOfissue,
+                                        DateReturn = listBookReqB.DateReturn,
+                                        Title = booksB.Title,
+                                        Serias = booksB.Serias,
+                                        YearPublish = booksB.YearPublich,
+                                        AutorName = autorB.Name,
+                                        AutorLastName = autorB.LastName,
+                                        ReadPlaces = readPlaceB.ReadPlace1,
+                                        RackNumber = rackB.StackNumber
+                                    };
 
+                foreach (var item in requestModelsResult)
+                {
+                    requestModels.Add(new RequestModel()
+                    {
+                        NumberRequest = item.NumberRequest,
+                        DateRegistred = item.DateRegistred,
+                        UserCardNumber = item.UserCardNumber,
+                        DateOfissue = item.DateOfissue,
+                        DateReturn = item.DateReturn,
+                        Title = item.Title,
+                        Serias = item.Serias,
+                        YearPublish = item.YearPublish,
+                        AutorName = item.AutorName,
+                        AutorLastName = item.AutorLastName,
+                        ReadPlaces = item.ReadPlaces,
+                        RackNumber = item.RackNumber
+                    });
+                }
+            };
+            return requestModels;
+        }
         public ObservableCollection<CatalogBooksModel> GetByAllCatalogBooks()
         {
             ObservableCollection<CatalogBooksModel> catalogBooksModels = new ObservableCollection<CatalogBooksModel>();
@@ -544,6 +580,7 @@ namespace LibraryWPF.Repositories
         {
             throw new NotImplementedException();
         }
+
         //Возвращает объект UserModel с данными по конткретному Логину.
         public UserModel GetByUsername(string username)
         {
