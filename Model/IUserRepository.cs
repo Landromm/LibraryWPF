@@ -43,7 +43,6 @@ namespace LibraryWPF.Model
         void AddBook(Book book);
 
         void AddRequest(int cardNumber);
-
         #endregion
 
         UserModel GetById(int id);
