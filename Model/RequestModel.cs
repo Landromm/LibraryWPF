@@ -12,6 +12,8 @@ namespace LibraryWPF.Model
         public DateTime DateRegistred { get; set; }
         public int? UserCardNumber { get; set; }
         public DateOnly? DateOfissue { get; set; }
+        public string? UserName { get; set; }
+        public string? UserLastName { get; set; }
         public DateOnly? DateReturn { get; set; }
         public string? Title { get; set; }
         public string? Serias { get; set; }
