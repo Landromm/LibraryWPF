@@ -234,12 +234,12 @@
 
                 <DataTemplate x:Key="SelectedTemplateItem">
 
-                    <Border BorderThickness="2"
-                            CornerRadius="15"
+                    <Border CornerRadius="15"
                             HorizontalAlignment="Stretch">
 
                         <Border.Style>
                             <Style TargetType="Border">
+                                <Setter Property="BorderThickness" Value="4"/>
                                 <Setter Property="BorderBrush">
                                     <Setter.Value>
                                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -252,23 +252,11 @@
                                 <Setter Property="Background">
                                     <Setter.Value>
                                         <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                            <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
-                                            <GradientStop Color="{StaticResource primaryBackColor1}" Offset="1"/>
+                                            <GradientStop Color="{StaticResource secondaryBackColor1}" Offset="0"/>
+                                            <GradientStop Color="{StaticResource secondaryBackColor2}" Offset="1"/>
                                         </LinearGradientBrush>
                                     </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding CheckAvailability, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                                        <Setter Property="Background">
-                                            <Setter.Value>
-                                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                                    <GradientStop Color="#5b5b5c" Offset="0"/>
-                                                    <GradientStop Color="#232324" Offset="1"/>
-                                                </LinearGradientBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </DataTrigger>
-                                </Style.Triggers>
+                                </Setter>                                
                             </Style>
                         </Border.Style>
 
@@ -296,8 +284,7 @@
                                 <Grid   Grid.Column="0"
                                         Margin="10">
 
-                                    <Border BorderThickness="2"
-                                            CornerRadius="15"
+                                    <Border CornerRadius="15"
                                             HorizontalAlignment="Stretch">
 
                                         <TextBlock  Text="{Binding NumberRequest}"
@@ -309,6 +296,7 @@
 
                                         <Border.Style>
                                             <Style TargetType="Border">
+                                                <Setter Property="BorderThickness" Value="3"/>
                                                 <Setter Property="BorderBrush">
                                                     <Setter.Value>
                                                         <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
@@ -325,19 +313,7 @@
                                                             <GradientStop Color="{StaticResource GreenBackColor2}" Offset="1"/>
                                                         </LinearGradientBrush>
                                                     </Setter.Value>
-                                                </Setter>
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding CheckAvailability, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                                                        <Setter Property="Background">
-                                                            <Setter.Value>
-                                                                <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                                                    <GradientStop Color="#5b5b5c" Offset="0"/>
-                                                                    <GradientStop Color="#232324" Offset="1"/>
-                                                                </LinearGradientBrush>
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </DataTrigger>
-                                                </Style.Triggers>
+                                                </Setter>                                                
                                             </Style>
                                         </Border.Style>
 
@@ -473,18 +449,6 @@
                                                                 </LinearGradientBrush>
                                                             </Setter.Value>
                                                         </Setter>
-                                                        <Style.Triggers>
-                                                            <DataTrigger Binding="{Binding CheckAvailability, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                                                                <Setter Property="Background">
-                                                                    <Setter.Value>
-                                                                        <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
-                                                                            <GradientStop Color="#5b5b5c" Offset="0"/>
-                                                                            <GradientStop Color="#232324" Offset="1"/>
-                                                                        </LinearGradientBrush>
-                                                                    </Setter.Value>
-                                                                </Setter>
-                                                            </DataTrigger>
-                                                        </Style.Triggers>
                                                     </Style>
                                                 </Border.Style>
 
@@ -655,7 +619,7 @@
                                         <Button.Style>
                                             <Style TargetType="Button">
                                                 <Setter Property="Height" Value="40"/>
-                                                <Setter Property="Width" Value="40"/>
+                                                <Setter Property="Width" Value="50"/>
                                                 <Setter Property="BorderThickness" Value="2"/>
                                                 <Setter Property="BorderBrush">
                                                     <Setter.Value>
@@ -723,20 +687,12 @@
                                                 <fa:IconImage>
                                                     <fa:IconImage.Style>
 
-                                                        <Style TargetType="fa:IconImage">
+                                                        <Style TargetType="fa:IconImage">                                                            
                                                             <Setter Property="Icon" Value="CodeCompare"/>
                                                             <Setter Property="Foreground" Value="{StaticResource color11}"/>
-                                                            <Setter Property="Width" Value="25"/>
+                                                            <Setter Property="Width" Value="50"/>
                                                             <Setter Property="Height" Value="25"/>
-                                                            <Setter Property="Margin" Value="5,0,0,0"/>
-
-                                                            <Style.Triggers>
-                                                                <DataTrigger Binding="{Binding CheckAvailability, UpdateSourceTrigger=PropertyChanged}" Value="False">
-                                                                    <Setter Property="Icon" Value="FileCircleCheck"/>
-                                                                    <Setter Property="Foreground" Value="{StaticResource color7}"/>
-                                                                </DataTrigger>
-                                                            </Style.Triggers>
-
+                                                            <Setter Property="Margin" Value="10,0,10,0"/>
                                                         </Style>
                                                     </fa:IconImage.Style>
                                                 </fa:IconImage>

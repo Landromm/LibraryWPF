@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace LibraryWPF.ViewModel
 {
@@ -19,6 +20,7 @@ namespace LibraryWPF.ViewModel
 
         IUserRepository _userRepository;
 
+        public ICommand ConfirmRequest { get; }
 
         // Properties
 
@@ -45,8 +47,18 @@ namespace LibraryWPF.ViewModel
         public RequestViewModel()
         {
             _userRepository = new UserRepository();
-
+            ConfirmRequest = new ViewModelCommand(ExecuteConfirmRequest, CanExecuteConfirmRequest);
             ExecuteShowListRequest();
+        }
+
+        private bool CanExecuteConfirmRequest(object obj)
+        {
+            return CurrentRequest != null;
+        }
+
+        private void ExecuteConfirmRequest(object obj)
+        {
+
         }
 
         private void ExecuteShowListRequest()

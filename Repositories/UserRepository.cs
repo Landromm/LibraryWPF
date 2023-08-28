@@ -358,7 +358,9 @@ namespace LibraryWPF.Repositories
                 context.SaveChanges();
             }
         }
+        #endregion
 
+        #region For Frame RequestAdmin
         public void AddRequest(int cardNumber)
         {
             // Рандомная генерация номера списка книг в заявке.
@@ -437,6 +439,10 @@ namespace LibraryWPF.Repositories
                 }
                 context3.SaveChanges();
             }
+        }
+        public void ConfirmCurrentRequest(RequestModel request)
+        {
+
         }
         #endregion
 
