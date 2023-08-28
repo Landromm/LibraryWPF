@@ -41,8 +41,11 @@ namespace LibraryWPF.Model
         void DeleteCurrentBook(CatalogBooksModel book);
         void ResetCurrentListBook(int cardNumber);
         void AddBook(Book book);
+        #endregion
 
+        #region Frame RequestAdmin
         void AddRequest(int cardNumber);
+        void ConfirmCurrentRequest(RequestModel requestModel);
         #endregion
 
         UserModel GetById(int id);
