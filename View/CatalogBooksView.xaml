@@ -113,7 +113,8 @@
                     ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding CurrentCatalogBook}"
                     HorizontalAlignment="Stretch"
-                    Background="Transparent">
+                    Background="Transparent"
+                    BorderThickness="0">
 
             <ListView.Resources>
                 
