@@ -1,6 +1,7 @@
 ﻿using LibraryWPF.Model;
 using LibraryWPF.Model.DBModels;
 using LibraryWPF.Repositories;
+using LibraryWPF.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,6 +15,8 @@ namespace LibraryWPF.ViewModel
     public class RequestViewModel : ViewModelBase
     {
         // Fields
+        private DateTime? _selectedDateOfissue;
+        private DateTime? _selectedDateReturn;
 
         private RequestModel? _currentRequest;
         private ObservableCollection<RequestModel>? _request;
@@ -21,8 +24,27 @@ namespace LibraryWPF.ViewModel
         IUserRepository _userRepository;
 
         public ICommand ConfirmRequest { get; }
+        public ICommand ConfirmRequestCommand { get; }
 
         // Properties
+        public DateTime? SelectedDateOfIssue
+        {
+            get => _selectedDateOfissue;
+            set
+            {
+                _selectedDateOfissue = value;
+                OnPropertyChanged(nameof(SelectedDateOfIssue));
+            }
+        }
+        public DateTime? SelectedDateReturn
+        {
+            get => _selectedDateReturn;
+            set
+            {
+                _selectedDateReturn = value;
+                OnPropertyChanged(nameof(SelectedDateReturn));
+            }
+        }
 
         public RequestModel CurrentRequest
         {
@@ -32,8 +54,7 @@ namespace LibraryWPF.ViewModel
                 _currentRequest = value;
                 OnPropertyChanged(nameof(CurrentRequest));
             }
-        }
-
+        }   
         public ObservableCollection<RequestModel> Request
         {
             get => _request ?? (_request = new ObservableCollection<RequestModel>());
@@ -48,7 +69,20 @@ namespace LibraryWPF.ViewModel
         {
             _userRepository = new UserRepository();
             ConfirmRequest = new ViewModelCommand(ExecuteConfirmRequest, CanExecuteConfirmRequest);
+            ConfirmRequestCommand = new ViewModelCommand(ExecuteConfirmRequestCommand, CanExecuteConfirmRequestCommand);
             ExecuteShowListRequest();
+        }
+
+        private bool CanExecuteConfirmRequestCommand(object obj)
+        {
+            if (SelectedDateOfIssue != null && SelectedDateReturn != null)
+                return true;
+            return false;
+        }
+
+        private void ExecuteConfirmRequestCommand(object obj)
+        {
+                
         }
 
         private bool CanExecuteConfirmRequest(object obj)
@@ -58,7 +92,8 @@ namespace LibraryWPF.ViewModel
 
         private void ExecuteConfirmRequest(object obj)
         {
-
+            var confirmRequest = new ConfirmRequestView();
+            confirmRequest.ShowDialog();
         }
 
         private void ExecuteShowListRequest()

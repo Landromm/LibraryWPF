@@ -32,6 +32,7 @@ namespace LibraryWPF.Repositories
                 context.SaveChanges();
             }
         }
+
         // Аутентификация зарегистрированного пользователя.
         public bool AuthenticateUser(NetworkCredential credential)
         {
@@ -59,6 +60,7 @@ namespace LibraryWPF.Repositories
             }
             return validUser;
         }
+
         // Проверка уникальности UserName при регистрации нового пользователя.
         public bool ConfirmUsername(string username)
         {
