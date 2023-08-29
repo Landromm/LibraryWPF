@@ -76,6 +76,7 @@ namespace LibraryWPF.ViewModel
         public ICommand ShowSettingsAdminViewCommand { get; }
         public ICommand ShowCatalogsBookViewCommand { get; }
         public ICommand ShowRequestAdminViewCommand { get; }
+        public ICommand ShowRequestUserViewCommand { get; }
 
         public MainViewModel()
         {
@@ -88,6 +89,7 @@ namespace LibraryWPF.ViewModel
             ShowSettingsAdminViewCommand = new ViewModelCommand(ExecuteShowSettingsAdminViewCommand);
             ShowCatalogsBookViewCommand = new ViewModelCommand(ExecuteShowCatalogsBooksViewCommand);
             ShowRequestAdminViewCommand = new ViewModelCommand(ExecuteShowRequestAdminViewCommand);
+            ShowRequestUserViewCommand = new ViewModelCommand(ExecuteShowRequestUserViewCommand);
 
             LoadCurrentUserData();
 
@@ -95,6 +97,13 @@ namespace LibraryWPF.ViewModel
             //ExecuteShowHomeViewCommand(null);
             ExecuteShowCatalogsBooksViewCommand(null);
 
+        }
+
+        private void ExecuteShowRequestUserViewCommand(object obj)
+        {
+            CurrentChildView = new RequestViewModel(CurrentUserAccount);
+            Caption = "Заявки";
+            Icon = IconChar.PenToSquare;
         }
 
         private void ExecuteShowRequestAdminViewCommand(object obj)

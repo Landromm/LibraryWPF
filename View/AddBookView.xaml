@@ -359,38 +359,7 @@
                 </Button>
 
             </StackPanel>
-            <StackPanel
-                    Width="220"
-                    Grid.Row="1"
-                    Orientation="Vertical"
-                    VerticalAlignment="Center">
-
-                <StackPanel.Style>
-                    <Style TargetType="StackPanel">
-                        <Setter Property="Visibility" Value="Hidden"/>
-
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding IsConfirmSingUp}">
-                                <DataTrigger.Value>
-                                    <sys:Boolean>True</sys:Boolean>
-                                </DataTrigger.Value>
-                                <DataTrigger.Setters>
-                                    <Setter Property="Visibility" Value="Visible"/>
-                                </DataTrigger.Setters>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </StackPanel.Style>
-
-                <TextBlock  Text="ВЫ ЗАРЕГИСТРИРОВАНЫ В СИСТЕМЕ"
-                            Foreground="#4dde43"
-                            FontSize="18"
-                            FontWeight="Medium"
-                            FontFamily="Montserrat"
-                            TextWrapping="Wrap"
-                            TextAlignment="Center"
-                            Margin="0,0,0,0"/>
-            </StackPanel>
+            
         </Grid>
 
     </Border>

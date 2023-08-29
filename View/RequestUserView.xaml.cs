@@ -19,20 +19,11 @@ using System.Windows.Shapes;
 namespace LibraryWPF.View
 {
     /// <summary>
-    /// Логика взаимодействия для UserCatalogBooksView.xaml
+    /// Логика взаимодействия для RequestUserView.xaml
     /// </summary>
-    public partial class UserCatalogBooksView : UserControl
+    public partial class RequestUserView : UserControl
     {
-        public static readonly DependencyProperty CurrentUserProperty =
-            DependencyProperty.Register("CurrentUser", typeof(UserAccountModel), typeof(UserCatalogBooksView));
-
-        public UserAccountModel CurrentUser
-        {
-            get => (UserAccountModel)GetValue(CurrentUserProperty);
-            set => SetValue(CurrentUserProperty, value);
-        }
-
-        public UserCatalogBooksView()
+        public RequestUserView()
         {
             InitializeComponent();
         }

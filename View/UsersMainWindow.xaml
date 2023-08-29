@@ -19,8 +19,8 @@
 
     <Window.Resources>
 
-        <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
-            <local:HomeView/>
+        <DataTemplate DataType="{x:Type viewModel:RequestViewModel}">
+            <local:RequestUserView/>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type viewModel:ReadersViewModel}">
@@ -103,7 +103,8 @@
                     </RadioButton>-->
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color3}">
+                                 Tag="{StaticResource color3}"
+                                 Command="{Binding ShowRequestUserViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="PenToSquare" Style="{StaticResource menuButtonIcon}"/>
