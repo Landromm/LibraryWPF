@@ -58,8 +58,9 @@ namespace LibraryWPF.Model
 
         ObservableCollection<CatalogBooksModel> GetByAllCatalogBooks();
         ObservableCollection<RequestModel> GetByAllRequest();
+        ObservableCollection<RequestModel> GetByAllRequestUser(int cardNumber);
 
-        
+
         // ...
     }
 }

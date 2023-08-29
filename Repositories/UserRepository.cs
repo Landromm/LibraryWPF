@@ -444,7 +444,30 @@ namespace LibraryWPF.Repositories
         }
         public void ConfirmCurrentRequest(RequestModel request)
         {
+            using var context = new MvvmloginDbContext();
+            {
+                foreach(var item in request.moreRequestModels)
+                {
+                    var originalListBook = context.ListBookRequests
+                        .Where(id => id.Id == item.IdListRequest)
+                        .ToList()
+                        .First();
 
+                    originalListBook.DateOfissue = item.DateOfissue;
+                    originalListBook.DateReturn = item.DateReturn;
+
+                    context.ListBookRequests.Update(originalListBook);
+                }
+
+                var originalRequest = context.Requests
+                    .Where(number => number.Number == request.NumberRequest)
+                    .ToList()
+                    .First();
+
+                originalRequest.StatusRequest = true;
+                context.Requests.Update(originalRequest);
+                context.SaveChanges();
+            }
         }
         #endregion
 
@@ -507,15 +530,16 @@ namespace LibraryWPF.Repositories
             using var context = new MvvmloginDbContext();
             {
                 var resultShortRequest = from requestB in context.Requests
-                                              join userB in context.Users on requestB.UserCardNumber equals userB.CardNumber
-                                              select new
-                                              {
-                                                  NumberRequest = requestB.Number,
-                                                  DateRegistred = requestB.DateRegistrRequest,
-                                                  UserCardNumber = requestB.UserCardNumber,
-                                                  UserName = userB.Name,
-                                                  UserLastName = userB.LastName
-                                              };
+                                            join userB in context.Users on requestB.UserCardNumber equals userB.CardNumber
+                                            where requestB.StatusRequest == false
+                                            select new
+                                            {
+                                                NumberRequest = requestB.Number,
+                                                DateRegistred = requestB.DateRegistrRequest,
+                                                UserCardNumber = requestB.UserCardNumber,
+                                                UserName = userB.Name,
+                                                UserLastName = userB.LastName
+                                            };
 
                 foreach (var item in resultShortRequest)
                 {
@@ -534,6 +558,7 @@ namespace LibraryWPF.Repositories
                                                 where requestB.Number == item.NumberRequest
                                                 select new
                                                 {
+                                                    IdListRequest = listBookReqB.Id,
                                                     DateOfissue = listBookReqB.DateOfissue,
                                                     DateReturn = listBookReqB.DateReturn,
                                                     Title = booksB.Title,
@@ -548,6 +573,7 @@ namespace LibraryWPF.Repositories
                         {
                             moreRequestModel.Add(new MoreRequestModel()
                             {
+                                IdListRequest = itemMore.IdListRequest,
                                 DateOfissue = itemMore.DateOfissue,
                                 DateReturn = itemMore.DateReturn,
                                 Title = itemMore.Title,
@@ -573,6 +599,84 @@ namespace LibraryWPF.Repositories
                 }
             }
             
+            return requestModels;
+        }
+        public ObservableCollection<RequestModel> GetByAllRequestUser(int cardNumber)
+        {
+            ObservableCollection<RequestModel> requestModels = new ObservableCollection<RequestModel>();
+
+            using var context = new MvvmloginDbContext();
+            {
+                var resultShortRequest = from requestB in context.Requests
+                                         join userB in context.Users on requestB.UserCardNumber equals userB.CardNumber
+                                         where requestB.UserCardNumber == cardNumber
+                                         select new
+                                         {
+                                             NumberRequest = requestB.Number,
+                                             DateRegistred = requestB.DateRegistrRequest,
+                                             UserCardNumber = requestB.UserCardNumber,
+                                             UserName = userB.Name,
+                                             UserLastName = userB.LastName
+                                         };
+
+                foreach (var item in resultShortRequest)
+                {
+                    using var context2 = new MvvmloginDbContext();
+                    {
+                        ObservableCollection<MoreRequestModel> moreRequestModel = new ObservableCollection<MoreRequestModel>();
+
+                        var resultRequestMore = from requestB in context2.Requests
+                                                join userB in context2.Users on requestB.UserCardNumber equals userB.CardNumber
+                                                join reqListbookReqB in context2.RequestListBookRequests on requestB.Number equals reqListbookReqB.Number
+                                                join listBookReqB in context2.ListBookRequests on reqListbookReqB.IdListBook equals listBookReqB.Id
+                                                join booksB in context2.Books on listBookReqB.BookId equals booksB.Id
+                                                join autorB in context2.Autors on booksB.AutorId equals autorB.Id
+                                                join readPlaceB in context2.ReadPlaces on booksB.ReadPlace equals readPlaceB.Id
+                                                join rackB in context2.Racks on booksB.StackNumber equals rackB.StackNumber
+                                                where requestB.Number == item.NumberRequest
+                                                select new
+                                                {
+                                                    IdListRequest = listBookReqB.Id,
+                                                    DateOfissue = listBookReqB.DateOfissue,
+                                                    DateReturn = listBookReqB.DateReturn,
+                                                    Title = booksB.Title,
+                                                    Serias = booksB.Serias,
+                                                    YearPublish = booksB.YearPublich,
+                                                    AutorName = autorB.Name,
+                                                    AutorLastName = autorB.LastName,
+                                                    ReadPlaces = readPlaceB.ReadPlace1,
+                                                    RackNumber = rackB.StackNumber
+                                                };
+                        foreach (var itemMore in resultRequestMore)
+                        {
+                            moreRequestModel.Add(new MoreRequestModel()
+                            {
+                                IdListRequest = itemMore.IdListRequest,
+                                DateOfissue = itemMore.DateOfissue,
+                                DateReturn = itemMore.DateReturn,
+                                Title = itemMore.Title,
+                                Serias = itemMore.Serias,
+                                YearPublish = itemMore.YearPublish,
+                                AutorName = itemMore.AutorName,
+                                AutorLastName = itemMore.AutorLastName,
+                                ReadPlaces = itemMore.ReadPlaces,
+                                RackNumber = itemMore.RackNumber
+                            });
+                        }
+
+                        requestModels.Add(new RequestModel()
+                        {
+                            NumberRequest = item.NumberRequest,
+                            DateRegistred = item.DateRegistred,
+                            UserCardNumber = item.UserCardNumber,
+                            UserName = item.UserName,
+                            UserLastName = item.UserLastName,
+                            moreRequestModels = moreRequestModel
+                        });
+                    }
+                }
+            }
+
             return requestModels;
         }
         public ObservableCollection<CatalogBooksModel> GetByAllCatalogBooks()

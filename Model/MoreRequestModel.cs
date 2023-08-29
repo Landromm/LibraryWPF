@@ -8,6 +8,7 @@ namespace LibraryWPF.Model
 {
     public class MoreRequestModel
     {
+        public int IdListRequest { get; set; }
         public DateOnly? DateOfissue { get; set; }
         public DateOnly? DateReturn { get; set; }
         public string? Title { get; set; }

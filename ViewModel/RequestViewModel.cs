@@ -17,9 +17,12 @@ namespace LibraryWPF.ViewModel
         // Fields
         private DateTime? _selectedDateOfissue;
         private DateTime? _selectedDateReturn;
+        private bool _isConfirmRequest = false;
 
-        private RequestModel? _currentRequest;
+        private RequestModel _currentRequest;
+        private UserAccountModel? _currentUser;
         private ObservableCollection<RequestModel>? _request;
+        private ObservableCollection<RequestModel>? _requestUser;
 
         IUserRepository _userRepository;
 
@@ -45,6 +48,15 @@ namespace LibraryWPF.ViewModel
                 OnPropertyChanged(nameof(SelectedDateReturn));
             }
         }
+        public bool IsConfirmRequest
+        {
+            get => _isConfirmRequest;
+            set
+            {
+                _isConfirmRequest = value;
+                OnPropertyChanged(nameof(_isConfirmRequest));
+            }
+        }
 
         public RequestModel CurrentRequest
         {
@@ -54,7 +66,16 @@ namespace LibraryWPF.ViewModel
                 _currentRequest = value;
                 OnPropertyChanged(nameof(CurrentRequest));
             }
-        }   
+        }
+        public UserAccountModel? CurrentUser
+        {
+            get => _currentUser;
+            set
+            {
+                _currentUser = value;
+                OnPropertyChanged(nameof(CurrentUser));
+            }
+        }
         public ObservableCollection<RequestModel> Request
         {
             get => _request ?? (_request = new ObservableCollection<RequestModel>());
@@ -64,13 +85,30 @@ namespace LibraryWPF.ViewModel
                 OnPropertyChanged(nameof(Request));
             }
         }
+        public ObservableCollection<RequestModel> RequestUser
+        {
+            get => _requestUser ?? (_requestUser = new ObservableCollection<RequestModel>());
+            set
+            {
+                _requestUser = value;
+                OnPropertyChanged(nameof(RequestUser));
+            }
+        }
 
         public RequestViewModel()
         {
-            _userRepository = new UserRepository();
-            ConfirmRequest = new ViewModelCommand(ExecuteConfirmRequest, CanExecuteConfirmRequest);
-            ConfirmRequestCommand = new ViewModelCommand(ExecuteConfirmRequestCommand, CanExecuteConfirmRequestCommand);
+            _userRepository = new UserRepository(); 
+            ConfirmRequest = new ViewModelCommand(ExecuteConfirmRequestCommand, CanExecuteConfirmRequestCommand);
             ExecuteShowListRequest();
+        }
+
+        public RequestViewModel(UserAccountModel currentUser)
+        {
+            CurrentUser = currentUser;
+            _userRepository = new UserRepository();
+            ConfirmRequest = new ViewModelCommand(ExecuteConfirmRequestCommand, CanExecuteConfirmRequestCommand);
+            ExecuteShowListRequest();
+            ExecuteShowListRequestUser();
         }
 
         private bool CanExecuteConfirmRequestCommand(object obj)
@@ -79,21 +117,15 @@ namespace LibraryWPF.ViewModel
                 return true;
             return false;
         }
-
         private void ExecuteConfirmRequestCommand(object obj)
         {
-                
-        }
-
-        private bool CanExecuteConfirmRequest(object obj)
-        {
-            return CurrentRequest != null;
-        }
-
-        private void ExecuteConfirmRequest(object obj)
-        {
-            var confirmRequest = new ConfirmRequestView();
-            confirmRequest.ShowDialog();
+            foreach (var itemMore in CurrentRequest.moreRequestModels)
+            {
+                itemMore.DateOfissue = DateOnly.FromDateTime(SelectedDateOfIssue.Value);
+                itemMore.DateReturn = DateOnly.FromDateTime(SelectedDateReturn.Value);
+            }
+            _userRepository.ConfirmCurrentRequest(CurrentRequest);
+            ExecuteShowListRequest();
         }
 
         private void ExecuteShowListRequest()
@@ -103,6 +135,15 @@ namespace LibraryWPF.ViewModel
 
             foreach (var item in tempRequest)
                 Request.Add(item);
+        }
+        private void ExecuteShowListRequestUser()
+        {
+            RequestUser = new ObservableCollection<RequestModel>();
+            var tempRequestUser = _userRepository.GetByAllRequestUser(CurrentUser.CardNumber);
+
+            foreach (var item in tempRequestUser)
+                RequestUser.Add(item);
+
         }
     }
 }
