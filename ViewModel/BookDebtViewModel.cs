@@ -1,7 +1,5 @@
 ﻿using LibraryWPF.Model;
-using LibraryWPF.Model.DBModels;
 using LibraryWPF.Repositories;
-using LibraryWPF.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,23 +10,20 @@ using System.Windows.Input;
 
 namespace LibraryWPF.ViewModel
 {
-    public class RequestViewModel : ViewModelBase
+    public class BookDebtViewModel : ViewModelBase
     {
         // Fields
         private DateTime? _selectedDateOfissue;
         private DateTime? _selectedDateReturn;
-        private bool _isConfirmRequest = false;
-        private string? _messageInfoCountRequest;
 
-        private RequestModel _currentRequest;
+        private string? _messageInfoCountDebt;
+
+        private RequestModel _currentDebt;
         private UserAccountModel? _currentUser;
-        private ObservableCollection<RequestModel>? _request;
-        private ObservableCollection<RequestModel>? _requestUser;
+        private ObservableCollection<RequestModel>? _debtAdmin;
+        private ObservableCollection<RequestModel>? _debtUser;
 
         IUserRepository _userRepository;
-
-        public ICommand ConfirmRequest { get; }
-        public ICommand ConfirmRequestCommand { get; }
 
         // Properties
         public DateTime? SelectedDateOfIssue
@@ -49,32 +44,23 @@ namespace LibraryWPF.ViewModel
                 OnPropertyChanged(nameof(SelectedDateReturn));
             }
         }
-        public bool IsConfirmRequest
+        public string MessageInfoCountDebt
         {
-            get => _isConfirmRequest;
+            get => _messageInfoCountDebt;
             set
             {
-                _isConfirmRequest = value;
-                OnPropertyChanged(nameof(_isConfirmRequest));
-            }
-        }
-        public string MessageInfoCountRequest
-        {
-            get => _messageInfoCountRequest;
-            set
-            {
-                _messageInfoCountRequest = value;
-                OnPropertyChanged(nameof(MessageInfoCountRequest));
+                _messageInfoCountDebt = value;
+                OnPropertyChanged(nameof(MessageInfoCountDebt));
             }
         }
 
-        public RequestModel CurrentRequest
+        public RequestModel CurrentDebt
         {
-            get => _currentRequest;
+            get => _currentDebt;
             set
             {
-                _currentRequest = value;
-                OnPropertyChanged(nameof(CurrentRequest));
+                _currentDebt = value;
+                OnPropertyChanged(nameof(CurrentDebt));
             }
         }
         public UserAccountModel? CurrentUser
@@ -86,38 +72,36 @@ namespace LibraryWPF.ViewModel
                 OnPropertyChanged(nameof(CurrentUser));
             }
         }
-        public ObservableCollection<RequestModel> Request
+        public ObservableCollection<RequestModel> DebtAdmin
         {
-            get => _request ?? (_request = new ObservableCollection<RequestModel>());
-            set 
-            {
-                _request = value;
-                OnPropertyChanged(nameof(Request));
-            }
-        }
-        public ObservableCollection<RequestModel> RequestUser
-        {
-            get => _requestUser ?? (_requestUser = new ObservableCollection<RequestModel>());
+            get => _debtAdmin ?? (_debtAdmin = new ObservableCollection<RequestModel>());
             set
             {
-                _requestUser = value;
-                OnPropertyChanged(nameof(RequestUser));
+                _debtAdmin = value;
+                OnPropertyChanged(nameof(DebtAdmin));
+            }
+        }
+        public ObservableCollection<RequestModel> DebtUser
+        {
+            get => _debtUser ?? (_debtUser = new ObservableCollection<RequestModel>());
+            set
+            {
+                _debtUser = value;
+                OnPropertyChanged(nameof(DebtUser));
             }
         }
 
-        public RequestViewModel()
+        public BookDebtViewModel()
         {
-            _userRepository = new UserRepository(); 
-            ConfirmRequest = new ViewModelCommand(ExecuteConfirmRequestCommand, CanExecuteConfirmRequestCommand);
-            ExecuteShowListRequest();
+            _userRepository = new UserRepository();
+            ExecuteShowListDebtUser();
         }
 
-        public RequestViewModel(UserAccountModel currentUser)
+        public BookDebtViewModel(UserAccountModel currentUser)
         {
             CurrentUser = currentUser;
             _userRepository = new UserRepository();
             ConfirmRequest = new ViewModelCommand(ExecuteConfirmRequestCommand, CanExecuteConfirmRequestCommand);
-            ExecuteShowListRequest();
             ExecuteShowListRequestUser();
         }
 
@@ -135,10 +119,10 @@ namespace LibraryWPF.ViewModel
                 itemMore.DateReturn = DateOnly.FromDateTime(SelectedDateReturn.Value);
             }
             _userRepository.ConfirmCurrentRequest(CurrentRequest);
-            ExecuteShowListRequest();
+            ExecuteShowListDebtUser();
         }
 
-        private void ExecuteShowListRequest()
+        private void ExecuteShowListDebtUser()
         {
             Request = new ObservableCollection<RequestModel>();
             var tempRequest = _userRepository.GetByAllRequest();
@@ -165,5 +149,8 @@ namespace LibraryWPF.ViewModel
                 MessageInfoCountRequest = string.Empty;
 
         }
+
+
+
     }
 }

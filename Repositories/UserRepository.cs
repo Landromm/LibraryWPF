@@ -609,7 +609,7 @@ namespace LibraryWPF.Repositories
             {
                 var resultShortRequest = from requestB in context.Requests
                                          join userB in context.Users on requestB.UserCardNumber equals userB.CardNumber
-                                         where requestB.UserCardNumber == cardNumber
+                                         where requestB.UserCardNumber == cardNumber && requestB.StatusRequest == false
                                          select new
                                          {
                                              NumberRequest = requestB.Number,
@@ -633,7 +633,7 @@ namespace LibraryWPF.Repositories
                                                 join autorB in context2.Autors on booksB.AutorId equals autorB.Id
                                                 join readPlaceB in context2.ReadPlaces on booksB.ReadPlace equals readPlaceB.Id
                                                 join rackB in context2.Racks on booksB.StackNumber equals rackB.StackNumber
-                                                where requestB.Number == item.NumberRequest
+                                                where requestB.Number == item.NumberRequest 
                                                 select new
                                                 {
                                                     IdListRequest = listBookReqB.Id,
@@ -678,6 +678,10 @@ namespace LibraryWPF.Repositories
             }
 
             return requestModels;
+        }
+        public ObservableCollection<RequestModel> GetByAllUserDebt(int cardNumber)
+        {
+
         }
         public ObservableCollection<CatalogBooksModel> GetByAllCatalogBooks()
         {
