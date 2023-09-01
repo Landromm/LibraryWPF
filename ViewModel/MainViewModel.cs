@@ -77,6 +77,8 @@ namespace LibraryWPF.ViewModel
         public ICommand ShowCatalogsBookViewCommand { get; }
         public ICommand ShowRequestAdminViewCommand { get; }
         public ICommand ShowRequestUserViewCommand { get; }
+        public ICommand ShowAdminBookDebtViewCommand { get; }
+        public ICommand ShowUserBookDebtViewCommand { get; }
 
         public MainViewModel()
         {
@@ -90,6 +92,8 @@ namespace LibraryWPF.ViewModel
             ShowCatalogsBookViewCommand = new ViewModelCommand(ExecuteShowCatalogsBooksViewCommand);
             ShowRequestAdminViewCommand = new ViewModelCommand(ExecuteShowRequestAdminViewCommand);
             ShowRequestUserViewCommand = new ViewModelCommand(ExecuteShowRequestUserViewCommand);
+            ShowAdminBookDebtViewCommand = new ViewModelCommand(ExecuteShowAdminBookDeptViewCommand);
+            ShowUserBookDebtViewCommand = new ViewModelCommand(ExecuteShowUserBookDebtViewCommand);
 
             LoadCurrentUserData();
 
@@ -97,6 +101,20 @@ namespace LibraryWPF.ViewModel
             //ExecuteShowHomeViewCommand(null);
             ExecuteShowCatalogsBooksViewCommand(null);
 
+        }
+
+        private void ExecuteShowUserBookDebtViewCommand(object obj)
+        {
+            CurrentChildView = new RequestViewModel() { CurrentUser = CurrentUserAccount };
+            Caption = "Задолженность";
+            Icon = IconChar.Stopwatch;
+        }
+
+        private void ExecuteShowAdminBookDeptViewCommand(object obj)
+        {
+            CurrentChildView = new RequestViewModel();
+            Caption = "Задолженности";
+            Icon = IconChar.Stopwatch;
         }
 
         private void ExecuteShowRequestUserViewCommand(object obj)

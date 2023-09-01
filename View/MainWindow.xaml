@@ -38,6 +38,10 @@
         <DataTemplate DataType="{x:Type viewModel:RequestViewModel}">
             <local:RequestAdminView/>
         </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:BookDebtViewModel}">
+            <local:UserBookDebtView/>
+        </DataTemplate>
         
     </Window.Resources>
 
@@ -131,7 +135,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color9}">
+                                 Tag="{StaticResource color9}"
+                                 Command="{Binding ShowAdminBookDebtViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Stopwatch" Style="{StaticResource menuButtonIcon}"/>

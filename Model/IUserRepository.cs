@@ -48,6 +48,10 @@ namespace LibraryWPF.Model
         void ConfirmCurrentRequest(RequestModel requestModel);
         #endregion
 
+        #region Frame Debt
+
+        #endregion
+
         UserModel GetById(int id);
         UserModel GetByUsername(string username);
 
@@ -59,6 +63,9 @@ namespace LibraryWPF.Model
         ObservableCollection<CatalogBooksModel> GetByAllCatalogBooks();
         ObservableCollection<RequestModel> GetByAllRequest();
         ObservableCollection<RequestModel> GetByAllRequestUser(int cardNumber);
+
+        ObservableCollection<RequestModel> GetByAllUserDebt(int cardNumber);
+        ObservableCollection<RequestModel> GetByAllAdminDebt(int cardNumber);
 
 
         // ...

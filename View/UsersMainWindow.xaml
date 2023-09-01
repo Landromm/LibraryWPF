@@ -23,12 +23,12 @@
             <local:RequestUserView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:ReadersViewModel}">
-            <local:ReadersView/>
-        </DataTemplate>
-
         <DataTemplate DataType="{x:Type viewModel:CatalogBooksViewModel}">
             <local:UserCatalogBooksView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:BookDebtViewModel}">
+            <local:UserBookDebtView/>
         </DataTemplate>
 
     </Window.Resources>
@@ -80,28 +80,6 @@
                                    Margin="10,0,0,0"/>
                     </StackPanel>
 
-                    <!--Меню кнопок-->
-                    <!--<RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color1}"
-                                 IsChecked="True"
-                                 Command="{Binding ShowHomeViewCommand}">
-
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Home" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Статистика" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>-->
-
-                    <!--<RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color6}"
-                                 Command="{Binding ShowReadersViewCommand}">
-
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="User" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Читатели" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>-->
-
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color3}"
                                  Command="{Binding ShowRequestUserViewCommand}">
@@ -124,7 +102,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color9}">
+                                 Tag="{StaticResource color9}"
+                                 Command="{Binding ExecuteShowUserBookDebtViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Stopwatch" Style="{StaticResource menuButtonIcon}"/>
