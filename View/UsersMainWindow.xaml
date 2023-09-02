@@ -103,7 +103,7 @@
 
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color9}"
-                                 Command="{Binding ExecuteShowUserBookDebtViewCommand}">
+                                 Command="{Binding ShowUserBookDebtViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Stopwatch" Style="{StaticResource menuButtonIcon}"/>

@@ -64,7 +64,7 @@ namespace LibraryWPF.Model
         ObservableCollection<RequestModel> GetByAllRequest();
         ObservableCollection<RequestModel> GetByAllRequestUser(int cardNumber);
 
-        ObservableCollection<RequestModel> GetByAllUserDebt(int cardNumber);
+        ObservableCollection<MoreRequestModel> GetByAllUserDebt(int cardNumber);
         ObservableCollection<RequestModel> GetByAllAdminDebt(int cardNumber);
 
 

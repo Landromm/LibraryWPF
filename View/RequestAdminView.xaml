@@ -600,7 +600,7 @@
 
                                     <!--Кнопка подтверждения заявки-->
                                     <Grid Grid.Row="3"
-                                  Margin="5,5,15,15">
+                                            Margin="5,5,15,15">
 
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>

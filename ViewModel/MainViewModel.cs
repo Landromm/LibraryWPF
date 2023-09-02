@@ -105,14 +105,14 @@ namespace LibraryWPF.ViewModel
 
         private void ExecuteShowUserBookDebtViewCommand(object obj)
         {
-            CurrentChildView = new RequestViewModel() { CurrentUser = CurrentUserAccount };
+            CurrentChildView = new BookDebtViewModel(CurrentUserAccount);
             Caption = "Задолженность";
             Icon = IconChar.Stopwatch;
         }
 
         private void ExecuteShowAdminBookDeptViewCommand(object obj)
         {
-            CurrentChildView = new RequestViewModel();
+            CurrentChildView = new BookDebtViewModel();
             Caption = "Задолженности";
             Icon = IconChar.Stopwatch;
         }
