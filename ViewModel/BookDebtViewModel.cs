@@ -21,7 +21,7 @@ namespace LibraryWPF.ViewModel
         private RequestModel _currentDebt;
         private UserAccountModel? _currentUser;
         private ObservableCollection<RequestModel>? _debtAdmin;
-        private ObservableCollection<RequestModel>? _debtUser;
+        private ObservableCollection<MoreRequestModel>? _debtUser;
 
         IUserRepository _userRepository;
 
@@ -81,9 +81,9 @@ namespace LibraryWPF.ViewModel
                 OnPropertyChanged(nameof(DebtAdmin));
             }
         }
-        public ObservableCollection<RequestModel> DebtUser
+        public ObservableCollection<MoreRequestModel> DebtUser
         {
-            get => _debtUser ?? (_debtUser = new ObservableCollection<RequestModel>());
+            get => _debtUser ?? (_debtUser = new ObservableCollection<MoreRequestModel>());
             set
             {
                 _debtUser = value;
@@ -101,52 +101,34 @@ namespace LibraryWPF.ViewModel
         {
             CurrentUser = currentUser;
             _userRepository = new UserRepository();
-            ConfirmRequest = new ViewModelCommand(ExecuteConfirmRequestCommand, CanExecuteConfirmRequestCommand);
-            ExecuteShowListRequestUser();
-        }
-
-        private bool CanExecuteConfirmRequestCommand(object obj)
-        {
-            if (SelectedDateOfIssue != null && SelectedDateReturn != null)
-                return true;
-            return false;
-        }
-        private void ExecuteConfirmRequestCommand(object obj)
-        {
-            foreach (var itemMore in CurrentRequest.moreRequestModels)
-            {
-                itemMore.DateOfissue = DateOnly.FromDateTime(SelectedDateOfIssue.Value);
-                itemMore.DateReturn = DateOnly.FromDateTime(SelectedDateReturn.Value);
-            }
-            _userRepository.ConfirmCurrentRequest(CurrentRequest);
             ExecuteShowListDebtUser();
         }
 
         private void ExecuteShowListDebtUser()
         {
-            Request = new ObservableCollection<RequestModel>();
-            var tempRequest = _userRepository.GetByAllRequest();
+            DebtUser = new ObservableCollection<MoreRequestModel>();
+            var tempRequest = _userRepository.GetByAllUserDebt(CurrentUser.CardNumber);
 
             foreach (var item in tempRequest)
-                Request.Add(item);
+                DebtUser.Add(item);
 
-            if (Request.Count <= 0)
-                MessageInfoCountRequest = "ЗАЯВОК НА РАССМОТРЕНИЯ - НЕТ";
+            if (DebtUser.Count <= 0)
+                MessageInfoCountDebt = "ЗАДОЛЖЕННОСТИ ОТСУТСТВУЮТ";
             else
-                MessageInfoCountRequest = string.Empty;
+                MessageInfoCountDebt = string.Empty;
         }
-        private void ExecuteShowListRequestUser()
+        private void ExecuteShowListDebtAdmin()
         {
-            RequestUser = new ObservableCollection<RequestModel>();
-            var tempRequestUser = _userRepository.GetByAllRequestUser(CurrentUser.CardNumber);
+            DebtAdmin = new ObservableCollection<RequestModel>();
+            var tempRequest = _userRepository.GetByAllAdminDebt(CurrentUser.CardNumber);
 
-            foreach (var item in tempRequestUser)
-                RequestUser.Add(item);
+            foreach (var item in tempRequest)
+                DebtAdmin.Add(item);
 
-            if (RequestUser.Count <= 0)
-                MessageInfoCountRequest = "ЗАЯВОК ПО ВАШЕМУ НОМЕРУ - НЕТ НА РАССМОТРЕНИИ";
+            if (DebtAdmin.Count <= 0)
+                MessageInfoCountDebt = "ЗАДОЛЖЕННОСТИ ОТСУТСТВУЮТ";
             else
-                MessageInfoCountRequest = string.Empty;
+                MessageInfoCountDebt = string.Empty;
 
         }
 

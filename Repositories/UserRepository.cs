@@ -679,9 +679,143 @@ namespace LibraryWPF.Repositories
 
             return requestModels;
         }
-        public ObservableCollection<RequestModel> GetByAllUserDebt(int cardNumber)
+        public ObservableCollection<MoreRequestModel> GetByAllUserDebt(int cardNumber)
         {
+            ObservableCollection<RequestModel> debtModel = new ObservableCollection<RequestModel>();
+            ObservableCollection<MoreRequestModel> moreDebtModel = new ObservableCollection<MoreRequestModel>();
 
+            using var context = new MvvmloginDbContext();
+            {
+                var resultShortDebt = from requestB in context.Requests
+                                         join userB in context.Users on requestB.UserCardNumber equals userB.CardNumber
+                                         where requestB.UserCardNumber == cardNumber && requestB.StatusRequest == true
+                                         select new
+                                         {
+                                             NumberRequest = requestB.Number,
+                                             DateRegistred = requestB.DateRegistrRequest,
+                                             UserCardNumber = requestB.UserCardNumber,
+                                             UserName = userB.Name,
+                                             UserLastName = userB.LastName
+                                         };
+
+                foreach (var item in resultShortDebt)
+                {
+                    using var context2 = new MvvmloginDbContext();
+                    {
+
+                        var resultRequestMore = from requestB in context2.Requests
+                                                join userB in context2.Users on requestB.UserCardNumber equals userB.CardNumber
+                                                join reqListbookReqB in context2.RequestListBookRequests on requestB.Number equals reqListbookReqB.Number
+                                                join listBookReqB in context2.ListBookRequests on reqListbookReqB.IdListBook equals listBookReqB.Id
+                                                join booksB in context2.Books on listBookReqB.BookId equals booksB.Id
+                                                join autorB in context2.Autors on booksB.AutorId equals autorB.Id
+                                                join readPlaceB in context2.ReadPlaces on booksB.ReadPlace equals readPlaceB.Id
+                                                join rackB in context2.Racks on booksB.StackNumber equals rackB.StackNumber
+                                                where requestB.Number == item.NumberRequest
+                                                select new
+                                                {
+                                                    IdListRequest = listBookReqB.Id,
+                                                    DateOfissue = listBookReqB.DateOfissue,
+                                                    DateReturn = listBookReqB.DateReturn,
+                                                    Title = booksB.Title,
+                                                    Serias = booksB.Serias,
+                                                    YearPublish = booksB.YearPublich,
+                                                    AutorName = autorB.Name,
+                                                    AutorLastName = autorB.LastName
+                                                };
+                        foreach (var itemMore in resultRequestMore)
+                        {
+                            moreDebtModel.Add(new MoreRequestModel()
+                            {
+                                IdListRequest = itemMore.IdListRequest,
+                                DateOfissue = itemMore.DateOfissue,
+                                DateReturn = itemMore.DateReturn,
+                                Title = itemMore.Title,
+                                Serias = itemMore.Serias,
+                                YearPublish = itemMore.YearPublish,
+                                AutorName = itemMore.AutorName,
+                                AutorLastName = itemMore.AutorLastName
+                            });
+                        }
+                    }
+                }
+            }
+
+            return moreDebtModel;
+        }
+        public ObservableCollection<RequestModel> GetByAllAdminDebt(int cardNumber)
+        { 
+                    ObservableCollection<RequestModel> debtModel = new ObservableCollection<RequestModel>();
+
+            using var context = new MvvmloginDbContext();
+            {
+                var resultShortDebt = from requestB in context.Requests
+                                         join userB in context.Users on requestB.UserCardNumber equals userB.CardNumber
+                                         where requestB.UserCardNumber == cardNumber && requestB.StatusRequest == false
+                                         select new
+                                         {
+                                             NumberRequest = requestB.Number,
+                                             DateRegistred = requestB.DateRegistrRequest,
+                                             UserCardNumber = requestB.UserCardNumber,
+                                             UserName = userB.Name,
+                                             UserLastName = userB.LastName
+                                         };
+
+                foreach (var item in resultShortDebt)
+                {
+                    using var context2 = new MvvmloginDbContext();
+                    {
+                        ObservableCollection<MoreRequestModel> moreDebtModel = new ObservableCollection<MoreRequestModel>();
+
+                        var resultRequestMore = from requestB in context2.Requests
+                                                join userB in context2.Users on requestB.UserCardNumber equals userB.CardNumber
+                                                join reqListbookReqB in context2.RequestListBookRequests on requestB.Number equals reqListbookReqB.Number
+                                                join listBookReqB in context2.ListBookRequests on reqListbookReqB.IdListBook equals listBookReqB.Id
+                                                join booksB in context2.Books on listBookReqB.BookId equals booksB.Id
+                                                join autorB in context2.Autors on booksB.AutorId equals autorB.Id
+                                                join readPlaceB in context2.ReadPlaces on booksB.ReadPlace equals readPlaceB.Id
+                                                join rackB in context2.Racks on booksB.StackNumber equals rackB.StackNumber
+                                                where requestB.Number == item.NumberRequest
+                                                select new
+                                                {
+                                                    IdListRequest = listBookReqB.Id,
+                                                    DateOfissue = listBookReqB.DateOfissue,
+                                                    DateReturn = listBookReqB.DateReturn,
+                                                    Title = booksB.Title,
+                                                    Serias = booksB.Serias,
+                                                    YearPublish = booksB.YearPublich,
+                                                    AutorName = autorB.Name,
+                                                    AutorLastName = autorB.LastName
+                                                };
+                        foreach (var itemMore in resultRequestMore)
+                        {
+                            moreDebtModel.Add(new MoreRequestModel()
+                            {
+                                IdListRequest = itemMore.IdListRequest,
+                                DateOfissue = itemMore.DateOfissue,
+                                DateReturn = itemMore.DateReturn,
+                                Title = itemMore.Title,
+                                Serias = itemMore.Serias,
+                                YearPublish = itemMore.YearPublish,
+                                AutorName = itemMore.AutorName,
+                                AutorLastName = itemMore.AutorLastName
+                            });
+                        }
+
+                        debtModel.Add(new RequestModel()
+                        {
+                            NumberRequest = item.NumberRequest,
+                            DateRegistred = item.DateRegistred,
+                            UserCardNumber = item.UserCardNumber,
+                            UserName = item.UserName,
+                            UserLastName = item.UserLastName,
+                            moreRequestModels = moreDebtModel
+                        });
+                    }
+                }
+            }
+
+            return debtModel;
         }
         public ObservableCollection<CatalogBooksModel> GetByAllCatalogBooks()
         {
