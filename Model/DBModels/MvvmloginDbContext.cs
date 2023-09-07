@@ -19,6 +19,8 @@ public partial class MvvmloginDbContext : DbContext
 
     public virtual DbSet<Book> Books { get; set; }
 
+    public virtual DbSet<BookArchive> BookArchives { get; set; }
+
     public virtual DbSet<ListBookRequest> ListBookRequests { get; set; }
 
     public virtual DbSet<LoginUser> LoginUsers { get; set; }
@@ -28,6 +30,8 @@ public partial class MvvmloginDbContext : DbContext
     public virtual DbSet<ReadPlace> ReadPlaces { get; set; }
 
     public virtual DbSet<Request> Requests { get; set; }
+
+    public virtual DbSet<RequestArchive> RequestArchives { get; set; }
 
     public virtual DbSet<RequestListBookRequest> RequestListBookRequests { get; set; }
 
@@ -72,6 +76,37 @@ public partial class MvvmloginDbContext : DbContext
                 .HasForeignKey(d => d.StackNumber)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Books_Rack");
+        });
+
+        modelBuilder.Entity<BookArchive>(entity =>
+        {
+            entity.HasKey(e => e.IdBook);
+
+            entity.ToTable("BookArchive");
+
+            entity.Property(e => e.IdBook).HasColumnName("idBook");
+            entity.Property(e => e.AutorLastName)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.AutorName)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Publisher)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.ReadPlace)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Serias)
+                .HasMaxLength(50)
+                .IsFixedLength();
+            entity.Property(e => e.Title)
+                .HasMaxLength(50)
+                .IsFixedLength();
+
+            entity.HasOne(d => d.NumberRequestNavigation).WithMany(p => p.BookArchives)
+                .HasForeignKey(d => d.NumberRequest)
+                .HasConstraintName("FK_BookArchive_RequestArchive");
         });
 
         modelBuilder.Entity<ListBookRequest>(entity =>
@@ -138,6 +173,18 @@ public partial class MvvmloginDbContext : DbContext
                 .HasForeignKey(d => d.UserCardNumber)
                 .OnDelete(DeleteBehavior.Cascade)
                 .HasConstraintName("FK_Request_User");
+        });
+
+        modelBuilder.Entity<RequestArchive>(entity =>
+        {
+            entity.HasKey(e => e.NumberRequest).HasName("PK_RequestArchive_1");
+
+            entity.ToTable("RequestArchive");
+
+            entity.HasIndex(e => e.NumberRequest, "IX_RequestArchive");
+
+            entity.Property(e => e.NumberRequest).ValueGeneratedNever();
+            entity.Property(e => e.DateRegistrRequest).HasColumnType("datetime");
         });
 
         modelBuilder.Entity<RequestListBookRequest>(entity =>

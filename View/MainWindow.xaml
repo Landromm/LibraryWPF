@@ -40,7 +40,7 @@
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type viewModel:BookDebtViewModel}">
-            <local:UserBookDebtView/>
+            <local:AdminBookDebtView/>
         </DataTemplate>
         
     </Window.Resources>

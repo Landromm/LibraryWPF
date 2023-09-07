@@ -743,7 +743,7 @@ namespace LibraryWPF.Repositories
 
             return moreDebtModel;
         }
-        public ObservableCollection<RequestModel> GetByAllAdminDebt(int cardNumber)
+        public ObservableCollection<RequestModel> GetByAllAdminDebt()
         { 
                     ObservableCollection<RequestModel> debtModel = new ObservableCollection<RequestModel>();
 
@@ -751,7 +751,7 @@ namespace LibraryWPF.Repositories
             {
                 var resultShortDebt = from requestB in context.Requests
                                          join userB in context.Users on requestB.UserCardNumber equals userB.CardNumber
-                                         where requestB.UserCardNumber == cardNumber && requestB.StatusRequest == false
+                                         where requestB.StatusRequest == true
                                          select new
                                          {
                                              NumberRequest = requestB.Number,
@@ -785,7 +785,9 @@ namespace LibraryWPF.Repositories
                                                     Serias = booksB.Serias,
                                                     YearPublish = booksB.YearPublich,
                                                     AutorName = autorB.Name,
-                                                    AutorLastName = autorB.LastName
+                                                    AutorLastName = autorB.LastName,
+                                                    ReadPlaces = readPlaceB.ReadPlace1,
+                                                    RackNamber = rackB.StackNumber
                                                 };
                         foreach (var itemMore in resultRequestMore)
                         {
@@ -798,19 +800,24 @@ namespace LibraryWPF.Repositories
                                 Serias = itemMore.Serias,
                                 YearPublish = itemMore.YearPublish,
                                 AutorName = itemMore.AutorName,
-                                AutorLastName = itemMore.AutorLastName
+                                AutorLastName = itemMore.AutorLastName,
+                                ReadPlaces = itemMore.ReadPlaces,
+                                RackNumber = itemMore.RackNamber
                             });
                         }
 
-                        debtModel.Add(new RequestModel()
+                        if(moreDebtModel.Count > 0)
                         {
-                            NumberRequest = item.NumberRequest,
-                            DateRegistred = item.DateRegistred,
-                            UserCardNumber = item.UserCardNumber,
-                            UserName = item.UserName,
-                            UserLastName = item.UserLastName,
-                            moreRequestModels = moreDebtModel
-                        });
+                            debtModel.Add(new RequestModel()
+                            {
+                                NumberRequest = item.NumberRequest,
+                                DateRegistred = item.DateRegistred,
+                                UserCardNumber = item.UserCardNumber,
+                                UserName = item.UserName,
+                                UserLastName = item.UserLastName,
+                                moreRequestModels = moreDebtModel
+                            });
+                        }
                     }
                 }
             }
