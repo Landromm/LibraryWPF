@@ -19,6 +19,7 @@ namespace LibraryWPF.ViewModel
         private string? _messageInfoCountDebt;
 
         private RequestModel _currentDebt;
+        private MoreRequestModel _currentMoreDebt;
         private UserAccountModel? _currentUser;
         private ObservableCollection<RequestModel>? _debtAdmin;
         private ObservableCollection<MoreRequestModel>? _debtUser;
@@ -63,6 +64,15 @@ namespace LibraryWPF.ViewModel
                 OnPropertyChanged(nameof(CurrentDebt));
             }
         }
+        public MoreRequestModel CurrentMoreDebt
+        {
+            get => _currentMoreDebt;
+            set
+            {
+                _currentMoreDebt = value;
+                OnPropertyChanged(nameof(CurrentMoreDebt));
+            }
+        }
         public UserAccountModel? CurrentUser
         {
             get => _currentUser;
@@ -91,10 +101,23 @@ namespace LibraryWPF.ViewModel
             }
         }
 
+        public ICommand ConfirmBackDeptCommand { get; }
+
         public BookDebtViewModel()
         {
             _userRepository = new UserRepository();
-            ExecuteShowListDebtUser();
+            ConfirmBackDeptCommand = new ViewModelCommand(ExecuteConfirmBackDeptCommand, CanExecuteConfirmBackDeptCommand);
+            ExecuteShowListDebtAdmin();
+        }
+
+        private bool CanExecuteConfirmBackDeptCommand(object obj)
+        {
+            return true;
+        }
+
+        private void ExecuteConfirmBackDeptCommand(object obj)
+        {
+            throw new NotImplementedException();
         }
 
         public BookDebtViewModel(UserAccountModel currentUser)
@@ -120,7 +143,7 @@ namespace LibraryWPF.ViewModel
         private void ExecuteShowListDebtAdmin()
         {
             DebtAdmin = new ObservableCollection<RequestModel>();
-            var tempRequest = _userRepository.GetByAllAdminDebt(CurrentUser.CardNumber);
+            var tempRequest = _userRepository.GetByAllAdminDebt();
 
             foreach (var item in tempRequest)
                 DebtAdmin.Add(item);
