@@ -444,28 +444,110 @@ namespace LibraryWPF.Repositories
         }
         public void ConfirmCurrentRequest(RequestModel request)
         {
+            var originalListBook = new ListBookRequest();
+            var originalRequest = new Request();
+            var originalBook = new Book();
+            var originalAutor = new Autor();
+            var originalReadPlace = new ReadPlace();
+
             using var context = new MvvmloginDbContext();
             {
                 foreach(var item in request.moreRequestModels)
                 {
-                    var originalListBook = context.ListBookRequests
+                    originalListBook = context.ListBookRequests
                         .Where(id => id.Id == item.IdListRequest)
                         .ToList()
                         .First();
 
                     originalListBook.DateOfissue = item.DateOfissue;
                     originalListBook.DateReturn = item.DateReturn;
-
                     context.ListBookRequests.Update(originalListBook);
+
+                    using var context2 = new MvvmloginDbContext();
+                    {
+                        originalBook = context2.Books
+                            .Where(idB => idB.Id == originalListBook.BookId)
+                            .ToList()
+                            .First();
+
+                        originalAutor = context2.Autors.Where(idA => idA.Id == originalBook.AutorId).ToList().First();
+                        // ОСТАНОВИЛСЯ ТУТ ДОБАВИТЬ ИНИЦИАЛИЗАЦИЮ ФМО АВТОРА И МЕСТО ЧТЕНИЯ.
+                        context2.RequestArchives.Add(new RequestArchive
+                        {
+                            NumberRequest = request.NumberRequest,
+                            DateRegistrRequest = request.DateRegistred
+                        });
+                        context2.BookArchives.Add(new BookArchive 
+                        {
+                            NumberRequest = request.NumberRequest,
+                            DateOfissue = (DateOnly)originalListBook.DateOfissue,
+                            DateReturn = (DateOnly)originalListBook.DateReturn,
+                            Title = originalBook.Title,
+                            Serias = originalBook.Serias,
+                            YearPublich = originalBook.YearPublich,
+                            Pages = originalBook.Pages,
+                            AutorName = 
+                        });
+                    }
                 }
 
-                var originalRequest = context.Requests
+                originalRequest = context.Requests
                     .Where(number => number.Number == request.NumberRequest)
                     .ToList()
                     .First();
 
                 originalRequest.StatusRequest = true;
                 context.Requests.Update(originalRequest);
+                context.SaveChanges();
+            }
+        }
+        #endregion
+
+        #region Frame Debt
+        public void ConfirmBackDept(RequestModel currentDept)
+        {
+            var books = new Book();
+            var listBookRequest = new List<ListBookRequest>();
+            var request = new Request();
+
+            using var context = new MvvmloginDbContext();
+            {
+                foreach (var itemListBook in currentDept.moreRequestModels)
+                {
+                    listBookRequest = context.ListBookRequests.Where(idLBR => idLBR.Id == itemListBook.IdListRequest).ToList();
+                    
+                    foreach(var book in listBookRequest)
+                    {
+                        books = context.Books.Where(idB => idB.Id == book.BookId).ToList().First();
+                        
+                        // Изменяем состояние книг на доступные.
+                        using var context2 = new MvvmloginDbContext();
+                        {
+                            var oldBook = new Book()
+                            {
+                                Id = books.Id,
+                                Title = books.Title,
+                                Serias = books.Serias,
+                                YearPublich = books.YearPublich,
+                                Pages = books.Pages,
+                                AutorId = books.AutorId,
+                                StackNumber = books.StackNumber,
+                                ReadPlace = books.ReadPlace,
+                                Publisher = books.Publisher,
+                                CheckAvailability = true
+                            };
+
+                            context2.Books.Update(oldBook);
+                            context2.SaveChanges();
+                        }
+                    }
+
+                    foreach (var itemList in listBookRequest)
+                        context.ListBookRequests.Remove(itemList);
+                }
+
+                request = context.Requests.Where(idR => idR.Number == currentDept.NumberRequest).ToList().First();
+                context.Requests.Remove(request);
                 context.SaveChanges();
             }
         }

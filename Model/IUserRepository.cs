@@ -49,7 +49,7 @@ namespace LibraryWPF.Model
         #endregion
 
         #region Frame Debt
-
+        void ConfirmBackDept(RequestModel requestModel);
         #endregion
 
         UserModel GetById(int id);
