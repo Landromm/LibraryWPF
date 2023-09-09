@@ -19,7 +19,6 @@ namespace LibraryWPF.ViewModel
         private string? _messageInfoCountDebt;
 
         private RequestModel _currentDebt;
-        private MoreRequestModel _currentMoreDebt;
         private UserAccountModel? _currentUser;
         private ObservableCollection<RequestModel>? _debtAdmin;
         private ObservableCollection<MoreRequestModel>? _debtUser;
@@ -64,15 +63,6 @@ namespace LibraryWPF.ViewModel
                 OnPropertyChanged(nameof(CurrentDebt));
             }
         }
-        public MoreRequestModel CurrentMoreDebt
-        {
-            get => _currentMoreDebt;
-            set
-            {
-                _currentMoreDebt = value;
-                OnPropertyChanged(nameof(CurrentMoreDebt));
-            }
-        }
         public UserAccountModel? CurrentUser
         {
             get => _currentUser;
@@ -112,12 +102,15 @@ namespace LibraryWPF.ViewModel
 
         private bool CanExecuteConfirmBackDeptCommand(object obj)
         {
-            return true;
+            if(CurrentDebt != null)
+                return true;
+            else return false;
         }
 
         private void ExecuteConfirmBackDeptCommand(object obj)
         {
-            throw new NotImplementedException();
+            _userRepository.ConfirmBackDept(CurrentDebt);
+            ExecuteShowListDebtAdmin();
         }
 
         public BookDebtViewModel(UserAccountModel currentUser)
