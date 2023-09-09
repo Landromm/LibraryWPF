@@ -452,7 +452,14 @@ namespace LibraryWPF.Repositories
 
             using var context = new MvvmloginDbContext();
             {
-                foreach(var item in request.moreRequestModels)
+                context.RequestArchives.Add(new RequestArchive
+                {
+                    NumberRequest = request.NumberRequest,
+                    DateRegistrRequest = request.DateRegistred
+                });
+                context.SaveChanges();
+
+                foreach (var item in request.moreRequestModels)
                 {
                     originalListBook = context.ListBookRequests
                         .Where(id => id.Id == item.IdListRequest)
@@ -469,14 +476,15 @@ namespace LibraryWPF.Repositories
                             .Where(idB => idB.Id == originalListBook.BookId)
                             .ToList()
                             .First();
+                        originalAutor = context2.Autors
+                            .Where(idA => idA.Id == originalBook.AutorId)
+                            .ToList()
+                            .First();
+                        originalReadPlace = context2.ReadPlaces
+                            .Where(idRP => idRP.Id == originalBook.ReadPlace)
+                            .ToList()
+                            .First();
 
-                        originalAutor = context2.Autors.Where(idA => idA.Id == originalBook.AutorId).ToList().First();
-                        // ОСТАНОВИЛСЯ ТУТ ДОБАВИТЬ ИНИЦИАЛИЗАЦИЮ ФМО АВТОРА И МЕСТО ЧТЕНИЯ.
-                        context2.RequestArchives.Add(new RequestArchive
-                        {
-                            NumberRequest = request.NumberRequest,
-                            DateRegistrRequest = request.DateRegistred
-                        });
                         context2.BookArchives.Add(new BookArchive 
                         {
                             NumberRequest = request.NumberRequest,
@@ -486,8 +494,12 @@ namespace LibraryWPF.Repositories
                             Serias = originalBook.Serias,
                             YearPublich = originalBook.YearPublich,
                             Pages = originalBook.Pages,
-                            AutorName = 
+                            AutorName = originalAutor.Name,
+                            AutorLastName = originalAutor.LastName,
+                            Publisher = originalBook.Publisher,
+                            ReadPlace = originalReadPlace.ReadPlace1
                         });
+                        context2.SaveChanges();
                     }
                 }
 
