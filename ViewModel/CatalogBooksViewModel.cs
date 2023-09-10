@@ -26,7 +26,10 @@ namespace LibraryWPF.ViewModel
         private int _selectedStackNumber;
         private List<string> _readPlaceName;
         private string _selectedReadPlace;
-        public string _publisher;
+        private string _publisher;
+        private string? _textSearch;
+        private string? _selectedSearch;
+        private List<string> _itemComboBox;
 
         private CatalogBooksModel? _currentCatalogBook;
         private UserAccountModel? _currentUser;
@@ -141,6 +144,34 @@ namespace LibraryWPF.ViewModel
                 OnPropertyChanged(nameof(Publisher));
             }
         }
+        public string? TextSearch
+        {
+            get => _textSearch;
+            set
+            {
+                _textSearch = value;
+                OnPropertyChanged(nameof(TextSearch));
+                ExecuteShowListCatalogAfterSearch();
+            }
+        }
+        public string? SelectedSearch
+        {
+            get => _selectedSearch;
+            set
+            {
+                _selectedSearch = value;
+                OnPropertyChanged(nameof(SelectedSearch));
+            }
+        }
+        public List<string> ItemComboBox
+        {
+            get => _itemComboBox;
+            set
+            {
+                _itemComboBox = value;
+                OnPropertyChanged(nameof(ItemComboBox));
+            }
+        }
 
         public CatalogBooksModel CurrentCatalogBook
         {
@@ -230,8 +261,8 @@ namespace LibraryWPF.ViewModel
 
             AddNewBookCommand = new ViewModelCommand(ExecuteAddNewBookCommand, CanExecuteAddNewBookCommand);
             SendListForRequstCommand = new ViewModelCommand(ExecuteSendListForRequstCommand, CanExecuteSendListForRequstCommand);
-
-
+            ItemComboBox = new List<string>() { "По автору", "По издательству", "По году издания", "Все" };
+            SelectedSearch = "Все";
             ExecuteInitialListData();
             ExecuteShowListCatalogBooks();
         }
@@ -252,7 +283,6 @@ namespace LibraryWPF.ViewModel
                 throw;
             }
         }
-
         private void ExecuteSendListForRequstCommand(object obj)
         {
             try
@@ -408,6 +438,8 @@ namespace LibraryWPF.ViewModel
 
         private void ExecuteRefreshViewCommand(object obj)
         {
+            TextSearch = string.Empty;
+            SelectedSearch = "Все";
             ExecuteGetCountBookInRequest();
             ExecuteShowListCatalogBooks();
         }
@@ -450,6 +482,50 @@ namespace LibraryWPF.ViewModel
                 Books.Add(book);
 
             //ExecuteShowCountBookInRequest();
+        }
+        private void ExecuteShowListCatalogAfterSearch()
+        {
+            Books = new ObservableCollection<CatalogBooksModel>();
+            switch (SelectedSearch)
+            {
+                case "По автору": 
+                    {
+                        var tempBooks = _userRepository.GetBySearchAutorCatalogBooks(TextSearch);
+
+                        foreach (var book in tempBooks)
+                            Books.Add(book);
+
+                        break; 
+                    }
+                case "По издательству":
+                    {
+                        var tempBooks = _userRepository.GetBySearchPublicherCatalogBooks(TextSearch);
+
+                        foreach (var book in tempBooks)
+                            Books.Add(book);
+
+                        break;
+                    }
+                case "По году издания":
+                    {
+                        var tempBooks = _userRepository.GetBySearchYearPublishCatalogBooks(TextSearch);
+
+                        foreach (var book in tempBooks)
+                            Books.Add(book);
+
+                        break;
+                    }
+                case "Все":
+                    {
+                        ExecuteShowListCatalogBooks();
+                        break;
+                    }
+                default:
+                    {
+                        ExecuteShowListCatalogBooks();
+                        break;
+                    }
+            }
         }
 
     }
