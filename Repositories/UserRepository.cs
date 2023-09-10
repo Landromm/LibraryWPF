@@ -918,6 +918,7 @@ namespace LibraryWPF.Repositories
 
             return debtModel;
         }
+
         public ObservableCollection<CatalogBooksModel> GetByAllCatalogBooks()
         {
             ObservableCollection<CatalogBooksModel> catalogBooksModels = new ObservableCollection<CatalogBooksModel>();
@@ -931,6 +932,141 @@ namespace LibraryWPF.Repositories
                                                Serias = catalogB.Serias, Publisher = catalogB.Publisher, YearPublich = catalogB.YearPublich,
                                                Pages = catalogB.Pages, StackNumber = rackB.StackNumber, ReadPlaces = readPlaceB.ReadPlace1,
                                                CheckAvailability = catalogB.CheckAvailability};
+
+                foreach (var item in catalogBooksModelsResult)
+                {
+                    catalogBooksModels.Add(new CatalogBooksModel()
+                    {
+                        Id = item.Id,
+                        Title = item.Title,
+                        NameAutor = item.NameAutor,
+                        LastNameAutor = item.LastNameAutor,
+                        Serias = item.Serias,
+                        Publisher = item.Publisher,
+                        YearPublich = item.YearPublich,
+                        Pages = item.Pages,
+                        StackNumber = item.StackNumber,
+                        ReadPlace = item.ReadPlaces,
+                        CheckAvailability = item.CheckAvailability
+                    });
+                }
+            };
+            return catalogBooksModels;
+        }
+        public ObservableCollection<CatalogBooksModel> GetBySearchAutorCatalogBooks(string autorSearch)
+        {
+            ObservableCollection<CatalogBooksModel> catalogBooksModels = new ObservableCollection<CatalogBooksModel>();
+            using var context = new MvvmloginDbContext();
+            {
+                var catalogBooksModelsResult = from catalogB in context.Books
+                                               join autorB in context.Autors on catalogB.AutorId equals autorB.Id
+                                               join rackB in context.Racks on catalogB.StackNumber equals rackB.StackNumber
+                                               join readPlaceB in context.ReadPlaces on catalogB.ReadPlace equals readPlaceB.Id
+                                               where EF.Functions.Like(autorB.LastName, autorSearch+"%")
+                                               select new
+                                               {
+                                                   Id = catalogB.Id,
+                                                   Title = catalogB.Title,
+                                                   NameAutor = autorB.Name,
+                                                   LastNameAutor = autorB.LastName,
+                                                   Serias = catalogB.Serias,
+                                                   Publisher = catalogB.Publisher,
+                                                   YearPublich = catalogB.YearPublich,
+                                                   Pages = catalogB.Pages,
+                                                   StackNumber = rackB.StackNumber,
+                                                   ReadPlaces = readPlaceB.ReadPlace1,
+                                                   CheckAvailability = catalogB.CheckAvailability
+                                               };
+
+                foreach (var item in catalogBooksModelsResult)
+                {
+                    catalogBooksModels.Add(new CatalogBooksModel()
+                    {
+                        Id = item.Id,
+                        Title = item.Title,
+                        NameAutor = item.NameAutor,
+                        LastNameAutor = item.LastNameAutor,
+                        Serias = item.Serias,
+                        Publisher = item.Publisher,
+                        YearPublich = item.YearPublich,
+                        Pages = item.Pages,
+                        StackNumber = item.StackNumber,
+                        ReadPlace = item.ReadPlaces,
+                        CheckAvailability = item.CheckAvailability
+                    });
+                }
+            };
+            return catalogBooksModels;
+        }
+        public ObservableCollection<CatalogBooksModel> GetBySearchPublicherCatalogBooks(string publishSearch)
+        {
+            ObservableCollection<CatalogBooksModel> catalogBooksModels = new ObservableCollection<CatalogBooksModel>();
+            using var context = new MvvmloginDbContext();
+            {
+                var catalogBooksModelsResult = from catalogB in context.Books
+                                               join autorB in context.Autors on catalogB.AutorId equals autorB.Id
+                                               join rackB in context.Racks on catalogB.StackNumber equals rackB.StackNumber
+                                               join readPlaceB in context.ReadPlaces on catalogB.ReadPlace equals readPlaceB.Id
+                                               where EF.Functions.Like(catalogB.Publisher, publishSearch + "%")
+                                               select new
+                                               {
+                                                   Id = catalogB.Id,
+                                                   Title = catalogB.Title,
+                                                   NameAutor = autorB.Name,
+                                                   LastNameAutor = autorB.LastName,
+                                                   Serias = catalogB.Serias,
+                                                   Publisher = catalogB.Publisher,
+                                                   YearPublich = catalogB.YearPublich,
+                                                   Pages = catalogB.Pages,
+                                                   StackNumber = rackB.StackNumber,
+                                                   ReadPlaces = readPlaceB.ReadPlace1,
+                                                   CheckAvailability = catalogB.CheckAvailability
+                                               };
+
+                foreach (var item in catalogBooksModelsResult)
+                {
+                    catalogBooksModels.Add(new CatalogBooksModel()
+                    {
+                        Id = item.Id,
+                        Title = item.Title,
+                        NameAutor = item.NameAutor,
+                        LastNameAutor = item.LastNameAutor,
+                        Serias = item.Serias,
+                        Publisher = item.Publisher,
+                        YearPublich = item.YearPublich,
+                        Pages = item.Pages,
+                        StackNumber = item.StackNumber,
+                        ReadPlace = item.ReadPlaces,
+                        CheckAvailability = item.CheckAvailability
+                    });
+                }
+            };
+            return catalogBooksModels;
+        }
+        public ObservableCollection<CatalogBooksModel> GetBySearchYearPublishCatalogBooks(string yearPublishSearch)
+        {
+            ObservableCollection<CatalogBooksModel> catalogBooksModels = new ObservableCollection<CatalogBooksModel>();
+            using var context = new MvvmloginDbContext();
+            {
+                var catalogBooksModelsResult = from catalogB in context.Books
+                                               join autorB in context.Autors on catalogB.AutorId equals autorB.Id
+                                               join rackB in context.Racks on catalogB.StackNumber equals rackB.StackNumber
+                                               join readPlaceB in context.ReadPlaces on catalogB.ReadPlace equals readPlaceB.Id
+                                               where EF.Functions.Like(catalogB.YearPublich.ToString(), yearPublishSearch + "%")
+                                               select new
+                                               {
+                                                   Id = catalogB.Id,
+                                                   Title = catalogB.Title,
+                                                   NameAutor = autorB.Name,
+                                                   LastNameAutor = autorB.LastName,
+                                                   Serias = catalogB.Serias,
+                                                   Publisher = catalogB.Publisher,
+                                                   YearPublich = catalogB.YearPublich,
+                                                   Pages = catalogB.Pages,
+                                                   StackNumber = rackB.StackNumber,
+                                                   ReadPlaces = readPlaceB.ReadPlace1,
+                                                   CheckAvailability = catalogB.CheckAvailability
+                                               };
 
                 foreach (var item in catalogBooksModelsResult)
                 {

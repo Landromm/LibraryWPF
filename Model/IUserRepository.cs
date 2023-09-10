@@ -61,6 +61,9 @@ namespace LibraryWPF.Model
         ObservableCollection<ReadPlace> GetByAllReadPlaces();
 
         ObservableCollection<CatalogBooksModel> GetByAllCatalogBooks();
+        ObservableCollection<CatalogBooksModel> GetBySearchAutorCatalogBooks(string autor);
+        ObservableCollection<CatalogBooksModel> GetBySearchPublicherCatalogBooks(string publicher);
+        ObservableCollection<CatalogBooksModel> GetBySearchYearPublishCatalogBooks(string yearPublish);
         ObservableCollection<RequestModel> GetByAllRequest();
         ObservableCollection<RequestModel> GetByAllRequestUser(int cardNumber);
 
