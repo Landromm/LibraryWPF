@@ -17,7 +17,6 @@ namespace LibraryWPF.Model
         void Add(NetworkCredential credential, UserModel userModel);
         void Edit(UserModel userModel);
         void Delete(UserModel userModel);
-        void Remove(int id);
         string GetUserRole(string login);
 
         #region For Frame SettingsAdmin
@@ -50,6 +49,14 @@ namespace LibraryWPF.Model
 
         #region Frame Debt
         void ConfirmBackDept(RequestModel requestModel);
+        #endregion
+
+        #region Frame Statistic(Home)
+        int GetByTotalIssuedBooks();
+        int GetByTotalReaders();
+        int GetByTotalPagesRead();
+        int GetByTotalDebt();
+        string[] GetByMostPopularBook();
         #endregion
 
         UserModel GetById(int id);

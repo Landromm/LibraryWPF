@@ -20,7 +20,7 @@
         </Grid.RowDefinitions>
 
         <TextBlock  Grid.Row="0"
-                    Text="{Binding MessageInfoCountRequest}"
+                    Text="{Binding MessageInfoCountDebt}"
                     FontFamily="Cascadia Code"
                     Foreground="{StaticResource color11}"
                     FontSize="22"
@@ -62,7 +62,7 @@
                                         <Setter.Value>
                                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                                                 <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
-                                                <GradientStop Color="{StaticResource primaryBackColor1}" Offset="1"/>
+                                                <GradientStop Color="{StaticResource primaryBackColor2}" Offset="1"/>
                                             </LinearGradientBrush>
                                         </Setter.Value>
                                     </Setter>

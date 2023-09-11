@@ -15,6 +15,7 @@ using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace LibraryWPF.Repositories
 {
@@ -515,7 +516,7 @@ namespace LibraryWPF.Repositories
         }
         #endregion
 
-        #region Frame Debt
+        #region For Frame Debt
         public void ConfirmBackDept(RequestModel currentDept)
         {
             var books = new Book();
@@ -564,6 +565,94 @@ namespace LibraryWPF.Repositories
             }
         }
         #endregion
+
+        #region For Frame Statistic(Home)
+        public int GetByTotalIssuedBooks()
+        {
+            int result = 0;
+            using var context = new MvvmloginDbContext();
+            {
+                result = context.BookArchives.ToList().Count();
+            }
+
+            return result;
+        }
+        public int GetByTotalReaders()
+        {
+            int result = 0;
+            using var context = new MvvmloginDbContext();
+            {
+                result = (from userT in context.Users
+                               join loginuserT in context.LoginUsers on userT.LoginUser equals loginuserT.Login
+                               join roleUserT in context.LoginUsers on loginuserT.Role equals roleUserT.Role
+                               where loginuserT.Login == "User"
+                               select userT.LastName).Count();
+            }
+
+            return result;
+        }
+        public int GetByTotalPagesRead()
+        {
+            int result = 0;
+            using var context = new MvvmloginDbContext();
+            {
+                var tempListPages = context.BookArchives.Select(countPages => countPages.Pages).ToList();
+                foreach (var page in tempListPages)
+                    result += page;
+            }
+
+            return result;
+        }
+        public int GetByTotalDebt()
+        {
+            int result = 0;
+            using var context = new MvvmloginDbContext();
+            {
+                result = context.Requests.Where(rq => rq.StatusRequest == true).Count();
+            }
+
+            return result;
+        }
+        public string[] GetByMostPopularBook()
+        {
+            var result = new string[3];
+            List<string> listUniqueBook = new List<string>();
+
+            using var context = new MvvmloginDbContext();
+            {
+                listUniqueBook = context.BookArchives
+                    .Select(titleBook => titleBook.Title)
+                    .Distinct()
+                    .ToList();
+
+                // Словарь содержащий (
+                Dictionary<string,int> quantityOfEachBook = new Dictionary<string, int>();
+
+                foreach (var book in listUniqueBook)
+                {
+                    quantityOfEachBook.Add(book, context.BookArchives
+                                                    .Where(titleBook => titleBook.Title == book)
+                                                    .ToList()
+                                                    .Count());
+                }
+
+                var sortedQuantityOfEachBook = quantityOfEachBook.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+                listUniqueBook.Clear();
+
+                foreach (var itemDict in sortedQuantityOfEachBook)
+                    listUniqueBook.Add(itemDict.Key);
+
+                for (int i = 0; i < 3; i++)
+                {
+                    result[i] = $"№{i} {listUniqueBook[i]}";
+                }
+
+            }
+
+            return result;
+        }
+        #endregion
+
 
         public ObservableCollection<ReadPlace> GetByAllReadPlaces()
         {
@@ -843,17 +932,17 @@ namespace LibraryWPF.Repositories
 
             using var context = new MvvmloginDbContext();
             {
-                var resultShortDebt = from requestB in context.Requests
-                                         join userB in context.Users on requestB.UserCardNumber equals userB.CardNumber
-                                         where requestB.StatusRequest == true
-                                         select new
-                                         {
-                                             NumberRequest = requestB.Number,
-                                             DateRegistred = requestB.DateRegistrRequest,
-                                             UserCardNumber = requestB.UserCardNumber,
-                                             UserName = userB.Name,
-                                             UserLastName = userB.LastName
-                                         };
+                var resultShortDebt =   from requestB in context.Requests
+                                        join userB in context.Users on requestB.UserCardNumber equals userB.CardNumber
+                                        where requestB.StatusRequest == true
+                                        select new
+                                        {
+                                            NumberRequest = requestB.Number,
+                                            DateRegistred = requestB.DateRegistrRequest,
+                                            UserCardNumber = requestB.UserCardNumber,
+                                            UserName = userB.Name,
+                                            UserLastName = userB.LastName
+                                        };
 
                 foreach (var item in resultShortDebt)
                 {
@@ -1164,12 +1253,5 @@ namespace LibraryWPF.Repositories
 
             return resultRole;
         }
-
-        public void Remove(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-       
     }
 }

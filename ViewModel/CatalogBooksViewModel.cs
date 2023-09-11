@@ -386,7 +386,6 @@ namespace LibraryWPF.ViewModel
                 Autors.Add(autor);
         }
 
-
         private bool CanExecuteDeleteBookCommand(object obj)
         {
             return CurrentCatalogBook != null;

@@ -111,15 +111,6 @@
                         </StackPanel>
                     </RadioButton>
 
-                    <!--<RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color5}">
-
-                        <StackPanel Orientation="Horizontal">
-                            <fa:IconImage Icon="Gear" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Настройки" Style="{StaticResource menuButtonText}"/>
-                        </StackPanel>
-                    </RadioButton>-->
-
                 </StackPanel>
 
             </Border>
