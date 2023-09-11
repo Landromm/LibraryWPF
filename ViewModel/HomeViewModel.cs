@@ -91,6 +91,9 @@ namespace LibraryWPF.ViewModel
             {
                 _arrayPopularBook = value;
                 OnPropertyChanged(nameof(ArrayPopularBook));
+                PopularBookOne = _arrayPopularBook[0];
+                PopularBookTwo = _arrayPopularBook[1];
+                PopularBookThree = _arrayPopularBook[2];
             }
         }
 
@@ -124,7 +127,7 @@ namespace LibraryWPF.ViewModel
 
         private void ExecuteShowMostPopularBook()
         {
-            _userRepository.GetByMostPopularBook();
+            ArrayPopularBook = _userRepository.GetByMostPopularBook();
         }
 
 
