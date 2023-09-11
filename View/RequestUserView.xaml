@@ -62,7 +62,7 @@
                                         <Setter.Value>
                                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                                                 <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
-                                                <GradientStop Color="{StaticResource primaryBackColor1}" Offset="1"/>
+                                                <GradientStop Color="{StaticResource primaryBackColor2}" Offset="1"/>
                                             </LinearGradientBrush>
                                         </Setter.Value>
                                     </Setter>
@@ -117,7 +117,7 @@
                                                         <Setter.Value>
                                                             <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                                                                 <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
-                                                                <GradientStop Color="{StaticResource primaryBackColor1}" Offset="1"/>
+                                                                <GradientStop Color="{StaticResource primaryBackColor2}" Offset="1"/>
                                                             </LinearGradientBrush>
                                                         </Setter.Value>
                                                     </Setter>
@@ -571,58 +571,7 @@
 
                                                             </Grid>
 
-                                                            <!--<StackPanel Grid.Row="1"
-                                                                    Margin="10,15,0,10">
-
-                                                            <Grid>
-
-                                                                <Grid.ColumnDefinitions>
-                                                                    <ColumnDefinition Width="*"/>
-                                                                    <ColumnDefinition Width="*"/>
-                                                                    <ColumnDefinition Width="200"/>
-                                                                </Grid.ColumnDefinitions>
-
-                                                                <StackPanel Grid.Column="0"
-                                                                                Orientation="Vertical">
-
-                                                                    <TextBlock  Text="Дата выдачи читателю:"
-                                                                                    Style="{StaticResource textBlockLabelDefault}"
-                                                                                    Margin="0,15,0,0"/>
-
-
-                                                                    <TextBlock  Grid.Row="1"
-                                                                                    Text="{Binding DateOfissue}"
-                                                                                    FontFamily="Cascadia Code"
-                                                                                    Foreground="{StaticResource color11}"
-                                                                                    FontSize="18"
-                                                                                    Margin="0,0,10,0"/>
-
-                                                                </StackPanel>
-
-                                                                <StackPanel Grid.Column="1"
-                                                                                Orientation="Vertical">
-
-                                                                    <TextBlock  Text="Дата обязательного возврата читателем (включительно):"
-                                                                                    Style="{StaticResource textBlockLabelDefault}"
-                                                                                    Margin="0,15,0,0"
-                                                                                    TextWrapping="Wrap"/>
-
-                                                                    <TextBlock  Grid.Row="1"
-                                                                                    Text ="{Binding DateReturn}"
-                                                                                    FontFamily="Cascadia Code"
-                                                                                    Foreground="{StaticResource color11}"
-                                                                                    FontSize="18"
-                                                                                    Margin="0,0,10,0"
-                                                                                    />
-
-                                                                </StackPanel>
-
-                                                            </Grid>
-
-                                                        </StackPanel>-->
-
                                                         </Grid>
-
 
                                                     </Border>
 

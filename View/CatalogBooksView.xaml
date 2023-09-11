@@ -354,7 +354,7 @@
                                     <Setter.Value>
                                         <LinearGradientBrush StartPoint="0,1" EndPoint="1,0">
                                             <GradientStop Color="{StaticResource primaryBackColor1}" Offset="0"/>
-                                            <GradientStop Color="{StaticResource primaryBackColor1}" Offset="1"/>
+                                            <GradientStop Color="{StaticResource primaryBackColor2}" Offset="1"/>
                                         </LinearGradientBrush>
                                     </Setter.Value>
                                 </Setter>
