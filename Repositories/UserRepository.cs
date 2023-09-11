@@ -583,10 +583,10 @@ namespace LibraryWPF.Repositories
             using var context = new MvvmloginDbContext();
             {
                 result = (from userT in context.Users
-                               join loginuserT in context.LoginUsers on userT.LoginUser equals loginuserT.Login
-                               join roleUserT in context.LoginUsers on loginuserT.Role equals roleUserT.Role
-                               where loginuserT.Login == "User"
-                               select userT.LastName).Count();
+                            join loginuserT in context.LoginUsers on userT.LoginUser equals loginuserT.Login
+                            join roleUserT in context.LoginUsers on loginuserT.Role equals roleUserT.Role
+                            where loginuserT.Login == "User"
+                            select userT.LastName).Count();
             }
 
             return result;
@@ -617,6 +617,8 @@ namespace LibraryWPF.Repositories
         {
             var result = new string[3];
             List<string> listUniqueBook = new List<string>();
+            var autorNameList = new List<string>();
+            var autorLastNameList = new List<string>();
 
             using var context = new MvvmloginDbContext();
             {
@@ -624,6 +626,21 @@ namespace LibraryWPF.Repositories
                     .Select(titleBook => titleBook.Title)
                     .Distinct()
                     .ToList();
+
+                foreach(var book in listUniqueBook)
+                {
+                    var tempListUniqueBookFIO = context.BookArchives
+                        .Where(autorT => autorT.Title == book).ToList().First();
+
+                    autorNameList.Add(tempListUniqueBookFIO.AutorName.Trim());
+                    autorLastNameList.Add(tempListUniqueBookFIO.AutorLastName.Trim());
+                }
+
+                for(int i = 0; i < listUniqueBook.Count(); i++)
+                {
+                    listUniqueBook[i] = listUniqueBook[i].Trim();
+                    listUniqueBook[i] += $" - Автор: {autorNameList[i]} {autorLastNameList[i]}";
+                }
 
                 // Словарь содержащий (
                 Dictionary<string,int> quantityOfEachBook = new Dictionary<string, int>();
@@ -644,9 +661,8 @@ namespace LibraryWPF.Repositories
 
                 for (int i = 0; i < 3; i++)
                 {
-                    result[i] = $"№{i} {listUniqueBook[i]}";
+                    result[i] = $"№{i+1} {listUniqueBook[i]}";
                 }
-
             }
 
             return result;

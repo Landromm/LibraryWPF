@@ -144,8 +144,8 @@
 
                             <TextBlock  Text="Всего выданных книг"
                                         Foreground="{StaticResource titleColor2}"
-                                        FontSize="18"
-                                        Width="150"
+                                        FontSize="22"
+                                        Width="170"
                                         FontFamily="Montserrat"
                                         FontWeight="Medium"
                                         TextWrapping="Wrap"
@@ -281,7 +281,7 @@
 
                             <TextBlock  Text="Всего прочитанных страниц"
                                         Foreground="{StaticResource titleColor2}"
-                                        FontSize="17"
+                                        FontSize="18"
                                         Width="150"
                                         FontFamily="Montserrat"
                                         FontWeight="Medium"
@@ -333,7 +333,7 @@
 
                         <fa:IconImage   Icon="ChartSimple"
                                         Foreground="{StaticResource titleColor2}"
-                                        Margin="0,5,15,5"/>
+                                        Margin="0,7,15,5"/>
 
                         <TextBlock      Text="Самые популярные книги:"
                                         Foreground="{StaticResource titleColor2}"
@@ -355,7 +355,7 @@
                         </Grid.RowDefinitions>
 
                         <TextBlock      Grid.Row="0"
-                                        Text="1. Книга №1"
+                                        Text="{Binding PopularBookOne}"
                                         Foreground="{StaticResource titleColor2}"
                                         FontSize="20"
                                         FontFamily="Montserrat"
@@ -364,7 +364,7 @@
                                         VerticalAlignment="Center"/>
 
                         <TextBlock      Grid.Row="1"
-                                        Text="2. Книга №2"
+                                        Text="{Binding PopularBookTwo}"
                                         Foreground="{StaticResource titleColor2}"
                                         FontSize="20"
                                         FontFamily="Montserrat"
@@ -373,7 +373,7 @@
                                         VerticalAlignment="Center"/>
 
                         <TextBlock      Grid.Row="2"
-                                        Text="3. Книга №3"
+                                        Text="{Binding PopularBookThree}"
                                         Foreground="{StaticResource titleColor2}"
                                         FontSize="20"
                                         FontFamily="Montserrat"
