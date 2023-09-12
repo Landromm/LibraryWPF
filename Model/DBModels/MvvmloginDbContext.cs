@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryWPF.Model.DBModels;
@@ -41,9 +42,11 @@ public partial class MvvmloginDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+    string sqlConnectionString = ConfigurationManager.ConnectionStrings["LibraryWPF.Properties.Settings.SqlConnectionWork"].ConnectionString;
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=LAPTOP-TMRQF3QP\\LANDROMMSQLSERV; Database=MVVMLoginDb; Integrated Security=True; TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer(sqlConnectionString);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
