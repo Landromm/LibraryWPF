@@ -380,7 +380,7 @@ namespace LibraryWPF.Repositories
                     .Count();
             }
 
-            if (countBook <= countPlace)
+            if (countBook < countPlace)
                 return true;
             else
                 return false;
