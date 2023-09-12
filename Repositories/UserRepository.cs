@@ -15,6 +15,7 @@ using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Resources;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace LibraryWPF.Repositories
@@ -361,6 +362,29 @@ namespace LibraryWPF.Repositories
                 context.SaveChanges();
             }
         }
+        public bool ConfirmFreePlaceStackNumber(int idStackNumber)
+        {
+            var confirmFreePlace = false;
+            int countPlace = 0;
+            int countBook = 0;
+            using var context = new MvvmloginDbContext();
+            {
+                countPlace = context.Racks
+                    .Where(id => id.StackNumber == idStackNumber)
+                    .Select(storage => storage.StorageSize)
+                    .ToList()
+                    .First();
+                countBook = context.Books
+                    .Where(stackNumber => stackNumber.StackNumber == idStackNumber)
+                    .ToList()
+                    .Count();
+            }
+
+            if (countBook <= countPlace)
+                return true;
+            else
+                return false;
+        }
         #endregion
 
         #region For Frame RequestAdmin
@@ -596,9 +620,7 @@ namespace LibraryWPF.Repositories
             int result = 0;
             using var context = new MvvmloginDbContext();
             {
-                var tempListPages = context.BookArchives.Select(countPages => countPages.Pages).ToList();
-                foreach (var page in tempListPages)
-                    result += page;
+                result = context.BookArchives.Sum(countPages => countPages.Pages);
             }
 
             return result;
@@ -666,6 +688,69 @@ namespace LibraryWPF.Repositories
             }
 
             return result;
+        }
+        public ObservableCollection<double> InitializChartBookYear(string year)
+        {
+            var countBookYear = new ObservableCollection<double>();
+            var yearConvertInt = Int32.Parse(year);
+
+            using var context = new MvvmloginDbContext();
+            {
+                var listBooks = context.Books
+                    .Where(booksT => booksT.YearPublich >= yearConvertInt)
+                    .Select(yearPublish => yearPublish.YearPublich)
+                    .Distinct()
+                    .ToList();
+
+                foreach (var bookYear in listBooks)
+                {
+                    var tempCountBook = context.Books
+                        .Where(year => year.YearPublich == bookYear)
+                        .ToList();
+                    countBookYear.Add(tempCountBook.Count());
+                }
+            }
+            return countBookYear;
+        }
+        public List<string> InitializChartBookYearXAxes(string year)
+        {
+            var resultListYear = new List<string>();
+            var yearConvertInt = Int32.Parse(year);
+
+            using var context = new MvvmloginDbContext();
+            {
+                var tempResultListYear = context.Books
+                    .Where(booksT => booksT.YearPublich >= yearConvertInt)
+                    .Select(yearPublish => yearPublish.YearPublich)
+                    .Distinct()
+                    .ToList();
+                foreach(var bookYear in tempResultListYear)
+                    resultListYear.Add(bookYear.ToString());
+            }
+            return resultListYear;
+        }
+        public ObservableCollection<double> InitializChartPageYear(string year)
+        {
+            var countPageYear = new ObservableCollection<double>();
+            var yearConvertInt = Int32.Parse(year);
+
+            using var context = new MvvmloginDbContext();
+            {
+                var listBooks = context.Books
+                    .Where(booksT => booksT.YearPublich >= yearConvertInt)
+                    .Select(yearPublish => yearPublish.YearPublich)
+                    .Distinct()
+                    .ToList();
+
+                foreach (var bookYear in listBooks)
+                {
+                    var tempCountBook = context.Books
+                        .Where(year => year.YearPublich == bookYear)
+                        .Sum(page => page.Pages);
+                    countPageYear.Add(tempCountBook);
+                }
+            }
+            return countPageYear;
         }
         #endregion
 

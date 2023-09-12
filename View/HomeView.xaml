@@ -7,6 +7,7 @@
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
              xmlns:sys="clr-namespace:System;assembly=mscorlib"         
              xmlns:customItemListView="clr-namespace:LibraryWPF.CustomControls" 
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              xmlns:viewmodel="clr-namespace:LibraryWPF.ViewModel" 
              d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
              mc:Ignorable="d" 
@@ -408,6 +409,48 @@
                     </LinearGradientBrush>
                 </Border.Background>
 
+                <Grid>
+                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    
+                    <lvc:CartesianChart Grid.Row="0"
+                                        Series="{Binding SeriesBook}"
+                                        XAxes="{Binding XAxes}"
+                                        YAxes="{Binding YAxes}">                        
+                    </lvc:CartesianChart>
+
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                Margin="10,0,0,0">
+
+                        <TextBlock  Text="Введите год:"
+                                    FontFamily="Montserrat"
+                                    FontWeight="Medium"
+                                    Foreground="{StaticResource titleColor3}"
+                                    FontSize="16"/>
+
+                        <TextBox    Text="{Binding InputYearCountBook, UpdateSourceTrigger=PropertyChanged}"
+                                    FontSize="13"
+                                    Width="120"
+                                    FontWeight="Medium"
+                                    FontFamily="Montserrat"                            
+                                    Foreground="White"
+                                    CaretBrush="LightGray"
+                                    BorderBrush="DarkGray"
+                                    BorderThickness="0,0,0,2"
+                                    VerticalContentAlignment="Center"
+                                    Margin="10,0,0,0"
+                                    Padding="10,0,0,0"
+                                    Background="Transparent"/>
+
+                    </StackPanel>
+                    
+                </Grid>
+
             </Border>
 
             <Border Grid.Row="1"
@@ -420,6 +463,48 @@
                         <GradientStop Color="#7221ab" Offset="0"/>
                     </LinearGradientBrush>
                 </Border.Background>
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <lvc:CartesianChart Grid.Row="0"
+                                        Series="{Binding SeriesPage}"
+                                        XAxes="{Binding XAxesTwo}"
+                                        YAxes="{Binding YAxesPage}">
+                    </lvc:CartesianChart>
+
+                    <StackPanel Grid.Row="1"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Center"
+                                Margin="10,0,0,0">
+
+                        <TextBlock  Text="Введите год:"
+                                    FontFamily="Montserrat"
+                                    FontWeight="Medium"
+                                    Foreground="{StaticResource titleColor3}"
+                                    FontSize="16"/>
+
+                        <TextBox    Text="{Binding InputYearCountPage, UpdateSourceTrigger=PropertyChanged}"
+                                    FontSize="13"
+                                    Width="120"
+                                    FontWeight="Medium"
+                                    FontFamily="Montserrat"                            
+                                    Foreground="White"
+                                    CaretBrush="LightGray"
+                                    BorderBrush="DarkGray"
+                                    BorderThickness="0,0,0,2"
+                                    VerticalContentAlignment="Center"
+                                    Margin="10,0,0,0"
+                                    Padding="10,0,0,0"
+                                    Background="Transparent"/>
+
+                    </StackPanel>
+
+                </Grid>
 
             </Border>
 
