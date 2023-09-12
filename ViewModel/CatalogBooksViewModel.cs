@@ -30,6 +30,7 @@ namespace LibraryWPF.ViewModel
         private string? _textSearch;
         private string? _selectedSearch;
         private List<string> _itemComboBox;
+        private string _errorMessage;
 
         private CatalogBooksModel? _currentCatalogBook;
         private UserAccountModel? _currentUser;
@@ -170,6 +171,15 @@ namespace LibraryWPF.ViewModel
             {
                 _itemComboBox = value;
                 OnPropertyChanged(nameof(ItemComboBox));
+            }
+        }
+        public string ErrorMessage
+        {
+            get => _errorMessage;
+            set
+            {
+                _errorMessage = value;
+                OnPropertyChanged(nameof(ErrorMessage));
             }
         }
 
@@ -314,34 +324,42 @@ namespace LibraryWPF.ViewModel
         }
         private void ExecuteAddNewBookCommand(object obj)
         {
-            var idReadPlace = ReadPlaces.Where(rd => rd.ReadPlace1.Equals(SelectedReadPlace)).Select(id => id.Id).ToList();
-            var nameAutor = SelectedAutorName.Split(" ")[0];
-            var lastNameAutor = SelectedAutorName.Split(" ")[1];
-            var idAutor = Autors.Where(name => name.Name.Equals(nameAutor) && name.LastName.Equals(lastNameAutor)).Select(id => id.Id).ToList();
-
-            try
+            var confirmFreePlace = _userRepository.ConfirmFreePlaceStackNumber(SelectedStackNumber);
+            if(confirmFreePlace)
             {
-                var book = new Book()
+                var idReadPlace = ReadPlaces.Where(rd => rd.ReadPlace1.Equals(SelectedReadPlace)).Select(id => id.Id).ToList();
+                var nameAutor = SelectedAutorName.Split(" ")[0];
+                var lastNameAutor = SelectedAutorName.Split(" ")[1];
+                var idAutor = Autors.Where(name => name.Name.Equals(nameAutor) && name.LastName.Equals(lastNameAutor)).Select(id => id.Id).ToList();
+
+                try
                 {
-                    Title = Title,
-                    Serias = Serias,
-                    YearPublich = YearPublich,
-                    Pages = Pages,
-                    AutorId = idAutor.First(),
-                    StackNumber = SelectedStackNumber,
-                    ReadPlace = idReadPlace.First(),
-                    Publisher = Publisher,
-                    CheckAvailability = true
-                };
-                _userRepository.AddBook(book);
-                ExecuteClearAllTextbox();
+                    var book = new Book()
+                    {
+                        Title = Title,
+                        Serias = Serias,
+                        YearPublich = YearPublich,
+                        Pages = Pages,
+                        AutorId = idAutor.First(),
+                        StackNumber = SelectedStackNumber,
+                        ReadPlace = idReadPlace.First(),
+                        Publisher = Publisher,
+                        CheckAvailability = true
+                    };
+                    _userRepository.AddBook(book);
+                    ExecuteClearAllTextbox();
 
+                }
+                catch (Exception ex)
+                {
+
+                    throw;
+                }
             }
-            catch (Exception ex)
+            else
             {
-
-                throw;
-            }
+                ErrorMessage = "Стелаж заполнен. Выберите другой.";
+            }            
         }
 
         private void ExecuteInitialListData()

@@ -40,6 +40,7 @@ namespace LibraryWPF.Model
         void DeleteCurrentBook(CatalogBooksModel book);
         void ResetCurrentListBook(int cardNumber);
         void AddBook(Book book);
+        bool ConfirmFreePlaceStackNumber(int idStackNumber);
         #endregion
 
         #region Frame RequestAdmin
@@ -57,6 +58,9 @@ namespace LibraryWPF.Model
         int GetByTotalPagesRead();
         int GetByTotalDebt();
         string[] GetByMostPopularBook();
+        ObservableCollection<double> InitializChartBookYear(string year);
+        List<string> InitializChartBookYearXAxes(string year);
+        ObservableCollection<double> InitializChartPageYear(string year);
         #endregion
 
         UserModel GetById(int id);
