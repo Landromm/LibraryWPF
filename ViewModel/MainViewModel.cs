@@ -1,6 +1,7 @@
 ﻿using FontAwesome.Sharp;
 using LibraryWPF.Model;
 using LibraryWPF.Repositories;
+using LibraryWPF.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace LibraryWPF.ViewModel
     public class MainViewModel: ViewModelBase
     {
         //Fields
+        private CatalogBooksViewModel _catalogBooksVM;
         private UserAccountModel _currentUserAccount;
         private ViewModelBase _currentChildView;
         private string _caption;
@@ -22,6 +24,15 @@ namespace LibraryWPF.ViewModel
         private IUserRepository userRepository;
 
         //Properties
+        public CatalogBooksViewModel CatalogBooksVM
+        {
+            get => _catalogBooksVM;
+            set
+            {
+                _catalogBooksVM = value;
+                OnPropertyChanged(nameof(CatalogBooksVM));
+            }
+        }
         public UserAccountModel CurrentUserAccount 
         { 
             get => _currentUserAccount;
@@ -61,7 +72,13 @@ namespace LibraryWPF.ViewModel
 
         //--> Commands
         public ICommand ShowHomeViewCommand { get; }
-        public ICommand ShowCustomerViewCommand { get; }
+        public ICommand ShowReadersViewCommand { get; }
+        public ICommand ShowSettingsAdminViewCommand { get; }
+        public ICommand ShowCatalogsBookViewCommand { get; }
+        public ICommand ShowRequestAdminViewCommand { get; }
+        public ICommand ShowRequestUserViewCommand { get; }
+        public ICommand ShowAdminBookDebtViewCommand { get; }
+        public ICommand ShowUserBookDebtViewCommand { get; }
 
         public MainViewModel()
         {
@@ -70,18 +87,68 @@ namespace LibraryWPF.ViewModel
 
             //Инициализация комманд (ICommand ..)
             ShowHomeViewCommand = new ViewModelCommand(ExecuteShowHomeViewCommand);
-            ShowCustomerViewCommand = new ViewModelCommand(ExecuteShowCustomerViewCommand);
-
-            //Вид по умолчанию.
-            ExecuteShowHomeViewCommand(null);
+            ShowReadersViewCommand = new ViewModelCommand(ExecuteShowReadersViewCommand);
+            ShowSettingsAdminViewCommand = new ViewModelCommand(ExecuteShowSettingsAdminViewCommand);
+            ShowCatalogsBookViewCommand = new ViewModelCommand(ExecuteShowCatalogsBooksViewCommand);
+            ShowRequestAdminViewCommand = new ViewModelCommand(ExecuteShowRequestAdminViewCommand);
+            ShowRequestUserViewCommand = new ViewModelCommand(ExecuteShowRequestUserViewCommand);
+            ShowAdminBookDebtViewCommand = new ViewModelCommand(ExecuteShowAdminBookDeptViewCommand);
+            ShowUserBookDebtViewCommand = new ViewModelCommand(ExecuteShowUserBookDebtViewCommand);
 
             LoadCurrentUserData();
+
+            //Вид по умолчанию.
+            //ExecuteShowHomeViewCommand(null);
+            ExecuteShowCatalogsBooksViewCommand(null);
+
         }
 
-        private void ExecuteShowCustomerViewCommand(object obj)
+        private void ExecuteShowUserBookDebtViewCommand(object obj)
         {
-            CurrentChildView = new CustomerViewModel();
-            Caption = "Customer";
+            CurrentChildView = new BookDebtViewModel(CurrentUserAccount);
+            Caption = "Задолженность";
+            Icon = IconChar.Stopwatch;
+        }
+
+        private void ExecuteShowAdminBookDeptViewCommand(object obj)
+        {
+            CurrentChildView = new BookDebtViewModel();
+            Caption = "Задолженности";
+            Icon = IconChar.Stopwatch;
+        }
+
+        private void ExecuteShowRequestUserViewCommand(object obj)
+        {
+            CurrentChildView = new RequestViewModel(CurrentUserAccount);
+            Caption = "Заявки";
+            Icon = IconChar.PenToSquare;
+        }
+
+        private void ExecuteShowRequestAdminViewCommand(object obj)
+        {
+            CurrentChildView = new RequestViewModel();
+            Caption = "Заявки";
+            Icon = IconChar.PenToSquare;
+        }
+
+        private void ExecuteShowCatalogsBooksViewCommand(object obj)
+        {
+            CurrentChildView = new CatalogBooksViewModel() { CurrentUser = CurrentUserAccount};
+            Caption = "Каталог книг";
+            Icon = IconChar.Book;
+        }
+
+        private void ExecuteShowSettingsAdminViewCommand(object obj)
+        {
+            CurrentChildView = new SettingsAdminViewModel();
+            Caption = "Настройки";
+            Icon = IconChar.Gears;
+        }
+
+        private void ExecuteShowReadersViewCommand(object obj)
+        {
+            CurrentChildView = new ReadersViewModel();
+            Caption = "Читатели";
             Icon = IconChar.UserGroup;
         }
 
@@ -98,8 +165,9 @@ namespace LibraryWPF.ViewModel
             if (user != null)
             {
                 CurrentUserAccount.Username = user.Username;
-                CurrentUserAccount.DisplayName = $" {user.Name} {user.LastName}.";
-                CurrentUserAccount.ProfilePicture = null;
+                CurrentUserAccount.DisplayName = $" {user.Name} {user.LastName}. Ч.Билет №{user.CardNumber}";
+                CurrentUserAccount.CardNumber = user.CardNumber;
+                CurrentUserAccount.ProfilePicture = null!;
             }
             else
             {

@@ -18,13 +18,29 @@
     </Window.DataContext>
 
     <Window.Resources>
-        
+
         <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
             <local:HomeView/>
         </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModel:CustomerViewModel}">
-            <local:CustomerView/> 
+        <DataTemplate DataType="{x:Type viewModel:ReadersViewModel}">
+            <local:ReadersView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:SettingsAdminViewModel}">
+            <local:SettingsAdminView/>
+        </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewModel:CatalogBooksViewModel}">
+            <local:CatalogBooksView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:RequestViewModel}">
+            <local:RequestAdminView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:BookDebtViewModel}">
+            <local:AdminBookDebtView/>
         </DataTemplate>
         
     </Window.Resources>
@@ -79,7 +95,6 @@
                     <!--Меню кнопок-->
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color1}"
-                                 IsChecked="True"
                                  Command="{Binding ShowHomeViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
@@ -90,7 +105,7 @@
 
                     <RadioButton Style="{StaticResource menuButton}"
                                  Tag="{StaticResource color6}"
-                                 Command="{Binding ShowCustomerViewCommand}">
+                                 Command="{Binding ShowReadersViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="User" Style="{StaticResource menuButtonIcon}"/>
@@ -99,7 +114,8 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color3}">
+                                 Tag="{StaticResource color3}"
+                                 Command="{Binding ShowRequestAdminViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="PenToSquare" Style="{StaticResource menuButtonIcon}"/>
@@ -108,16 +124,29 @@
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color4}">
+                                 Tag="{StaticResource color4}"                                 
+                                 IsChecked="True"
+                                 Command="{Binding ShowCatalogsBookViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Book" Style="{StaticResource menuButtonIcon}"/>
-                            <TextBlock Text="Каталог" Style="{StaticResource menuButtonText}"/>
+                            <TextBlock Text="Каталог книг" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
 
                     <RadioButton Style="{StaticResource menuButton}"
-                                 Tag="{StaticResource color5}">
+                                 Tag="{StaticResource color9}"
+                                 Command="{Binding ShowAdminBookDebtViewCommand}">
+
+                        <StackPanel Orientation="Horizontal">
+                            <fa:IconImage Icon="Stopwatch" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Задолженности" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+
+                    <RadioButton Style="{StaticResource menuButton}"
+                                 Tag="{StaticResource color5}"
+                                 Command="{Binding ShowSettingsAdminViewCommand}">
 
                         <StackPanel Orientation="Horizontal">
                             <fa:IconImage Icon="Gear" Style="{StaticResource menuButtonIcon}"/>

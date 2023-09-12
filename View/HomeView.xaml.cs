@@ -17,7 +17,7 @@ namespace LibraryWPF.View
 {
     /// <summary>
     /// Interaction logic for HomeView.xaml
-    /// </summary>
+    /// </summary>  
     public partial class HomeView : UserControl
     {
         public HomeView()

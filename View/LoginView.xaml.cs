@@ -40,9 +40,10 @@ namespace LibraryWPF.View
             Application.Current.Shutdown();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        private void btnReset_Click(object sender, RoutedEventArgs e)
         {
-
+            txtUser.Text = string.Empty;
+            txtPass.txtPassword.Clear();
         }
     }
 }

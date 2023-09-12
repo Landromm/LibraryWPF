@@ -6,10 +6,17 @@
     <Color x:Key="primaryBackColor2">#1C0E49</Color>
     <Color x:Key="secondaryBackColor1">#24105F</Color>
     <Color x:Key="secondaryBackColor2">#210F55</Color>
+    <Color x:Key="GreenBackColor1">#001f08</Color>
+    <Color x:Key="GreenBackColor2">#004212</Color>
+    <Color x:Key="GreenBackColor3">#38ff6e</Color>
     <!--Window Border Colors-->
     <Color x:Key="winBorderColor1">#6D2FFF</Color>
     <Color x:Key="winBorderColor2">#FB539B</Color>
     <Color x:Key="winBorderColor3">#836EFB</Color>
+    <Color x:Key="winBorderColor4">#4c52f5</Color>
+    <Color x:Key="winBorderColor5">#EF6C96</Color>
+    <Color x:Key="winBorderColor6">#9497CD</Color>
+    <Color x:Key="winBorderColor7">#7376BD</Color>
     <!--Color Palette-->
     <SolidColorBrush x:Key="color1" Color="#E285DE"/>
     <SolidColorBrush x:Key="color2" Color="#784DFD"/>
@@ -21,6 +28,10 @@
     <SolidColorBrush x:Key="color8" Color="#78A3FC"/>
     <SolidColorBrush x:Key="color9" Color="#07F3C0"/>
     <SolidColorBrush x:Key="color10" Color="#FBA1AA"/>
+    <SolidColorBrush x:Key="color11" Color="#e8e1ed"/>
+    <SolidColorBrush x:Key="color12" Color="#302f2f"/>
+    <SolidColorBrush x:Key="color13" Color="#4dde43"/>
+    
     <!--Font Colors-->
     <SolidColorBrush x:Key="titleColor1" Color="#E0E1F1"/>
     <SolidColorBrush x:Key="titleColor2" Color="#D5CFF5"/>

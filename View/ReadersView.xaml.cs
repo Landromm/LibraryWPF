@@ -16,13 +16,14 @@ using System.Windows.Shapes;
 namespace LibraryWPF.View
 {
     /// <summary>
-    /// Interaction logic for CustomerView.xaml
+    /// Interaction logic for ReadersView.xaml
     /// </summary>
-    public partial class CustomerView : UserControl
+    public partial class ReadersView : UserControl
     {
-        public CustomerView()
+        public ReadersView()
         {
             InitializeComponent();
         }
+
     }
 }
