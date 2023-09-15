@@ -680,11 +680,21 @@ namespace LibraryWPF.Repositories
 
                 foreach (var itemDict in sortedQuantityOfEachBook)
                     listUniqueBook.Add(itemDict.Key);
-
-                for (int i = 0; i < 3; i++)
+                if(listUniqueBook.Count() >= 3)
                 {
-                    result[i] = $"№{i+1} {listUniqueBook[i]}";
+                    for (int i = 0; i < 3; i++)
+                    {
+                        result[i] = $"№{i + 1} {listUniqueBook[i]}";
+                    }
                 }
+                else
+                {
+                    for (int i = 0; i < listUniqueBook.Count(); i++)
+                    {
+                        result[i] = $"№{i + 1} {listUniqueBook[i]}";
+                    }
+                }
+
             }
 
             return result;
