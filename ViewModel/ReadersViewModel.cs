@@ -120,6 +120,5 @@ namespace LibraryWPF.ViewModel
             foreach ( var user in tempCollection )
                 Users.Add(user);
         }
-
     }
 }

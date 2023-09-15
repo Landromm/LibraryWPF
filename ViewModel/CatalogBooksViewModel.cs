@@ -254,11 +254,8 @@ namespace LibraryWPF.ViewModel
         public ICommand AddBookCommand { get; }
         public ICommand RefreshViewCommand { get; }
         public ICommand ResetListBookCommand { get; }
-
         public ICommand AddNewBookCommand { get; }
         public ICommand SendListForRequstCommand { get; }
-
-        //public ICommand SendListForRequstCommand { get; }
 
         public CatalogBooksViewModel()
         {
@@ -463,7 +460,6 @@ namespace LibraryWPF.ViewModel
 
         private bool CanExecuteAddListBookRequestCommand(object obj)
         {
-            //return CurrentCatalogBook != null;
             return CurrentCatalogBook != null && CurrentCatalogBook.CheckAvailability;
         }
         private void ExecuteAddTempListBookCommand(object obj)
@@ -497,8 +493,6 @@ namespace LibraryWPF.ViewModel
            
             foreach (var book in tempBooks)
                 Books.Add(book);
-
-            //ExecuteShowCountBookInRequest();
         }
         private void ExecuteShowListCatalogAfterSearch()
         {
@@ -544,6 +538,5 @@ namespace LibraryWPF.ViewModel
                     }
             }
         }
-
     }
 }

@@ -63,7 +63,6 @@ namespace LibraryWPF.Model
         ObservableCollection<double> InitializChartPageYear(string year);
         #endregion
 
-        UserModel GetById(int id);
         UserModel GetByUsername(string username);
 
         ObservableCollection<UserModel> GetByAll();

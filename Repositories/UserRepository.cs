@@ -20,7 +20,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace LibraryWPF.Repositories
 {
-    public class UserRepository : RepositoryBase, IUserRepository
+    public class UserRepository : IUserRepository
     {
         public void Add(NetworkCredential credential, UserModel userModel)
         {
@@ -39,18 +39,6 @@ namespace LibraryWPF.Repositories
         public bool AuthenticateUser(NetworkCredential credential)
         {
             bool validUser;
-            #region old sql Connection
-            //using (var connection = GetConnection())
-            //using (var command = new SqlCommand())
-            //{
-            //    connection.Open();
-            //    command.Connection = connection;
-            //    command.CommandText = "select * from [LoginUser] where [Login]=@Login and [Password]=@Password";
-            //    command.Parameters.Add("@Login", SqlDbType.NVarChar).Value = credential.UserName;
-            //    command.Parameters.Add("@Password", SqlDbType.NVarChar).Value = credential.Password;
-            //    validUser = command.ExecuteScalar() == null ? false : true;
-            //}
-            #endregion
 
             using var context = new MvvmloginDbContext();
             {
@@ -764,7 +752,6 @@ namespace LibraryWPF.Repositories
         }
         #endregion
 
-
         public ObservableCollection<ReadPlace> GetByAllReadPlaces()
         {
             ObservableCollection<ReadPlace> readPlaces = new ObservableCollection<ReadPlace>();
@@ -1289,41 +1276,10 @@ namespace LibraryWPF.Repositories
             return catalogBooksModels;
         }
 
-        public UserModel GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         //Возвращает объект UserModel с данными по конткретному Логину.
         public UserModel GetByUsername(string username)
         {
             UserModel userEF = new UserModel();
-            #region old sql Connection
-            //using (var connection = GetConnection())
-            //using (var command = new SqlCommand())
-            //{
-            //    connection.Open();
-            //    command.Connection = connection;
-            //    command.CommandText = "SELECT [LoginUser].[Id], [User].[LoginUser], [User].[Name], [User].[LastName], [User].[CardNumber] " +
-            //                        "FROM [LoginUser] INNER JOIN [User] " +
-            //                        "ON [LoginUser].[Login] = @LoginUser";
-            //    command.Parameters.Add("@LoginUser", SqlDbType.NVarChar).Value = username;
-            //    using (var reader = command.ExecuteReader())
-            //    {
-            //        if (reader.Read())
-            //        {
-            //            userEF = new UserModel()
-            //            {
-            //                Id = reader[0].ToString(),
-            //                Username = reader[1].ToString(),
-            //                Name = reader[2].ToString(),
-            //                LastName = reader[3].ToString(),
-            //                CardNumber = reader[4].ToString()
-            //            };
-            //        }
-            //    }
-            //}
-            #endregion
 
             using var context = new MvvmloginDbContext();
             {

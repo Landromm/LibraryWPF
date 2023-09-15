@@ -64,7 +64,6 @@ namespace LibraryWPF.ViewModel
 
         //-> Commands
         public ICommand LoginCommand { get; }
-        public ICommand RecoverPasswordCommand { get; }
         public ICommand ShowPasswordCommand { get; }
         public ICommand RememberPasswordCommand { get; }
         public ICommand SingUpCommand { get; }
@@ -74,7 +73,6 @@ namespace LibraryWPF.ViewModel
         {
             userRepository = new UserRepository();
             LoginCommand = new ViewModelCommand(ExecuteLoginCommand, CanExecuteLoginCommand);
-            RecoverPasswordCommand = new ViewModelCommand(p => ExecuteRecoverCommand("", ""));
             SingUpCommand = new ViewModelCommand(p => ExecuteSingUpCommand());
         }
 
@@ -92,7 +90,7 @@ namespace LibraryWPF.ViewModel
         private void ExecuteLoginCommand(object obj)
         {
             var isValidUser = userRepository.AuthenticateUser(new NetworkCredential(Username, Password));
-            // РАССМОТРЕТЬ КЛАСС "GenericPrincipal" ДЛЯ УСТАНОВЛЕНИЯ РОЛЕЙ. 
+
             if ( isValidUser )
             {
                 Thread.CurrentPrincipal = new GenericPrincipal(
@@ -103,11 +101,6 @@ namespace LibraryWPF.ViewModel
             {
                 ErrorMessage = "* Invalid username or passwod";  
             }
-        }
-
-        private void ExecuteRecoverCommand(string username, string email)
-        {
-            throw new NotImplementedException();
         }
 
         private void ExecuteSingUpCommand()

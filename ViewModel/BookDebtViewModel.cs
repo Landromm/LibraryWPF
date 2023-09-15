@@ -145,10 +145,6 @@ namespace LibraryWPF.ViewModel
                 MessageInfoCountDebt = "ЗАДОЛЖЕННОСТИ ОТСУТСТВУЮТ";
             else
                 MessageInfoCountDebt = string.Empty;
-
         }
-
-
-
     }
 }

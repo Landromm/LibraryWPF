@@ -163,7 +163,6 @@ namespace LibraryWPF.ViewModel
                 MessageInfoCountRequest = "ЗАЯВОК ПО ВАШЕМУ НОМЕРУ - НЕТ НА РАССМОТРЕНИИ";
             else
                 MessageInfoCountRequest = string.Empty;
-
         }
     }
 }

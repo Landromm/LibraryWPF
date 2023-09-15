@@ -98,9 +98,7 @@ namespace LibraryWPF.ViewModel
             LoadCurrentUserData();
 
             //Вид по умолчанию.
-            //ExecuteShowHomeViewCommand(null);
             ExecuteShowCatalogsBooksViewCommand(null);
-
         }
 
         private void ExecuteShowUserBookDebtViewCommand(object obj)

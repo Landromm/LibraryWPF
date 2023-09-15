@@ -49,7 +49,7 @@ namespace LibraryWPF
                                     var usersMainView = new UsersMainWindow();
                                     usersMainView.Show();
                                     loginView.Close();
-                                }break;
+                                } break;
                         }
                     }
                 }
