@@ -257,7 +257,7 @@
                                        FontSize="12"
                                        VerticalAlignment="Center"/>
 
-                            <Button Style="{StaticResource iconButton}"
+                            <!--<Button Style="{StaticResource iconButton}"
                                     Tag="{StaticResource color2}">
                                 <fa:IconImage Icon="Clock" Style="{StaticResource iconButtonIcon}"/>
                             </Button>
@@ -270,7 +270,7 @@
                             <Button Style="{StaticResource iconButton}"
                                     Tag="{StaticResource color4}">
                                 <fa:IconImage Icon="Bell" Style="{StaticResource iconButtonIcon}"/>
-                            </Button>
+                            </Button>-->
 
                         </StackPanel>                        
                         
